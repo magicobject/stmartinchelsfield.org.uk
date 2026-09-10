@@ -2,7 +2,7 @@
 
 Static site for St Martin of Tours, a Church of England parish church in Chelsfield, Kent (Diocese of Rochester). Same lightweight templated-build pipeline as [kington-parishes](https://github.com/magicobject/kington-parishes) and other MediaWright-built parish sites.
 
-**Not live yet.** This build was put together from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Rooms extension) rather than commissioned or reviewed by the parish — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow` and `robots.txt` disallows everything for exactly this reason.
+**Not live at its real domain yet** — only previewable at the Cloudflare Workers subdomain `https://stmartinchelsfield-org-uk.magicobject.workers.dev`. This build was put together from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Rooms extension) rather than commissioned or reviewed by the parish — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow`, `robots.txt` disallows everything, and every response sends `X-Robots-Tag: noindex, nofollow` for exactly this reason — the workers.dev preview shouldn't turn up in search results.
 
 ## Quick start
 
@@ -29,7 +29,7 @@ Running `npm run build` writes the finished files into `public/`, which is what 
 
 ## Design
 
-Deliberately distinct from other MediaWright-built parish sites: a light (not dark) header, pill-shaped buttons, rounded 14px cards with a soft shadow, and a woodland-green/terracotta-clay palette rather than slate/brass — see [public/css/style.css](public/css/style.css)'s own opening comment. The palette and the "old nave, new extension" hero illustration both echo the church's own history: a 12th-century core beside the contemporary Brass Crosby Rooms, added in 2007.
+Deliberately distinct from other MediaWright-built parish sites: a light (not dark) header, pill-shaped buttons, rounded 14px cards with a soft shadow, and a navy/gold/rose palette — see [public/css/style.css](public/css/style.css)'s own opening comment. Gold is the general accent (links, primary buttons, card borders); rose is kept for anything alert-shaped (safeguarding, form errors) so it reads as its own signal rather than a second "brand" colour. The "old nave, new extension" hero illustration echoes the church's own history: a 12th-century core beside the contemporary Brass Crosby Rooms, added in 2007.
 
 No photos are used anywhere on the site — none could be sourced with clear rights to reuse, so every illustration is original inline SVG instead.
 
@@ -57,4 +57,4 @@ Playwright specs in [test/](test) cover navigation (including the mobile menu), 
 
 ## Deployment
 
-Not yet deployed. `wrangler.jsonc` is configured to deploy to Cloudflare Workers the same way as other MediaWright-built sites, but no domain is wired up and `MAILERLITE_GROUP_ID`/`MAILERLITE_API_KEY` aren't configured — see [CLAUDE.md](CLAUDE.md)'s "About this build" and "Newsletter" sections for what needs to happen first.
+The GitHub repo is linked to a Cloudflare Worker, auto-deploying `main` to `https://stmartinchelsfield-org-uk.magicobject.workers.dev` on every push — no custom domain is wired up yet, and `MAILERLITE_GROUP_ID`/`MAILERLITE_API_KEY` aren't configured — see [CLAUDE.md](CLAUDE.md)'s "About this build" and "Newsletter" sections for what needs to happen before this is ready for the parish's real domain.

@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#1F3D34"/>
-  <circle cx="1040" cy="120" r="220" fill="#C6963E" opacity="0.12"/>
-  <circle cx="90" cy="560" r="180" fill="#B1512D" opacity="0.16"/>
+  <rect width="1200" height="630" fill="#1F2A40"/>
+  <circle cx="1040" cy="120" r="220" fill="#C08A2E" opacity="0.12"/>
+  <circle cx="90" cy="560" r="180" fill="#8C3B31" opacity="0.16"/>
   <g transform="translate(430,150)">
-    <path d="M170 40v46" stroke="#C6963E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M140 63h60" stroke="#C6963E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M80 320V180c0-58 40-100 90-100s90 42 90 100v140Z" fill="none" stroke="#F3EFE4" stroke-width="12" stroke-linejoin="round"/>
-    <rect x="140" y="230" width="60" height="90" rx="6" fill="#B1512D"/>
+    <path d="M170 40v46" stroke="#C08A2E" stroke-width="10" stroke-linecap="round"/>
+    <path d="M140 63h60" stroke="#C08A2E" stroke-width="10" stroke-linecap="round"/>
+    <path d="M80 320V180c0-58 40-100 90-100s90 42 90 100v140Z" fill="none" stroke="#F3ECDC" stroke-width="12" stroke-linejoin="round"/>
+    <rect x="140" y="230" width="60" height="90" rx="6" fill="#8C3B31"/>
   </g>
-  <text x="600" y="470" font-family="Georgia, serif" font-size="52" fill="#F3EFE4" text-anchor="middle">St Martin of Tours, Chelsfield</text>
+  <text x="600" y="470" font-family="Georgia, serif" font-size="52" fill="#F3ECDC" text-anchor="middle">St Martin of Tours, Chelsfield</text>
   <text x="600" y="512" font-family="Georgia, serif" font-size="26" fill="#C9C3AD" text-anchor="middle">Church of England &#183; Diocese of Rochester</text>
 </svg>
