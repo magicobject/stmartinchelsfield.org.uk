@@ -31,7 +31,7 @@ Running `npm run build` writes the finished files into `public/`, which is what 
 
 Deliberately distinct from other MediaWright-built parish sites: a light (not dark) header, pill-shaped buttons, rounded 14px cards with a soft shadow, and a navy/gold/rose palette — see [public/css/style.css](public/css/style.css)'s own opening comment. Gold is the general accent (links, primary buttons, card borders); rose is kept for anything alert-shaped (safeguarding, form errors) so it reads as its own signal rather than a second "brand" colour. The "old nave, new extension" hero illustration echoes the church's own history: a 12th-century core beside the contemporary Brass Crosby Rooms, added in 2007.
 
-No photos are used anywhere on the site — none could be sourced with clear rights to reuse, so every illustration is original inline SVG instead.
+The homepage hero photo ([public/img/hero-church.jpg](public/img/hero-church.jpg)) was supplied directly by the site owner. Every other illustration (favicon, Open Graph image, the 404 page) is original inline SVG — no other photos could be sourced with clear rights to reuse.
 
 ## Git hooks: build number on commit, npm audit on push
 
