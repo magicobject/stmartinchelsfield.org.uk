@@ -1,0 +1,74 @@
+// Talks to the MailerLite API on behalf of the newsletter signup form.
+// Kept free of any Cloudflare Workers globals so it's testable under plain
+// `node --test` (see test-unit/worker-subscribe.test.mjs) with a mocked fetch.
+//
+// NOT wired up to a real MailerLite account yet — wrangler.jsonc's
+// MAILERLITE_GROUP_ID is a placeholder, and there's no MAILERLITE_API_KEY
+// secret set. The form and this endpoint work end-to-end in tests (which
+// mock the MailerLite call) but a real submission will fail until both are
+// configured — see CLAUDE.md.
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_NAME_LENGTH = 100;
+
+export const SUCCESS_MESSAGE = "You're subscribed! Thank you for signing up.";
+export const PREVIOUSLY_UNSUBSCRIBED_MESSAGE = 'This address was previously unsubscribed, so we can’t re-add it automatically. Email stmartin.chelsfield@btinternet.com and we’ll add you back by hand.';
+
+// Returns the trimmed, valid email, or null if the input isn't usable.
+export function validateEmail(email) {
+  if (typeof email !== 'string') return null;
+  const trimmed = email.trim();
+  if (trimmed.length === 0 || trimmed.length > MAX_EMAIL_LENGTH) return null;
+  return EMAIL_RE.test(trimmed) ? trimmed : null;
+}
+
+// Returns the trimmed name (capped to a sane length), or undefined if absent.
+export function sanitizeName(name) {
+  if (typeof name !== 'string') return undefined;
+  const trimmed = name.trim();
+  if (trimmed.length === 0) return undefined;
+  return trimmed.slice(0, MAX_NAME_LENGTH);
+}
+
+export function buildMailerLitePayload(email, groupId, name) {
+  const payload = { email, groups: [groupId] };
+  if (name) payload.fields = { name };
+  return payload;
+}
+
+export async function subscribeToMailerLite(email, name, env, fetchImpl = fetch) {
+  const response = await fetchImpl('https://connect.mailerlite.com/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${env.MAILERLITE_API_KEY}`,
+    },
+    body: JSON.stringify(buildMailerLitePayload(email, env.MAILERLITE_GROUP_ID, name)),
+  });
+
+  if (response.ok) {
+    return { ok: true, status: 200, message: SUCCESS_MESSAGE };
+  }
+
+  if (response.status === 422) {
+    // A 422 doesn't always mean the email format is bad — MailerLite also
+    // uses it when the address was previously unsubscribed and refuses to
+    // silently re-add it via the API (a deliberate anti-spam protection on
+    // their side, not something to route around). Tell the visitor the real
+    // reason rather than the misleading "enter a valid email" for that case.
+    const body = await response.json().catch(() => null);
+    const emailErrors = body?.errors?.email;
+    if (Array.isArray(emailErrors) && emailErrors.some((message) => /unsubscribed/i.test(message))) {
+      return { ok: false, status: 409, message: PREVIOUSLY_UNSUBSCRIBED_MESSAGE };
+    }
+    return { ok: false, status: 422, message: 'Please enter a valid email address.' };
+  }
+
+  // Never logs the request itself (so the API key is never at risk of
+  // ending up in Cloudflare's log stream) — only MailerLite's own response,
+  // for diagnosing things like an auth failure vs. a misconfigured group id.
+  console.error('MailerLite subscribe failed', response.status, await response.text());
+  return { ok: false, status: 502, message: 'Something went wrong on our end — please try again shortly.' };
+}

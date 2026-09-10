@@ -1,0 +1,37 @@
+<main id="main">
+<div class="page-header">
+  <div class="wrap">
+    <h1>Technical details</h1>
+    <p class="lede">The real infrastructure behind this site, for anyone who wants it.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap" style="max-width:74ch;">
+    <div>
+      <h2>Hosting</h2>
+      <p>Built to deploy to Cloudflare Workers, the same platform used for other MediaWright-built parish sites — but not yet live, and not yet pointed at a domain. See "About this build" in the repository's CLAUDE.md for why.</p>
+    </div>
+
+    <div>
+      <h2>The templated build</h2>
+      <p>Every page in <code>public/</code> is generated from <code>templates/</code> and <code>src/pages/</code> by <code>scripts/build.mjs</code> — never hand-edited directly. This keeps the header, footer, contact details and safeguarding information consistent across every page from one source.</p>
+    </div>
+
+    <div>
+      <h2>Testing</h2>
+      <p>Every page is scanned for accessibility issues with axe-core, and a Playwright test suite checks navigation, forms, the calendar, and search. <code>npm audit</code> checks for known vulnerabilities in dependencies. All of this runs before every push.</p>
+    </div>
+
+    <div>
+      <h2>Newsletter signup</h2>
+      <p>The signup form posts to a Cloudflare Worker endpoint that talks to MailerLite — but no MailerLite account has been connected yet (see <code>wrangler.jsonc</code>'s placeholder group id). The form and its tests work end-to-end; a real signup won't until that's configured.</p>
+    </div>
+
+    <div>
+      <h2>Source code</h2>
+      <p>Hosted on GitHub at <a href="https://github.com/magicobject/stmartinchelsfield.org.uk" target="_blank" rel="noopener">github.com/magicobject/stmartinchelsfield.org.uk</a>.</p>
+    </div>
+  </div>
+</section>
+</main>

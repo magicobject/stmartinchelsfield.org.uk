@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+
+# This build hasn't been reviewed or approved by the parish yet — every page
+# also carries <meta name="robots" content="noindex, nofollow"> (see
+# src/pages.config.mjs). Switch this file back to "Allow: /" and add a
+# Sitemap: line pointing at /sitemap.xml only once the site is ready to go
+# live — see CLAUDE.md's "About this build" section.

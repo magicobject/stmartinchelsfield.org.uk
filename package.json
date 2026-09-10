@@ -1,0 +1,35 @@
+{
+  "name": "stmartinchelsfield",
+  "version": "1.0.0",
+  "description": "St Martin of Tours, Chelsfield — static site.",
+  "private": true,
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks",
+    "build": "node scripts/build.mjs",
+    "test": "playwright test",
+    "test:unit": "node --test \"test-unit/**/*.test.mjs\"",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "serve": "tsx test/support/static-server.ts",
+    "typecheck": "tsc",
+    "audit": "npm audit --audit-level=high"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magicobject/stmartinchelsfield.org.uk.git"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/magicobject/stmartinchelsfield.org.uk/issues"
+  },
+  "homepage": "https://github.com/magicobject/stmartinchelsfield.org.uk#readme",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "1.62.1",
+    "@types/node": "^26.3.0",
+    "node-html-parser": "^9.0.2",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

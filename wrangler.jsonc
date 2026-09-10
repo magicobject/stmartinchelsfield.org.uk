@@ -1,0 +1,17 @@
+{
+  "name": "stmartinchelsfield",
+  "compatibility_date": "2026-09-10",
+  "main": "src/worker/index.mjs",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "vars": {
+    // Non-secret: MailerLite group signups are added to. Placeholder —
+    // replace with the real group id once a MailerLite account exists for
+    // this parish (see CLAUDE.md's "Newsletter signup" section).
+    "MAILERLITE_GROUP_ID": "REPLACE_WITH_REAL_GROUP_ID"
+  }
+}

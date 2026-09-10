@@ -1,0 +1,25 @@
+<main id="main">
+<div class="page-header">
+  <div class="wrap">
+    <h1>Newsletter</h1>
+    <p class="lede">News, services and events from St Martin's, straight to your inbox. No confirmation email is sent — you're subscribed as soon as you sign up.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap two-col">
+    <div>
+      <h2>Sign up</h2>
+      {{NEWSLETTER_SIGNUP_FORM}}
+    </div>
+    <div>
+      <h2>Recent issues</h2>
+      <div class="card-grid" style="grid-template-columns:1fr;">
+{{NEWSLETTERS:recent}}
+      </div>
+      <p style="margin-top:18px;"><a href="newsletter-archive.html">Browse the full archive &rarr;</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<script src="/js/newsletter-signup.js" defer></script>
