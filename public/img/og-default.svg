@@ -2,11 +2,13 @@
   <rect width="1200" height="630" fill="#1F2A40"/>
   <circle cx="1040" cy="120" r="220" fill="#C08A2E" opacity="0.12"/>
   <circle cx="90" cy="560" r="180" fill="#8C3B31" opacity="0.16"/>
-  <g transform="translate(430,150)">
-    <path d="M170 40v46" stroke="#C08A2E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M140 63h60" stroke="#C08A2E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M80 320V180c0-58 40-100 90-100s90 42 90 100v140Z" fill="none" stroke="#F3ECDC" stroke-width="12" stroke-linejoin="round"/>
-    <rect x="140" y="230" width="60" height="90" rx="6" fill="#8C3B31"/>
+  <!-- Same splay-foot spire silhouette as public/img/favicon.svg, scaled up -->
+  <g transform="translate(400,65)">
+    <rect x="120" y="210" width="80" height="70" fill="#F3ECDC"/>
+    <rect x="150" y="230" width="20" height="35" rx="7.5" fill="#1F2A40"/>
+    <path d="M90 220C90 190 110 170 127.5 162.5L160 30L192.5 162.5C210 170 230 190 230 220Z" fill="#F3ECDC"/>
+    <line x1="160" y1="30" x2="160" y2="5" stroke="#C08A2E" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="160" cy="16" r="9" fill="#C08A2E"/>
   </g>
   <text x="600" y="470" font-family="Georgia, serif" font-size="52" fill="#F3ECDC" text-anchor="middle">St Martin of Tours, Chelsfield</text>
   <text x="600" y="512" font-family="Georgia, serif" font-size="26" fill="#C9C3AD" text-anchor="middle">Church of England &#183; Diocese of Rochester</text>
