@@ -71,6 +71,25 @@ describe('searchEntries', () => {
     assert.equal(results[0].heading, 'Services');
   });
 
+  test('when two headings both merely contain the query (neither exact nor a prefix), the shorter heading wins the tie-break', () => {
+    // Neither heading equals "toddler group" outright, and neither starts
+    // with it either — so both would score identically on the heading-match
+    // bonus alone. The shorter, more specific heading should still come first.
+    const results = searchEntries('toddler group', [
+      { heading: 'A longer note about the weekly Toddler Group session', text: '' },
+      { heading: 'Toddler Group Refreshments', text: '' },
+    ]);
+    assert.equal(results[0].heading, 'Toddler Group Refreshments');
+  });
+
+  test('a heading that starts with the whole query outranks one that merely contains it mid-heading', () => {
+    const results = searchEntries('services', [
+      { heading: 'Services and Special Occasions', text: '' }, // starts with the query
+      { heading: 'Our Regular Weekly Services', text: '' }, // contains it, doesn't start with it
+    ]);
+    assert.equal(results[0].heading, 'Services and Special Occasions');
+  });
+
   test('matching is case-insensitive and ignores punctuation', () => {
     const results = searchEntries("TODDLER & GROUP!!", entries);
     assert.equal(results.length, 1);

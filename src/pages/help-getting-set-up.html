@@ -22,12 +22,20 @@
 
     <div>
       <h2>3. Ask Claude to set the rest up</h2>
-      <p>Open Claude Desktop and paste this in:</p>
+      <p>Open Claude Desktop's Code tab (also called Claude Code — it's what lets Claude read and edit files on your laptop and talk to GitHub on your behalf; an ordinary chat elsewhere in the app can't do either), paste the box below into it exactly as it is, and send it. Claude will check your laptop has what it needs, fetch a working copy of the website, and tell you when it's ready.</p>
       <div class="copy-block">
         <label for="setup-copy-text" class="visually-hidden">Text to paste into Claude Desktop</label>
-        <textarea id="setup-copy-text" readonly rows="3">Please clone the stmartinchelsfield.org.uk GitHub repository to my computer and run npm install, so I'm set up to make changes to the church website.</textarea>
+        <textarea id="setup-copy-text" readonly rows="9">I'm a volunteer helping update the St Martin of Tours, Chelsfield website. Please get my laptop ready to work on it, then wait for me before doing anything else:
+
+1. Check whether Git and Node.js (the LTS version) are already installed. If either is missing, install it for me if you can, or tell me exactly what to download and click.
+2. Clone https://github.com/magicobject/stmartinchelsfield.org.uk.git into a sensible folder on my laptop (Documents is fine) and tell me where you put it.
+3. Run the project's own setup (npm install), then confirm everything works by building the site and running its automatic tests.
+4. Tell me plainly once it's all ready. From then on I'll just describe the change I want, in plain English.
+
+My GitHub username is:
+(If I haven't been added to the project yet, that's fine — just let me know once you reach a step that actually needs it.)</textarea>
       </div>
-      <p>Claude will handle the rest. Once it's done, you're ready to make a change — see <a href="help-making-a-change.html">Making a Change</a>.</p>
+      <p>The first time Claude needs to connect to GitHub on your behalf, a browser window may pop up asking you to sign in — that's expected, and only happens once. Once it's done, you're ready to make a change — see <a href="help-making-a-change.html">Making a Change</a>.</p>
     </div>
   </div>
 </section>

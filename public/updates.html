@@ -24,11 +24,11 @@
 <meta name="twitter:title" content="Site Updates — St Martin of Tours, Chelsfield">
 <meta name="twitter:description" content="Internal build changelog for this site — not linked from anywhere on the site.">
 <meta name="twitter:image" content="https://www.stmartinchelsfield.org.uk/img/og-default.svg">
-<link rel="icon" href="/img/favicon.svg?v=2026.09.11.004" type="image/svg+xml">
+<link rel="icon" href="/img/favicon.svg?v=2026.09.15.001" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=2026.09.11.004">
+<link rel="stylesheet" href="/css/style.css?v=2026.09.15.001">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -63,6 +63,27 @@
     </div>
   </div>
 </header>
+<script>
+  // Sets --header-offset (see style.css's :target rule) to the sticky
+  // header's real height, before the browser scrolls to any #anchor in the
+  // URL — inline and synchronous, right after the header markup, so it runs
+  // well before fragment-scrolling happens (a deferred script would risk
+  // running too late). The header has no fixed height, so this has to be
+  // measured, not guessed; see style.css's --header-offset fallback for the
+  // pre-JS value.
+  (function () {
+    var header = document.querySelector('header.site');
+    if (!header) return;
+    var setOffset = function () {
+      // getBoundingClientRect(), not offsetHeight — the header's real height
+      // is fractional, and offsetHeight's integer rounding left target
+      // elements a fraction of a pixel short of fully clear.
+      document.documentElement.style.setProperty('--header-offset', header.getBoundingClientRect().height + 'px');
+    };
+    setOffset();
+    window.addEventListener('resize', setOffset);
+  })();
+</script>
 
 <main id="main">
 <div class="page-header">
@@ -76,11 +97,11 @@
   <div class="wrap" style="max-width:74ch;">
     <div class="changelog-entry">
       <div class="changelog-meta">
-        <span class="changelog-build">Build 2026.09.11.004</span>
+        <span class="changelog-build">Build 2026.09.15.001</span>
         <span class="changelog-author">Greg Wright</span>
-        <span class="changelog-date">11 September 2026</span>
+        <span class="changelog-date">15 September 2026</span>
       </div>
-      <p>Added a step to <a href="help-getting-set-up.html">Setting Up Your Laptop</a>: turn on two-factor authentication before requesting collaborator access. Noted the same requirement in CLAUDE.md's multi-developer workflow section, and that this repo (a personal-account repo, not an organisation) has no GitHub setting to enforce or verify it automatically — it's a policy to apply by hand.</p>
+      <p>Brought this site's practices back in line with <a href="https://github.com/magicobject/kington-parishes">kington-parishes</a>: fixed the same sticky-header bug there (an <code>#anchor</code> link — a search result, a person's card, a page section — used to land hidden behind the header; the fix is now allow-listed in <a href="https://github.com/magicobject/stmartinchelsfield.org.uk/blob/main/public/_headers">public/_headers</a>' CSP by script hash rather than <code>'unsafe-inline'</code>), added test coverage <a href="calendar.html">Calendar</a>'s Event structured data, <a href="sitemap.xml">sitemap.xml</a> and the anchor-scroll fix never had, and made the <a href="help-getting-set-up.html">Setting Up Your Laptop</a> guide's copy-paste prompt name the actual repository URL and walk Claude through the full first-time setup, so a brand-new volunteer with just Claude and a GitHub account can get going unassisted.</p>
     </div>
     <div class="changelog-entry">
       <div class="changelog-meta">
@@ -141,6 +162,37 @@
   </div>
 </section>
 </main>
+<script>
+  // If the URL points at a #fragment inside a .reveal element (the
+  // reveal-on-scroll animation — see .reveal/.reveal.in in style.css), that
+  // element is still sitting at its pre-reveal transform right now: main.js's
+  // IntersectionObserver only adds .in once the element is actually scrolled
+  // into view, which hasn't happened yet — the browser hasn't performed this
+  // navigation's own scroll-to-fragment step yet either. Left alone, that
+  // step measures the fragment's position using this shifted box, so it
+  // lands too high a moment later once the element reveals. Settle it to its
+  // rest state synchronously, right now, before that measurement happens —
+  // same technique test/accessibility.spec.ts uses to force-settle .reveal
+  // before an axe scan (toggling the class alone isn't enough; it starts a
+  // fresh transition rather than jumping to the end state, so the transition
+  // itself is killed too, then restored next frame so hover transitions on
+  // the same element aren't left permanently inert).
+  (function () {
+    if (!location.hash) return;
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    var revealEl = target && target.closest('.reveal');
+    if (!revealEl) return;
+    revealEl.classList.add('in');
+    revealEl.style.transition = 'none';
+    revealEl.style.opacity = '1';
+    revealEl.style.transform = 'none';
+    requestAnimationFrame(function () {
+      revealEl.style.transition = '';
+      revealEl.style.opacity = '';
+      revealEl.style.transform = '';
+    });
+  })();
+</script>
 
 
 
@@ -173,13 +225,13 @@
     </div>
     <div class="fine">
       <span>&copy; <span id="year"></span> St Martin of Tours, Chelsfield PCC. Site by <a href="https://mediawright.uk">mediawright.uk</a>.</span>
-      <span class="build-number">Build 2026.09.11.004</span>
+      <span class="build-number">Build 2026.09.15.001</span>
     </div>
   </div>
 </footer>
 
-<script src="/js/main.js?v=2026.09.11.004" defer></script>
-<script src="/js/search-match.js?v=2026.09.11.004" defer></script>
-<script src="/js/search-ui.js?v=2026.09.11.004" defer></script>
+<script src="/js/main.js?v=2026.09.15.001" defer></script>
+<script src="/js/search-match.js?v=2026.09.15.001" defer></script>
+<script src="/js/search-ui.js?v=2026.09.15.001" defer></script>
 </body>
 </html>

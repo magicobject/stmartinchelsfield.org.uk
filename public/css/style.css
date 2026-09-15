@@ -28,6 +28,12 @@
   --radius: 14px;
   --radius-sm: 8px;
   --max: 1120px;
+  /* Overridden inline, right after the header, with its real measured
+     height (see templates/page.html) — the sticky header's height isn't a
+     fixed value: the primary nav wraps as the viewport narrows, so this
+     fallback only matters before that inline script runs (or with JS
+     disabled), and errs generous rather than under-shooting. */
+  --header-offset: 190px;
 }
 
 * { box-sizing: border-box; }
@@ -37,6 +43,16 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* The header is sticky (position: sticky; top: 0) and overlays whatever's
+   scrolled underneath it — without this, jumping to any #anchor (a search
+   result, a person's card, a heading ensureSectionIds gave an id to) lands
+   that element flush at the very top of the viewport, right behind the
+   header. :target is exactly "the element the current URL fragment points
+   at", so this reaches every such anchor without enumerating selectors by
+   hand. See kington-parishes' CLAUDE.md/style.css for the sibling site this
+   pattern was ported from. */
+:target { scroll-margin-top: var(--header-offset); }
 
 body {
   margin: 0;

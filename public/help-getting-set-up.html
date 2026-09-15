@@ -24,11 +24,11 @@
 <meta name="twitter:title" content="Setting Up Your Laptop — Help — St Martin of Tours, Chelsfield">
 <meta name="twitter:description" content="How to install Claude Desktop, create a GitHub account, and get set up to make a change to this website.">
 <meta name="twitter:image" content="https://www.stmartinchelsfield.org.uk/img/og-default.svg">
-<link rel="icon" href="/img/favicon.svg?v=2026.09.11.004" type="image/svg+xml">
+<link rel="icon" href="/img/favicon.svg?v=2026.09.15.001" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=2026.09.11.004">
+<link rel="stylesheet" href="/css/style.css?v=2026.09.15.001">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -63,6 +63,27 @@
     </div>
   </div>
 </header>
+<script>
+  // Sets --header-offset (see style.css's :target rule) to the sticky
+  // header's real height, before the browser scrolls to any #anchor in the
+  // URL — inline and synchronous, right after the header markup, so it runs
+  // well before fragment-scrolling happens (a deferred script would risk
+  // running too late). The header has no fixed height, so this has to be
+  // measured, not guessed; see style.css's --header-offset fallback for the
+  // pre-JS value.
+  (function () {
+    var header = document.querySelector('header.site');
+    if (!header) return;
+    var setOffset = function () {
+      // getBoundingClientRect(), not offsetHeight — the header's real height
+      // is fractional, and offsetHeight's integer rounding left target
+      // elements a fraction of a pixel short of fully clear.
+      document.documentElement.style.setProperty('--header-offset', header.getBoundingClientRect().height + 'px');
+    };
+    setOffset();
+    window.addEventListener('resize', setOffset);
+  })();
+</script>
 
 <main id="main">
 <div class="page-header">
@@ -88,16 +109,55 @@
 
     <div>
       <h2 id="3-ask-claude-to-set-the-rest-up">3. Ask Claude to set the rest up</h2>
-      <p>Open Claude Desktop and paste this in:</p>
+      <p>Open Claude Desktop's Code tab (also called Claude Code — it's what lets Claude read and edit files on your laptop and talk to GitHub on your behalf; an ordinary chat elsewhere in the app can't do either), paste the box below into it exactly as it is, and send it. Claude will check your laptop has what it needs, fetch a working copy of the website, and tell you when it's ready.</p>
       <div class="copy-block">
         <label for="setup-copy-text" class="visually-hidden">Text to paste into Claude Desktop</label>
-        <textarea id="setup-copy-text" readonly rows="3">Please clone the stmartinchelsfield.org.uk GitHub repository to my computer and run npm install, so I'm set up to make changes to the church website.</textarea>
+        <textarea id="setup-copy-text" readonly rows="9">I'm a volunteer helping update the St Martin of Tours, Chelsfield website. Please get my laptop ready to work on it, then wait for me before doing anything else:
+
+1. Check whether Git and Node.js (the LTS version) are already installed. If either is missing, install it for me if you can, or tell me exactly what to download and click.
+2. Clone https://github.com/magicobject/stmartinchelsfield.org.uk.git into a sensible folder on my laptop (Documents is fine) and tell me where you put it.
+3. Run the project's own setup (npm install), then confirm everything works by building the site and running its automatic tests.
+4. Tell me plainly once it's all ready. From then on I'll just describe the change I want, in plain English.
+
+My GitHub username is:
+(If I haven't been added to the project yet, that's fine — just let me know once you reach a step that actually needs it.)</textarea>
       </div>
-      <p>Claude will handle the rest. Once it's done, you're ready to make a change — see <a href="help-making-a-change.html">Making a Change</a>.</p>
+      <p>The first time Claude needs to connect to GitHub on your behalf, a browser window may pop up asking you to sign in — that's expected, and only happens once. Once it's done, you're ready to make a change — see <a href="help-making-a-change.html">Making a Change</a>.</p>
     </div>
   </div>
 </section>
 </main>
+<script>
+  // If the URL points at a #fragment inside a .reveal element (the
+  // reveal-on-scroll animation — see .reveal/.reveal.in in style.css), that
+  // element is still sitting at its pre-reveal transform right now: main.js's
+  // IntersectionObserver only adds .in once the element is actually scrolled
+  // into view, which hasn't happened yet — the browser hasn't performed this
+  // navigation's own scroll-to-fragment step yet either. Left alone, that
+  // step measures the fragment's position using this shifted box, so it
+  // lands too high a moment later once the element reveals. Settle it to its
+  // rest state synchronously, right now, before that measurement happens —
+  // same technique test/accessibility.spec.ts uses to force-settle .reveal
+  // before an axe scan (toggling the class alone isn't enough; it starts a
+  // fresh transition rather than jumping to the end state, so the transition
+  // itself is killed too, then restored next frame so hover transitions on
+  // the same element aren't left permanently inert).
+  (function () {
+    if (!location.hash) return;
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    var revealEl = target && target.closest('.reveal');
+    if (!revealEl) return;
+    revealEl.classList.add('in');
+    revealEl.style.transition = 'none';
+    revealEl.style.opacity = '1';
+    revealEl.style.transform = 'none';
+    requestAnimationFrame(function () {
+      revealEl.style.transition = '';
+      revealEl.style.opacity = '';
+      revealEl.style.transform = '';
+    });
+  })();
+</script>
 
 
 
@@ -130,13 +190,13 @@
     </div>
     <div class="fine">
       <span>&copy; <span id="year"></span> St Martin of Tours, Chelsfield PCC. Site by <a href="https://mediawright.uk">mediawright.uk</a>.</span>
-      <span class="build-number">Build 2026.09.11.004</span>
+      <span class="build-number">Build 2026.09.15.001</span>
     </div>
   </div>
 </footer>
 
-<script src="/js/main.js?v=2026.09.11.004" defer></script>
-<script src="/js/search-match.js?v=2026.09.11.004" defer></script>
-<script src="/js/search-ui.js?v=2026.09.11.004" defer></script>
+<script src="/js/main.js?v=2026.09.15.001" defer></script>
+<script src="/js/search-match.js?v=2026.09.15.001" defer></script>
+<script src="/js/search-ui.js?v=2026.09.15.001" defer></script>
 </body>
 </html>
