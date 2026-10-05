@@ -468,6 +468,8 @@ footer.site .fine a:hover { color: #fff; }
 .safeguard-strip .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .safeguard-strip p { margin: 0; }
 .safeguard-strip a { color: #fff; text-decoration: underline; font-weight: 700; }
+.email-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.email-link .email-icon { width: 1.15em; height: 1.15em; flex: none; }
 .emergency-box {
   background: #F6E4E0;
   border: 1px solid var(--rose);
