@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=546dc42673">
+<link rel="stylesheet" href="/css/style.css?v=73cf799423">
 </head>
 <body>
 
@@ -57,9 +57,25 @@
 <div class="notfound">
   <div class="wrap">
     <div class="notfound-card">
+      <svg class="notfound-spire" viewBox="0 0 120 150" width="96" height="120" aria-hidden="true" focusable="false">
+        <path d="M60 6 L72 58 H48 Z" fill="currentColor"/>
+        <rect x="48" y="58" width="24" height="46" fill="currentColor"/>
+        <path d="M56 104 v-16 a4 4 0 0 1 8 0 v16 Z" fill="var(--paper)"/>
+        <rect x="14" y="104" width="92" height="36" rx="2" fill="currentColor"/>
+        <path d="M26 140 v-18 a6 6 0 0 1 12 0 v18 Z M54 140 v-18 a6 6 0 0 1 12 0 v18 Z M82 140 v-18 a6 6 0 0 1 12 0 v18 Z" fill="var(--paper)"/>
+        <circle cx="60" cy="40" r="3" fill="var(--paper)"/>
+      </svg>
+      <p class="notfound-code" aria-hidden="true">404</p>
       <h1 id="page-not-found">Page not found</h1>
-      <p>This page seems to have moved on, or never stood here.</p>
-      <p><a class="btn-donate" href="index.html">Back to the home page</a></p>
+      <p class="notfound-lede">This page seems to have moved on, or never stood here. Don't worry &mdash; you're very welcome here, and the rest of the site is easy to find.</p>
+      <p><a class="btn-donate" href="/index.html">Back to the home page</a></p>
+      <h2 id="perhaps-one-of-these-will-help">Perhaps one of these will help</h2>
+      <ul class="notfound-links">
+        <li><a href="/services.html"><strong>Services</strong><span>When we worship</span></a></li>
+        <li><a href="/visit-us.html"><strong>Visit us</strong><span>Finding the church</span></a></li>
+        <li><a href="/calendar.html"><strong>What's on</strong><span>Dates for your diary</span></a></li>
+        <li><a href="/contact.html"><strong>Contact</strong><span>Ask us directly</span></a></li>
+      </ul>
     </div>
   </div>
 </div>

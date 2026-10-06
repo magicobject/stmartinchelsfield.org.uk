@@ -8,7 +8,7 @@ test('an unknown URL serves the branded 404 page with a 404 status', async ({ pa
   await expect(page.locator('h1')).toHaveText(/page not found/i);
 
   // The 404 page intentionally has no main nav — it isn't a nav destination —
-  // but it keeps the regular footer (build number, mediawright credit).
+  // but it keeps the regular footer (mediawright credit).
   await expect(page.locator('header.site')).toHaveCount(0);
   await expect(page.locator('footer.site')).toHaveCount(1);
 });
@@ -23,4 +23,12 @@ test("the 404 page's recovery link leads back into the real site", async ({ page
 test('the 404 page is not indexed by search engines', async ({ page }) => {
   await page.goto('/this-page-does-not-exist.html');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+});
+
+test('the 404 page offers helpful links into the real site', async ({ page }) => {
+  await page.goto('/this-page-does-not-exist.html');
+
+  for (const href of ['/services.html', '/visit-us.html', '/calendar.html', '/contact.html']) {
+    await expect(page.locator(`.notfound-links a[href="${href}"]`)).toBeVisible();
+  }
 });
