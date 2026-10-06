@@ -13,3 +13,15 @@ test('calendar events data loads and the calendar renders this month', async ({ 
   await expect(page.locator('#cal-month-label')).not.toBeEmpty();
   await expect(page.locator('.cal-day').first()).toBeVisible();
 });
+
+test('the static test server refuses to serve files outside public/, however the traversal is encoded', async ({ request }) => {
+  const attempts = [
+    '/../../../../../../Windows/win.ini',
+    '/..%5c..%5c..%5c..%5c..%5cWindows%5cwin.ini',
+    '/..%2f..%2f..%2f..%2f..%2fWindows%2fwin.ini',
+  ];
+  for (const path of attempts) {
+    const response = await request.get(path, { maxRedirects: 0 });
+    expect(response.status(), `expected ${path} to be refused`).toBe(404);
+  }
+});

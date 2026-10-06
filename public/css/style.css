@@ -457,7 +457,8 @@ footer.site a:hover { color: #fff; text-decoration: underline; }
    alone is under 3:1), so it has to actually win. */
 footer.site .fine a { text-decoration: underline; color: #D7CFB8; }
 footer.site .fine a:hover { color: #fff; }
-.build-number { color: #A9A28C; } /* 6.74:1 on --navy-dark */
+.build-number { white-space: nowrap; }
+.page-header .build-number { color: #E3D9C4; } /* same pairing as .page-header p.lede */
 
 /* ---------- Safeguard strip / emergency box ---------- */
 .safeguard-strip {

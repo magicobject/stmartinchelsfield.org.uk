@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/bump-build-number.mjs)",
+      "Bash(node scripts/build.mjs)",
+      "Bash(npm test)",
+      "Bash(npm run audit)",
+      "Bash(git pull origin main)"
+    ]
+  }
+}

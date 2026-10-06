@@ -4,6 +4,7 @@
 // editing anything in templates/ or src/, and commit the regenerated
 // public/*.html — Cloudflare serves that directory as-is.
 
+import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -37,6 +38,27 @@ const footerTemplate = read('templates/footer.html').trimEnd();
 const safeguardStripTemplate = read('templates/safeguard-strip.html').trimEnd();
 const safeguardingEssentialsTemplate = read('templates/safeguarding-essentials.html').trim();
 const newsletterSignupFormPartial = read('templates/newsletter-signup-form.html').trim();
+
+// Cache-busting for every same-origin stylesheet, script and icon a page
+// loads: `<link href="/css/style.css">` becomes `...style.css?v=<hash>`, the
+// hash taken from that file's own content. A page's HTML therefore only
+// changes when something it loads has changed — the build number is kept off
+// every page except /updates.html. A reference to a file that doesn't exist
+// fails the build. Never hand-write a ?v= in a template or page.
+const assetHashes = new Map();
+function assetHash(publicPath) {
+  if (!assetHashes.has(publicPath)) {
+    const file = join(root, 'public', publicPath);
+    if (!existsSync(file)) throw new Error(`build: page references ${publicPath}, which doesn't exist in public/`);
+    assetHashes.set(publicPath, createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10));
+  }
+  return assetHashes.get(publicPath);
+}
+
+function versionAssetUrls(html) {
+  return html.replace(/<(link|script)\b[^>]*>/g, (tag) =>
+    tag.replace(/\b(href|src)="(\/(?!\/)[^"?#]+)"/, (_, attr, path) => `${attr}="${path}?v=${assetHash(path)}"`));
+}
 
 function readBuildNumber() {
   const file = join(root, 'build-number.json');
@@ -265,13 +287,14 @@ for (const page of PAGES) {
 
   html = replaceTokens(html, tokens);
   html = obfuscateMailtoLinks(html);
+  html = versionAssetUrls(html);
 
   writeFileSync(join(root, 'public', `${page.slug}.html`), html);
   console.log(`built public/${page.slug}.html`);
 }
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls
-  .map((url) => `  <url>\n    <loc>${url}</loc>\n    <lastmod>${todayStr}</lastmod>\n  </url>`)
+  .map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`)
   .join('\n')}\n</urlset>\n`;
 writeFileSync(join(root, 'public', 'sitemap.xml'), sitemapXml);
 console.log(`built public/sitemap.xml (${sitemapUrls.length} urls)`);
