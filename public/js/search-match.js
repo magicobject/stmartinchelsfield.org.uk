@@ -22,9 +22,38 @@
     return normalized ? normalized.split(' ') : [];
   }
 
-  // Every query token must appear somewhere in the entry's heading or text.
-  // A heading match counts for more than a body-text match, and an exact
-  // heading match outranks a heading that merely contains the word.
+  // A visitor unfamiliar with Church of England terms might search for a
+  // word this site never uses — "vicar" when the title is "Rector",
+  // "reverend" when the site abbreviates to "Revd", "eucharist" or "mass"
+  // when it says "Communion". Each key is checked verbatim too (a synonym
+  // only ever ADDS candidate terms, never replaces the literal query word).
+  // Grounded in this site's actual copy; re-check if that wording changes.
+  var SYNONYMS = {
+    vicar: ['rector'],
+    priest: ['rector'],
+    pastor: ['rector'],
+    clergy: ['rector'],
+    reverend: ['revd'],
+    eucharist: ['communion'],
+    mass: ['communion'],
+  };
+
+  function candidatesFor(token) {
+    var extra = SYNONYMS[token];
+    return extra ? [token].concat(extra) : [token];
+  }
+
+  function anyMatch(candidates, haystack) {
+    for (var i = 0; i < candidates.length; i++) {
+      if (haystack.indexOf(candidates[i]) !== -1) return true;
+    }
+    return false;
+  }
+
+  // Every query token (or one of its synonyms) must appear somewhere in the
+  // entry's heading or text. A heading match counts for more than a
+  // body-text match, and an exact heading match outranks a heading that
+  // merely contains the word.
   function searchEntries(query, entries, limit) {
     var queryNorm = normalize(query);
     var tokens = tokenize(query);
@@ -39,9 +68,9 @@
       var matchesAll = true;
 
       for (var t = 0; t < tokens.length; t++) {
-        var token = tokens[t];
-        var inHeading = headingNorm.indexOf(token) !== -1;
-        var inText = !inHeading && textNorm.indexOf(token) !== -1;
+        var candidates = candidatesFor(tokens[t]);
+        var inHeading = anyMatch(candidates, headingNorm);
+        var inText = !inHeading && anyMatch(candidates, textNorm);
         if (!inHeading && !inText) { matchesAll = false; break; }
         score += inHeading ? 10 : 1;
       }
@@ -71,5 +100,5 @@
     return /^\/help(?:-[a-z0-9-]+)?(?:\.html)?$/i.test(String(pathname));
   }
 
-  return { normalize: normalize, tokenize: tokenize, searchEntries: searchEntries, isHelpPath: isHelpPath };
+  return { normalize: normalize, tokenize: tokenize, searchEntries: searchEntries, isHelpPath: isHelpPath, SYNONYMS: SYNONYMS };
 });

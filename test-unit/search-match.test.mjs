@@ -130,3 +130,29 @@ describe('isHelpPath', () => {
     assert.equal(isHelpPath('/updates'), false);
   });
 });
+
+// This site says "Rector", never "vicar"/"priest"/"pastor"; abbreviates to
+// "Revd"; says "Communion", never "eucharist"/"mass" — see SYNONYMS.
+describe('searchEntries synonym expansion', () => {
+  const entries = [
+    { heading: 'Our People', text: 'Revd Jane Smith, Rector of St Martin of Tours.' },
+    { heading: 'Services', text: 'Sunday Holy Communion at 10am.' },
+  ];
+
+  for (const word of ['vicar', 'priest', 'pastor', 'clergy', 'reverend']) {
+    test(`"${word}" finds the Rector page`, () => {
+      assert.equal(searchEntries(word, entries)[0].heading, 'Our People');
+    });
+  }
+
+  for (const word of ['eucharist', 'mass']) {
+    test(`"${word}" finds Communion`, () => {
+      assert.equal(searchEntries(word, entries)[0].heading, 'Services');
+    });
+  }
+
+  test('the literal word still matches, and unmapped words return nothing', () => {
+    assert.equal(searchEntries('rector', entries)[0].heading, 'Our People');
+    assert.deepEqual(searchEntries('deacon', entries), []);
+  });
+});
