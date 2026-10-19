@@ -90,12 +90,20 @@
   <div class="wrap">
     <h1 id="site-updates">Site updates</h1>
     <p class="lede">Internal build changelog — not linked from anywhere on the site.</p>
-    <p class="build-number">Current build: 2026.10.08.001</p>
+    <p class="build-number">Current build: 2026.10.19.001</p>
   </div>
 </div>
 
 <section>
   <div class="wrap" style="max-width:74ch;">
+    <div class="changelog-entry">
+      <div class="changelog-meta">
+        <span class="changelog-build">Build 2026.10.19.001</span>
+        <span class="changelog-author">Greg Wright</span>
+        <span class="changelog-date">19 October 2026</span>
+      </div>
+      <p>Added the Claude Code PR auto-merge gate (<code>.github/workflows/claude-pr-automerge.yml</code>): re-runs <code>npm test</code> and <code>npm run audit</code> against the PR head and merges, holds, or asks for Greg's own review depending on the <code>AUTO_MERGE_LEVEL</code> repo variable (set to <code>standard</code>) and the PR's <code>risk:simple</code>/<code>risk:complex</code>/<code>risk:gnarly</code> label. CI/tooling only &mdash; no site content, CSS or build output changed.</p>
+    </div>
     <div class="changelog-entry">
       <div class="changelog-meta">
         <span class="changelog-build">Build 2026.10.08.001</span>
