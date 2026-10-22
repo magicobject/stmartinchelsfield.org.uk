@@ -142,6 +142,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] Final production check on `smc.mediawright.uk` (console, headers, `robots.txt`).
 - [ ] Send Steve a short "what's done and what we still need" note (**drafted for Greg to send**; outward words are drafts).
 
+## Extra requests (from Greg, during delivery)
+
+- [x] Footer: "Church of England" links to churchofengland.org and "Diocese of Rochester" to rochester.anglican.org, each in a new tab, on every page (PR #18).
+
 ## Suggested order
 
 R0 → R1 → R12 → R3 → R2 → R4 → R5 → R6 → R7 → R8 → R9 → R10 → R11 → R13
