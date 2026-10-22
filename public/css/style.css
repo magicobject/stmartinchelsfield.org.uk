@@ -490,6 +490,13 @@ footer.site .fine a:hover { color: #fff; }
 .safeguard-strip p { margin: 0; }
 .safeguard-strip a { color: #fff; text-decoration: underline; font-weight: 700; }
 .email-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+/* Phone and email links on safeguarding cards are the page's main actions: at least 44px tall (WCAG 2.5.5), phone numbers larger than the rest. */
+.card .email-link, .card .tap-phone, .card .tap-link { display: inline-flex; align-items: center; min-height: 44px; }
+.card .tap-phone { font-size: 1.15rem; font-weight: 700; }
+.after-emergency { margin-top: 32px; }
+/* The four safeguarding contacts sit in a 2 x 2 grid on wider screens, one column on phones. */
+.team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 700px) { .team-grid { grid-template-columns: 1fr; } }
 .email-link .email-icon { width: 1.15em; height: 1.15em; flex: none; }
 .emergency-box {
   background: #F6E4E0;
