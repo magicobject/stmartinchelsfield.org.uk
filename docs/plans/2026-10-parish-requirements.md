@@ -120,7 +120,7 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] Implement the shell page so the parish can add photos later by editing one config file (single source of truth, alt text required by a test).
 
 ### R12 — Visit us (items 9–13) — done (PR #8)
-- [x] Tests: By car includes "What3Words: finger.amuse.rate"; By train reads "a 1 mile walk from there, or take the R7 bus from Orpington station to Chelsfield Village" (R7 per Steve's list; the old R3 text must be gone); On foot reads "Walkable from Chelsfield Village and Station"; opening hours sentence; facilities sentence; the "needs confirming" notes for these facts are removed because Steve has now confirmed them.
+- [x] Tests: By car includes "What3Words: finger.amused.rate"; By train reads "a 1 mile walk from there, or take the R7 bus from Orpington station to Chelsfield Village" (R7 per Steve's list; the old R3 text must be gone); On foot reads "Walkable from Chelsfield Village and Station"; opening hours sentence; facilities sentence; the "needs confirming" notes for these facts are removed because Steve has now confirmed them.
 - [x] Implement in `visit-us.html`; update `CLAUDE.md`'s "About this build" list of unconfirmed facts.
 - [x] Also fixed the homepage line ("a short walk from Chelsfield and Orpington stations") so it no longer contradicts the new facts.
 
