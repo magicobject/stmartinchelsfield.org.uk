@@ -1,0 +1,136 @@
+# Parish requirements (Steve McCann, Oct 2026) — delivery plan
+
+Source: Steve's list of 26 requirements, plus *Safeguarding statements for website.docx*
+(PCC-agreed 23 July 2026), plus Greg's two additions: a **Home link in the menu**, and a
+**Safeguarding pill in the header** next to Donate.
+
+This file is the tracker. **Tick a box in the same PR that delivers it**, and add the PR
+link beside it. Requirement numbers are Steve's own, so the two documents can be read side by side.
+
+## How we work (applies to every PR below)
+
+1. **One PR per requirement (or tight group), one at a time.** Several PRs touch the same
+   files (`pages.config.mjs`, the header, `people.config.mjs`), so they go in sequence, not
+   in parallel. Each starts from fresh `main` (`git pull origin main`).
+2. **Tests first.** The first commit in each PR is a failing test that states the requirement
+   (extend the matching spec in `test/`; new pages get an entry in `test/support/pages.ts`).
+   Then the change, until it passes. The PR description names the tests that prove it.
+3. **Gates before pushing:** `TEST_PORT=4188 npm test` (all of it, including axe on every
+   page, open states, and mobile widths) and `npm run audit`. Report "stmartinchelsfield: N tests passed in Xs".
+4. **Standing rules still apply:** every page keeps `noindex`; no invented facts (anything
+   unknown is an open question below, not a guess); contrast computed not eyeballed; no
+   skipped heading levels; email addresses only via the obfuscation helper; one source of truth
+   per fact (`site.config.mjs`, `people.config.mjs`, `events.config.mjs`).
+5. **Every PR:** changelog entry on `/updates`, `build-<date>.<NNN>` tag, label `risk:simple`
+   (small, single concern) or `risk:complex` (see "Review gates"). The Actions gate merges
+   `risk:simple` PRs once green.
+6. **After each merge:** check the live site (`smc.mediawright.uk`) — page renders, console
+   clean, headers intact — and tick the box.
+
+## Review gates (a different agent checks, never the author)
+
+- **`risk:complex` + independent review** for the PRs that add people's names/contact
+  details or touch safeguarding: R6, R7, R8. `security-architect` reviews the design first
+  (what personal data goes public, and that nothing is a bare email address in the source);
+  `security-engineer` checks the branch before release. Complex PRs need an approving review
+  from someone other than the author; the plan is to ask Greg for that on these three only.
+- **`ux-designer`** reviews R1 (header/nav, which is getting crowded) and R7 (safeguarding page) at phone and
+  desktop widths, light and dark.
+- **`tester`** does a final end-to-end pass over the whole site (R13).
+
+## Open questions (answers needed; nothing is guessed meanwhile)
+
+| # | Question | Blocks |
+|---|---|---|
+| Q1 | Safeguarding Officer's surname: hyphenated "Warren-Axe" (policy document, A Church Near You) or "Warren Axe" (Steve's list)? Plan: use **Warren-Axe** unless told otherwise. | R7, R8 |
+| Q2 | Item 23 ends mid-sentence ("please email"). Plan: use the existing `bookings@stmartinchelsfield.org.uk`. Correct? | R6 |
+| Q3 | "Chelsfield Rectory" replaces "Parish office", keeping 01689 825749. Should the existing email `stmartin.chelsfield@btinternet.com` stay on that card, or go? | R6 |
+| Q4 | Item 19: show **all ten** people on the A Church Near You Who's Who (Rector, Associate Vicar, Churchwarden, Benefice Administrator, Safeguarding Officer, Treasurer & Choirmaster, PCC Secretary, Bookings Manager, Tower Captain/Archivist, Gift Aid Secretary)? And phone numbers: only those the parish already publishes (Rector 01689 857763, Benefice 01689 852905), not Philippa's mobile. Plan: yes to both. | R5 |
+| Q5 | Item 22 asks for the Churchwarden to be aligned: ACNY lists one (Steve McCann). Is there a second? | R5, R6 |
+| Q6 | Item 25: the official **Churchyard Regulations** document — please send it (the old site linked a PDF, but we should publish the current approved version, not guess). | R10 |
+| Q7 | Messy Church (item 16): the calendar already has 3 "Messy Church (Benefice Event)" entries at St Mary's. Steve says "please check the calendar" — we'll align the page wording with those dates and not add any others. OK? | R4 |
+| Q8 | Choir (item 15): the calendar's Choir Practice series stops on 13 Nov, which Steve says is an error. Plan: run it to 31 Dec 2026 (the end of the range we cover). OK? | R4 |
+| Q9 | Item 7: the old site's history page. We'll import its text; any photos need the parish's permission — do we have it for the archive photos? | R9 |
+| Q10 | Steve's benefice point: other parties haven't been told. We'll keep the Benefice mention to a name and one link to smasch.org, nothing about St Mary's or All Souls beyond that. Confirm no wording should be sent to them first. | R2 |
+
+## Deferred by the parish (placeholders only; not in this plan's scope)
+
+- [ ] **Item 5** — "what's happening next & soon" (Philippa's area). Pending her input.
+- [ ] **Item 6** — more on the Donate page (Philippa's area). Pending her input.
+- [ ] **Item 24 content** — Gallery photos. We build the page and button now (R11); photos come later.
+
+## The plan
+
+### R0 — Plan and groundwork
+- [x] Add this plan (this PR).
+
+### R1 — Header: Home link and Safeguarding pill (Greg's additions; item 1; part of item 3)
+- [ ] Tests: `Home` is the first item in the primary nav on every page and is marked current only on `/`; a `Safeguarding` pill sits in the header beside Donate on every page, links to `safeguarding.html`, and stays reachable in the open mobile menu; axe still clean with menu open; no overflow at 320px width.
+- [ ] Implement in `pages.config.mjs` (`NAV`) and `templates/header.html`; pill styling with computed contrast.
+- [ ] `ux-designer` review (the header now carries more).
+
+### R2 — Benefice line and link (items 2, 26)
+- [ ] Tests: the homepage shows "Part of the Benefice of Chelsfield with Green St Green and Pratts Bottom" below the title and above the button row; a link to `https://www.smasch.org` (opens safely, `rel=noopener`) is present; no mention of All Souls or St Mary's details imported from A Church Near You.
+- [ ] Implement on the homepage; add the Benefice sentence and link to History and the footer.
+- [ ] Also update `pages.config.mjs` structured data if appropriate (no invented facts).
+
+### R3 — "Brass Crosby Room", singular, everywhere (item 8)
+- [ ] Tests: a site-wide check that the string "Brass Crosby Rooms" never appears on any page, in the search index, or in structured data (fails first on the current site).
+- [ ] Replace in all sources, including `about.html`, `index.html`, `contact.html`, `get-involved.html`, `pages.config.mjs`, README, `CLAUDE.md`, unit tests; keep the anchor `#brass-crosby-rooms` working or rename it and update every link (decide in the PR; anchor tests must stay green).
+- [ ] Describe it as one room plus kitchen and toilets.
+
+### R4 — Groups & activities (items 14–18)
+- [ ] Tests: Toddler Group text and "10.30am – 12.00 noon"; Choir text ends at "new voices are always welcome." with no date; cards exist for Messy Church, Community Café and Churchyard Working Party with Steve's wording; Choir Practice appears on the calendar through December (Q8).
+- [ ] Implement in `get-involved.html` and `events.config.mjs`; keep the "needs confirming" note only for what is still unconfirmed (Ladies Group time).
+- [ ] Cross-link Working Party card to the Churchyard page once R10 exists.
+
+### R5 — Clergy & contacts (items 19, 22)
+- [ ] Tests (from `people.config.mjs`): exactly the people agreed in Q4/Q5, correct names and roles; the Rector is Revd Susan Atkinson-Jones (not John Tranter); no bare email address in the page source; every role card passes axe.
+- [ ] Implement `people.config.mjs`, `people.html`; fix every other place the old names appear (`contact.html`, search index, safeguarding page, `CLAUDE.md` "About this build").
+- [ ] `risk:complex`; security-architect (design) and security-engineer (release) gates.
+
+### R6 — Get in touch (items 20–23)
+- [ ] Tests: no "Parish office" heading; "Chelsfield Rectory" with 01689 825749; "Benefice office" with Mrs Suzanne Diamond and an obfuscated mailto for `office@smasch.org` plus 01689 852905; Rector/Associate Vicar/Churchwarden agree with the people list; "Room bookings" heading and Steve's sentence; `contact-details.spec.ts` still enforces obfuscation.
+- [ ] Implement in `contact.html` / `site.config.mjs`; remove the "two sources disagreed" caveat only where Steve's list settles it.
+- [ ] `risk:complex`; same security gates.
+
+### R7 — Safeguarding page (items 3, 4.1–4.4)
+- [ ] Tests: page lists exactly the four contacts in item 4 with the right roles, email (obfuscated) and, for the diocesan pair, phone numbers; no mention of Steve McCann as PSO; key information about the policy, "where to go for help" (999, NSPCC, Bromley, Diocese) retained; a link to the policy statements page (R8); header pill (R1) points here; axe clean; no card overflow (existing regression test still passes).
+- [ ] Implement `templates/safeguarding-essentials.html`, `safeguarding.html`, and `people.config.mjs` for the Parish Safeguarding Officer.
+- [ ] `risk:complex`; security gates; `ux-designer` review.
+
+### R8 — Safeguarding policy statements (item 4.5, from the Word document)
+- [ ] Tests: new `safeguarding-policy.html` has the formal statement and the full policy (all 6 commitments and 11 parish undertakings, verbatim), dated 23 July 2026, in correct heading order, indexed by site search, in the sitemap, linked from the safeguarding page and the footer.
+- [ ] Implement as a real HTML page (accessible and searchable), not a download. The two signatories and the PSO appointment are in the text exactly as given.
+- [ ] `risk:complex`; security gates.
+
+### R9 — History imported from the old site (item 7)
+- [ ] Tests: the history page contains the old site's key content (church built 12th century onwards, Well Hill Mission church of 1893, Benefice from 1 June 2021, Deanery/Archdeaconry/Diocese, Small Pilgrim Places Network, Prayer Book Society); headings in order; no invented additions.
+- [ ] Implement in `about.html`, reconciled with what is there (no duplication, one source). Each fact is checked against the archived pages (`web.archive.org/web/20240422060452/http://stmartinchelsfield.org.uk/about.html` and related pages) before inclusion; anything dated or personal (e.g. the old clergy paragraphs) is brought up to date or left out.
+- [ ] Attribution note updated; images only with permission (Q9).
+
+### R10 — Churchyard (item 25)
+- [ ] Tests: a Churchyard page exists in the nav with an accurate description (about 4 acres), monthly working party details matching the Groups card and calendar (first Saturday, 9–11am), and a clearly marked link/section for the Regulations (R10b).
+- [ ] Implement `churchyard.html` + nav entry + `pages.config.mjs` + test page entry.
+- [ ] **R10b** — publish the official Churchyard Regulations once supplied (Q6).
+
+### R11 — Gallery (item 24)
+- [ ] Tests: "Gallery" button/nav entry at the top of every page; the page exists and states plainly that photos are coming (no empty grid, no broken images); axe clean.
+- [ ] Implement the shell page so the parish can add photos later by editing one config file (single source of truth, alt text required by a test).
+
+### R12 — Visit us (items 9–13)
+- [ ] Tests: By car includes "What3Words: finger.amuse.rate"; By train reads "a 1 mile walk from there, or take the R7 bus from Orpington station to Chelsfield Village" (R7 per Steve's list; the old R3 text must be gone); On foot reads "Walkable from Chelsfield Village and Station"; opening hours sentence; facilities sentence; the "needs confirming" notes for these facts are removed because Steve has now confirmed them.
+- [ ] Implement in `visit-us.html`; update `CLAUDE.md`'s "About this build" list of unconfirmed facts.
+- [ ] (This is small; it can go early, between R1 and R2, if preferred.)
+
+### R13 — Close-out
+- [ ] Whole-site review by `tester` (keyboard, zoom, 320/768/1280 widths, dark mode if present, console) and `ux-designer`; fix findings in follow-up PRs.
+- [ ] Update `/help` pages and `README` so a non-technical person can see where each fact lives.
+- [ ] Update `CLAUDE.md` ("About this build": who the people are, what is now confirmed).
+- [ ] Final production check on `smc.mediawright.uk` (console, headers, `robots.txt`).
+- [ ] Send Steve a short "what's done and what we still need" note (**drafted for Greg to send**; outward words are drafts).
+
+## Suggested order
+
+R0 → R1 → R12 → R3 → R2 → R4 → R5 → R6 → R7 → R8 → R9 → R10 → R11 → R13
+(small safe changes first; people and safeguarding together once Q1–Q5 are answered; R10b and the deferred items whenever the parish supplies them).
