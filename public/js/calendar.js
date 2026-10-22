@@ -108,19 +108,25 @@
 
       var chipsHtml = evs.slice(0, 2).map(function (ev) {
         return '<span class="cal-chip">' + formatTime(ev.time) + ' ' + escapeHtml(ev.title) + '</span>';
-      }).join('');
+      }).join(' ');
       if (evs.length > 2) {
-        chipsHtml += '<span class="cal-chip cal-chip--more">+' + (evs.length - 2) + ' more</span>';
+        chipsHtml += ' <span class="cal-chip cal-chip--more">+' + (evs.length - 2) + ' more</span>';
       }
       var dot = evs.length ? '<span class="cal-day-dot" aria-hidden="true"></span>' : '';
 
-      var label = WEEKDAY_LONG[(cellDate.getDay() + 6) % 7] + ' ' + cellDate.getDate() + ' ' + MONTH_NAMES[cellDate.getMonth()] +
+      // WCAG 2.5.3 (Label in Name): the button's accessible name must contain its
+      // visible text (day number, then the event chips) in the same order, so voice-control
+      // users can say what they see. Month and event count follow it.
+      var visibleText = evs.slice(0, 2).map(function (ev) {
+        return formatTime(ev.time) + ' ' + ev.title;
+      }).join(' ') + (evs.length > 2 ? ' +' + (evs.length - 2) + ' more' : '');
+      var label = escapeHtml(WEEKDAY_LONG[(cellDate.getDay() + 6) % 7] + ' ' + cellDate.getDate() + (visibleText ? ' ' + visibleText : '') + ', ' + MONTH_NAMES[cellDate.getMonth()] +
         (isToday ? ' (today)' : '') +
-        (evs.length ? ', ' + evs.length + ' event' + (evs.length > 1 ? 's' : '') : '');
+        (evs.length ? ', ' + evs.length + ' event' + (evs.length > 1 ? 's' : '') : ''));
 
       cellsHtml +=
         '<button type="button" class="' + classes.join(' ') + '" data-date="' + cds + '" aria-label="' + label + '">' +
-          '<span class="cal-day-num">' + cellDate.getDate() + dot + '</span>' +
+          '<span class="cal-day-num">' + cellDate.getDate() + dot + '</span> ' +
           '<span class="cal-day-chips">' + chipsHtml + '</span>' +
         '</button>';
     }
