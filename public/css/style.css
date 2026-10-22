@@ -362,6 +362,12 @@ section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 }
 .icon-badge svg { width: 24px; height: 24px; }
 /* People cards: a round 96px photo (square-cropped from portraits of any shape). */
+/* Gallery: responsive grid of photos (the page shows a plain message while there are none). */
+.gallery-empty { max-width: 60ch; font-size: 1.1rem; color: var(--ink-soft); }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.gallery-item { margin: 0; }
+.gallery-item img { display: block; width: 100%; height: auto; border-radius: var(--radius-sm); }
+.gallery-item figcaption { margin-top: 8px; font-size: 0.9rem; color: var(--ink-soft); }
 /* History page: the recorded rectors, in columns that collapse to one on a phone. */
 .rector-list { list-style: none; margin: 0 0 1.2em; padding: 0; columns: 2 16em; column-gap: 32px; }
 .rector-list li { break-inside: avoid; padding: 3px 0; }

@@ -20,6 +20,7 @@ export const HOME_PAGE: SitePage = {
 export const NAV_PAGES: SitePage[] = [
   { path: '/about.html', navLabel: 'History', titleContains: 'History', heading: /history & architecture/i },
   { path: '/churchyard.html', navLabel: 'Churchyard', titleContains: 'Churchyard', heading: /churchyard/i },
+  { path: '/gallery.html', navLabel: 'Gallery', titleContains: 'Gallery', heading: /^gallery$/i },
   { path: '/visit-us.html', navLabel: 'Visit Us', titleContains: 'Visit Us', heading: /visit us/i },
   { path: '/services.html', navLabel: 'Services', titleContains: 'Services', heading: /services/i },
   { path: '/calendar.html', navLabel: 'Calendar', titleContains: 'Calendar', heading: /what's on/i },
