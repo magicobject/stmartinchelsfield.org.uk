@@ -33,6 +33,7 @@ export const FOOTER_NAV = [
   { href: 'services.html', label: 'Services' },
   { href: 'get-involved.html', label: 'Groups &amp; Activities' },
   { href: 'safeguarding.html', label: 'Safeguarding' },
+  { href: 'safeguarding-policy.html', label: 'Safeguarding policy' },
   { href: 'privacy-policy.html', label: 'Privacy Policy' },
 ];
 
@@ -145,6 +146,15 @@ export const PAGES = [
     slug: 'safeguarding',
     title: 'Safeguarding — St Martin of Tours, Chelsfield',
     description: 'Safeguarding contacts and national helplines for St Martin of Tours, Chelsfield.',
+    active: null,
+    header: true,
+    safeguardStrip: false,
+    robots: 'noindex, nofollow',
+  },
+  {
+    slug: 'safeguarding-policy',
+    title: 'Safeguarding Policy Statements — St Martin of Tours, Chelsfield',
+    description: 'The formal safeguarding statement and safeguarding policy of the Parish of Chelsfield, agreed by the Parochial Church Council on 23 July 2026.',
     active: null,
     header: true,
     safeguardStrip: false,

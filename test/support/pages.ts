@@ -35,6 +35,13 @@ export const SAFEGUARDING_PAGE: SitePage = {
   heading: /safeguarding, care and nurture/i,
 };
 
+export const SAFEGUARDING_POLICY_PAGE: SitePage = {
+  path: '/safeguarding-policy.html',
+  navLabel: 'Safeguarding policy',
+  titleContains: 'Safeguarding Policy Statements',
+  heading: /safeguarding policy statements/i,
+};
+
 export const NEWSLETTER_ARCHIVE_PAGE: SitePage = {
   path: '/newsletter-archive.html',
   navLabel: 'Newsletter Archive',
@@ -71,4 +78,4 @@ export const HELP_PAGES: SitePage[] = [
   { path: '/help-when-it-goes-wrong.html', navLabel: 'When it goes wrong', titleContains: 'When It Goes Wrong', heading: /when something goes wrong/i },
 ];
 
-export const ALL_PAGES: SitePage[] = [HOME_PAGE, ...NAV_PAGES, SAFEGUARDING_PAGE, NEWSLETTER_ARCHIVE_PAGE, PRIVACY_POLICY_PAGE, DONATE_PAGE, UPDATES_PAGE, ...HELP_PAGES];
+export const ALL_PAGES: SitePage[] = [HOME_PAGE, ...NAV_PAGES, SAFEGUARDING_PAGE, SAFEGUARDING_POLICY_PAGE, NEWSLETTER_ARCHIVE_PAGE, PRIVACY_POLICY_PAGE, DONATE_PAGE, UPDATES_PAGE, ...HELP_PAGES];

@@ -103,10 +103,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] Implement `templates/safeguarding-essentials.html`, `safeguarding.html`, and `people.config.mjs` for the Parish Safeguarding Officer.
 - [ ] `risk:complex`; security gates; `ux-designer` review.
 
-### R8 — Safeguarding policy statements (item 4.5, from the Word document)
-- [ ] Tests: new `safeguarding-policy.html` has the formal statement and the full policy (all 6 commitments and 11 parish undertakings, verbatim), dated 23 July 2026, in correct heading order, indexed by site search, in the sitemap, linked from the safeguarding page and the footer.
-- [ ] Implement as a real HTML page (accessible and searchable), not a download. The two signatories and the PSO appointment are in the text exactly as given.
-- [ ] `risk:complex`; security gates.
+### R8 — Safeguarding policy statements (item 4.5, from the Word document) — done (PR #15); built before R7 so that R7 can link to it
+- [x] Tests: new `safeguarding-policy.html` has the formal statement and the full policy (all 6 commitments and 11 parish undertakings, verbatim), dated 23 July 2026, in correct heading order, indexed by site search, in the sitemap, linked from the safeguarding page and the footer.
+- [x] Implement as a real HTML page (accessible and searchable), not a download. The two signatories and the PSO appointment are in the text exactly as given.
+- [x] Published word for word; section headings are "The formal statement" and "The policy" so that searching for "safeguarding" still lists the main Safeguarding page first (a test guards this). Labelled `risk:complex` (safeguarding content); no personal data beyond the names already in the signed statement, so the independent check is a content review by `tester`.
 
 ### R9 — History imported from the old site (item 7)
 - [ ] Tests: the history page contains the old site's key content (church built 12th century onwards, Well Hill Mission church of 1893, Benefice from 1 June 2021, Deanery/Archdeaconry/Diocese, Small Pilgrim Places Network, Prayer Book Society); headings in order; no invented additions.
