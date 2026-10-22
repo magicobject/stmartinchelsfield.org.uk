@@ -51,3 +51,17 @@ test('the footer still reads "Church of England · Diocese of Rochester" as one 
   await page.goto('/index.html');
   await expect(page.locator('footer.site .foot-note').first()).toHaveText(/^Church of England \(opens in a new tab\) · Diocese of Rochester \(opens in a new tab\)$/);
 });
+
+// Greg's request (22 Oct 2026), option A: the footer address on three lines, with commas.
+for (const path of ALL_PATHS) {
+  test(`${path} footer shows the address on three lines: venue, "Church Road, Chelsfield, Orpington,", then "Kent BR6 7SN"`, async ({ page }) => {
+    await page.goto(path);
+    const address = page.locator('footer.site .foot-grid > div').first().locator('p').nth(1);
+    const lines = (await address.innerText()).split(/\r?\n/).map((l) => l.trim());
+    expect(lines).toEqual([
+      'St Martin of Tours Church,',
+      'Church Road, Chelsfield, Orpington,',
+      'Kent BR6 7SN',
+    ]);
+  });
+}

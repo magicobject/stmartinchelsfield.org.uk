@@ -150,7 +150,7 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 
 - [x] Services: "A 5th Sunday" now reads "5th Sunday: No fixed pattern — please see the calendar", with the calendar linked (PR #22; also removed a stale Choir end-date note).
 - [x] **Benefice line in the header of every page**, below the church title and above the menu (PR #23). Greg clarified that Steve's item 2 meant the header, not the homepage banner where R2 first put it, so the banner copy was removed.
-- [ ] Footer address: Greg asked for "Church Road, Orpington," on its own line (note the commas); the exact lines still need confirming (does Chelsfield stay in the address?).
+- [x] Footer address on three lines, with commas (Greg chose option A): "St Martin of Tours Church," / "Church Road, Chelsfield, Orpington," / "Kent BR6 7SN" (PR #24).
 
 - [x] Footer: "Church of England" links to churchofengland.org and "Diocese of Rochester" to rochester.anglican.org, each in a new tab, on every page (PR #18).
 
