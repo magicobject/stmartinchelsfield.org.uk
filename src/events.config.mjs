@@ -109,16 +109,16 @@ export const ONE_OFF_EVENTS = [
 
 // The three weekly fixtures that really do keep one unchanging title —
 // confirmed against the calendar's own recurrence rule, not the visible
-// occurrences alone: Ringing Practice and Holy Communion (BCP) both recur
-// with no end date, but Choir Practice's recurrence explicitly stops after
-// 13 November 2026 (nothing currently scheduled beyond that — not a gap in
-// scraping, a real gap in what's been booked). To carry a series past its
-// `until`, extend it once the parish confirms it's continuing; to skip a
-// one-off date, add it to `except`.
+// occurrences alone: Ringing Practice and Holy Communion (BCP) recur with no
+// end date. Choir Practice's source recurrence stopped after 13 November
+// 2026, but the parish (Steve McCann, Oct 2026) says that date is a calendar
+// error, so it now runs to the end of the range we cover; Christmas Day is
+// skipped via `except` (to be confirmed with the parish). To skip a one-off
+// date, add it to `except`.
 export const RECURRING_SERIES = [
   { title: 'Bell Ringing Practice', location: 'St Martin of Tours', weekday: 1, time: '19:45', from: '2026-09-01', until: '2026-12-31' },
   { title: 'Holy Communion (BCP)', location: 'St Martin of Tours', weekday: 3, time: '09:30', from: '2026-09-01', until: '2026-12-31' },
-  { title: 'Choir Practice', location: 'St Martin of Tours', weekday: 5, time: '20:00', from: '2026-09-01', until: '2026-11-13' },
+  { title: 'Choir Practice', location: 'St Martin of Tours', weekday: 5, time: '20:00', from: '2026-09-01', until: '2026-12-31', except: ['2026-12-25'] },
 ];
 
 const CHURCH_LOCALITY = { addressLocality: 'Chelsfield', addressRegion: 'Kent', addressCountry: 'GB' };
