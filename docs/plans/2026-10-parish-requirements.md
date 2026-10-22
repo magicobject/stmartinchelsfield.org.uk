@@ -125,9 +125,11 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - Because the primary nav now has ten items, the menu collapses behind the Menu button below 1100px (it was 980px), so the full row never wraps; Gallery (R11) will be the eleventh.
 - [ ] **R10b** — publish the official Churchyard Regulations once supplied (Q6).
 
-### R11 — Gallery (item 24)
-- [ ] Tests: "Gallery" button/nav entry at the top of every page; the page exists and states plainly that photos are coming (no empty grid, no broken images); axe clean.
-- [ ] Implement the shell page so the parish can add photos later by editing one config file (single source of truth, alt text required by a test).
+### R11 — Gallery (item 24) — built (PR #20); photos still to come
+- [x] Tests: "Gallery" button/nav entry at the top of every page; the page exists and states plainly that photos are coming (no empty grid, no broken images); axe clean.
+- [x] Implement the shell page so the parish can add photos later by editing one config file (single source of truth, alt text required by a test).
+- Built as: a **Gallery** item in the menu and a page that says plainly photos are coming (no empty grid, no broken images). Photos are added by editing `src/gallery.config.mjs` and dropping files in `public/img/gallery/`; the build fails if a photo has no alt text, size or valid file, and the logic is unit-tested. With eleven items the menu still fits in one row from 1101px up (measured with the real fonts).
+- [ ] **Waiting on the parish:** the photographs themselves (and permission to use them, including the old site's photos, Q9).
 
 ### R12 — Visit us (items 9–13) — done (PR #8)
 - [x] Tests: By car includes "What3Words: finger.amused.rate"; By train reads "a 1 mile walk from there, or take the R7 bus from Orpington station to Chelsfield Village" (R7 per Steve's list; the old R3 text must be gone); On foot reads "Walkable from Chelsfield Village and Station"; opening hours sentence; facilities sentence; the "needs confirming" notes for these facts are removed because Steve has now confirmed them.

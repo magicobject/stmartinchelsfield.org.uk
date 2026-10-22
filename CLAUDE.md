@@ -67,6 +67,9 @@ The header search box (`templates/header.html`, `public/js/search-ui.js`, `publi
 ## People
 `src/people.config.mjs` (`CLERGY`, `OFFICERS`) is the single source of truth for every person card on `people.html`, rendered via `{{PEOPLE:clergy}}`/`{{PEOPLE:officers}}` tokens. See "About this build" above for why this list is currently short — don't pad it out with invented names.
 
+## Gallery
+`src/gallery.config.mjs` (`GALLERY_PHOTOS`) drives `gallery.html` via the `{{GALLERY}}` token (`scripts/render-gallery.mjs`, unit-tested in `test-unit/gallery.test.mjs`). It is empty until the parish supplies photographs; the page then says so plainly. Each photo needs alt text, width and height, or the build fails; the file goes in `public/img/gallery/` (JPEG or WebP; resize it and strip hidden metadata first). Get permission for each photo, and never publish identifiable photos of children without consent. Instructions are at the top of the config file.
+
 ## Newsletter
 `src/newsletter.config.mjs` (`NEWSLETTER_ISSUES`) drives `newsletter.html`/`newsletter-archive.html` via `{{NEWSLETTERS:recent}}`/`{{NEWSLETTERS:archive}}` tokens, same pattern as People above. The signup form itself works end-to-end (see `test/newsletter-signup.spec.ts`) but isn't connected to a real MailerLite account — `wrangler.jsonc`'s `MAILERLITE_GROUP_ID` is a placeholder, and no `MAILERLITE_API_KEY` secret is set. A real signup will fail until both are configured.
 

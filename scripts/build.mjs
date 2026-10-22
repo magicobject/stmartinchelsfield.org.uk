@@ -12,6 +12,8 @@ import { NAV, FOOTER_NAV, PAGES } from '../src/pages.config.mjs';
 import { SITE } from '../src/site.config.mjs';
 import { CLERGY, OFFICERS } from '../src/people.config.mjs';
 import { NEWSLETTER_ISSUES } from '../src/newsletter.config.mjs';
+import { GALLERY_PHOTOS } from '../src/gallery.config.mjs';
+import { renderGallery } from './render-gallery.mjs';
 import { ONE_OFF_EVENTS, expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
 import { ensureSectionIds, extractSearchEntries, isSearchablePage, isIndexable, isHelpPage } from './build-search-index.mjs';
 import { splitNewsletterIssues, formatIssueMonth } from './newsletter-issues.mjs';
@@ -118,6 +120,19 @@ function renderPeopleTokens(html) {
     if (key === 'clergy') return renderPeopleCards(CLERGY);
     if (key === 'officers') return renderPeopleCards(OFFICERS);
     return '';
+  });
+}
+
+// {{GALLERY}} -> the photos in src/gallery.config.mjs (or a plain "photos are coming" message).
+// renderGallery validates every entry (alt text, size, file type); here we also check the files exist.
+function renderGalleryToken(html) {
+  return html.replace(/{{GALLERY}}/g, () => {
+    for (const photo of GALLERY_PHOTOS) {
+      if (!existsSync(join(root, 'public', 'img', 'gallery', photo.file))) {
+        throw new Error(`build: gallery photo ${photo.file} is not in public/img/gallery/`);
+      }
+    }
+    return renderGallery(GALLERY_PHOTOS);
   });
 }
 
@@ -236,7 +251,7 @@ const searchEntries = [];
 const sitemapUrls = [];
 
 for (const page of PAGES) {
-  const content = ensureSectionIds(renderEventsToken(renderNewsletterTokens(renderPeopleTokens(read(`src/pages/${page.slug}.html`).trimEnd()))));
+  const content = ensureSectionIds(renderEventsToken(renderNewsletterTokens(renderGalleryToken(renderPeopleTokens(read(`src/pages/${page.slug}.html`).trimEnd())))));
 
   if (isIndexable(page)) {
     const resolvedForSearch = replaceTokens(content, tokens);
