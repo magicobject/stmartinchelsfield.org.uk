@@ -33,7 +33,7 @@ for (const path of ALL_PATHS) {
   });
 }
 
-// The primary nav collapses behind an ellipsis "Menu" toggle below 980px —
+// The primary nav collapses behind an ellipsis "Menu" toggle below 1100px —
 // scan both its closed and open states, since axe only sees what's actually
 // in the accessibility tree at scan time.
 test.describe('mobile nav toggle', () => {

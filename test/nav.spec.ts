@@ -146,3 +146,24 @@ test.describe('Safeguarding pill in the header', () => {
     }
   });
 });
+
+// With ten items in the primary nav (Churchyard added), the full row only fits comfortably from 1100px
+// up; below that it collapses behind the Menu button instead of wrapping onto a second line.
+test.describe('nav collapse breakpoint', () => {
+  test('at 1050px the nav is collapsed behind the Menu button', async ({ page }) => {
+    await page.setViewportSize({ width: 1050, height: 800 });
+    await page.goto('/index.html');
+    await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible();
+    await expect(page.locator('#primary-nav')).toBeHidden();
+  });
+
+  test('at 1150px the full nav is shown in one row and there is no Menu button', async ({ page }) => {
+    await page.setViewportSize({ width: 1150, height: 800 });
+    await page.goto('/index.html');
+    await expect(page.getByRole('button', { name: 'Menu' })).toBeHidden();
+    const links = page.locator('#primary-nav a');
+    const tops = new Set<number>();
+    for (let i = 0; i < (await links.count()); i++) tops.add(Math.round((await links.nth(i).boundingBox())!.y));
+    expect(tops.size).toBe(1);
+  });
+});
