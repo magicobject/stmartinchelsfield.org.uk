@@ -178,6 +178,15 @@ nav.links a:hover, nav.links a[aria-current="page"] {
   .header-ctas { order: 2; margin-left: auto; }
 }
 
+/* Phones: the brand takes the first row, then Menu (left) and the two pills
+   (right) share the second, instead of stacking into four rows. */
+@media (max-width: 600px) {
+  .nav-row { padding: 14px 16px; gap: 12px; }
+  .brand { flex: 1 1 100%; }
+  .header-ctas { gap: 8px; }
+  .header-ctas .btn-safeguarding, .header-ctas .btn-donate { padding: 12px 14px 10px; font-size: 0.88rem; }
+}
+
 /* ---------- Header search ---------- */
 .header-search { position: relative; flex: 1 1 220px; max-width: 320px; }
 .header-search form {
@@ -226,7 +235,7 @@ nav.links a:hover, nav.links a[aria-current="page"] {
 .site-search-empty { padding: 8px 10px; color: var(--ink-soft); }
 
 /* ---------- Buttons ---------- */
-.btn, .btn-donate, .btn-primary {
+.btn, .btn-donate, .btn-safeguarding, .btn-primary {
   display: inline-block;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -244,6 +253,12 @@ nav.links a:hover, nav.links a[aria-current="page"] {
   color: #fff;
 }
 .btn-donate:hover { background: var(--rose-dark); color: #fff; }
+/* Header Safeguarding pill: white on --sage #55673F is 6.18:1; hover white on
+   --sage-dark #3F4C2E is 8.6:1 (both pass AA for normal text). */
+.btn-safeguarding { background: var(--sage); color: #fff; }
+.btn-safeguarding:hover { background: var(--sage-dark); color: #fff; }
+/* Navy ring: 14.8:1 on the cream header (3:1 needed); the gold one was too faint there. */
+.btn-safeguarding:focus-visible, .btn-donate:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
 .btn-primary { background: var(--navy); color: #fff; }
 .btn-primary:hover { background: var(--navy-dark); color: #fff; }
 .btn-outline {

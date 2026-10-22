@@ -12,9 +12,10 @@
 // kington-parishes' own history of doing exactly this on its go-live day)
 // only once the parish has reviewed this build and approved it going live.
 
-// The header's primary nav. "Home" isn't a link here: the brand link in the
-// header already goes to index.html.
+// The header's primary nav. Home is listed first, as well as the brand link
+// going to index.html, because visitors look for the word, not just a logo.
 export const NAV = [
+  { href: 'index.html', label: 'Home' },
   { href: 'about.html', label: 'History' },
   { href: 'visit-us.html', label: 'Visit Us' },
   { href: 'services.html', label: 'Services' },

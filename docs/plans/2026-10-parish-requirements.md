@@ -64,10 +64,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 ### R0 — Plan and groundwork
 - [x] Add this plan (this PR).
 
-### R1 — Header: Home link and Safeguarding pill (Greg's additions; item 1; part of item 3)
-- [ ] Tests: `Home` is the first item in the primary nav on every page and is marked current only on `/`; a `Safeguarding` pill sits in the header beside Donate on every page, links to `safeguarding.html`, and stays reachable in the open mobile menu; axe still clean with menu open; no overflow at 320px width.
-- [ ] Implement in `pages.config.mjs` (`NAV`) and `templates/header.html`; pill styling with computed contrast.
-- [ ] `ux-designer` review (the header now carries more).
+### R1 — Header: Home link and Safeguarding pill (Greg's additions; item 1; part of item 3) — done (PR #7)
+- [x] Tests: `Home` is the first item in the primary nav on every page and is marked current only on `/`; a `Safeguarding` pill sits in the header beside Donate on every page, links to `safeguarding.html`, and stays reachable in the open mobile menu; axe still clean with menu open; no overflow at 320px width.
+- [x] Implement in `pages.config.mjs` (`NAV`) and `templates/header.html`; pill styling with computed contrast.
+- [x] `ux-designer` review (the header now carries more): fixed the tall four-row phone header and the faint focus ring; noted a wide-desktop layout nicety (search and pills sit on a lower row than the brand) for later.
 
 ### R2 — Benefice line and link (items 2, 26)
 - [ ] Tests: the homepage shows "Part of the Benefice of Chelsfield with Green St Green and Pratts Bottom" below the title and above the button row; a link to `https://www.smasch.org` (opens safely, `rel=noopener`) is present; no mention of All Souls or St Mary's details imported from A Church Near You.
@@ -124,6 +124,7 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] (This is small; it can go early, between R1 and R2, if preferred.)
 
 ### R13 — Close-out
+- [ ] **Found during R1, not yet fixed:** with the real webfonts, the footer's mediawright.uk credit link pushes the page 6px wider than a 320px screen (sideways scroll). The test suite blocks Google Fonts, so it cannot see this; add a font-aware overflow check as part of the fix.
 - [ ] Whole-site review by `tester` (keyboard, zoom, 320/768/1280 widths, dark mode if present, console) and `ux-designer`; fix findings in follow-up PRs.
 - [ ] Update `/help` pages and `README` so a non-technical person can see where each fact lives.
 - [ ] Update `CLAUDE.md` ("About this build": who the people are, what is now confirmed).
