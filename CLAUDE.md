@@ -20,6 +20,7 @@ This site was built from public sources — A Church Near You, the London Boroug
 Every change gets its own `claude/*` branch and a PR into `main`; nothing is pushed to `main` directly (the user-level settings deny it). `.github/workflows/claude-pr-automerge.yml` is the merge actor: it re-runs `npm test` and `npm run audit` on the PR head, then merges (squash, branch deleted), holds, or asks Greg, per the `AUTO_MERGE_LEVEL` repo variable (currently `standard`) and the PR's risk label.
 - Apply exactly one label when opening the PR: `risk:simple` (docs, changelog, tests, small single-concern fixes: auto-merges once green), `risk:complex` (needs a green gate **and** an approving review from someone other than the PR author), or `risk:gnarly` (never auto-merges; asks Greg by name). An unlabelled PR is treated as complex.
 - Dependabot PRs are tiered by the bump itself (patch/minor = simple, major = complex). A held Dependabot PR whose tests fail needs a fix on `main` first, then `@dependabot rebase`.
+- **Never stack PRs.** Branch each one from fresh `main` and wait for the previous to merge before opening the next. A PR stacked on another carries its commit; if the stacked one merges first the original's gate fails ("not mergeable") although its tests passed (this happened with R2/R3, Oct 2026).
 - Parallel checkouts: another project's dev server may already hold port 4177 and Playwright will silently test the wrong site. Run `TEST_PORT=4188 npm test` (or any free port) when in doubt.
 
 ## Accessibility

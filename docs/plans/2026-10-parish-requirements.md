@@ -79,10 +79,11 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [x] Replace in all sources, including `about.html`, `index.html`, `contact.html`, `get-involved.html`, `pages.config.mjs`, README, `CLAUDE.md`, unit tests; renamed the anchor to `#brass-crosby-room` and updated every link; the anchor-scroll test follows it.
 - [x] Describe it as one room plus kitchen and toilets.
 
-### R4 — Groups & activities (items 14–18)
-- [ ] Tests: Toddler Group text and "10.30am – 12.00 noon"; Choir text ends at "new voices are always welcome." with no date; cards exist for Messy Church, Community Café and Churchyard Working Party with Steve's wording; Choir Practice appears on the calendar through December (Q8).
-- [ ] Implement in `get-involved.html` and `events.config.mjs`; keep the "needs confirming" note only for what is still unconfirmed (Ladies Group time).
+### R4 — Groups & activities (items 14–18) — done (PR #11)
+- [x] Tests: Toddler Group text and "10.30am – 12.00 noon"; Choir text ends at "new voices are always welcome." with no date; cards exist for Messy Church, Community Café and Churchyard Working Party with Steve's wording; Choir Practice appears on the calendar through December (Q8).
+- [x] Implement in `get-involved.html` and `events.config.mjs`; keep the "needs confirming" note only for what is still unconfirmed (Ladies Group time).
 - [ ] Cross-link Working Party card to the Churchyard page once R10 exists.
+- Choir Practice now runs to 31 Dec on the calendar, skipping Christmas Day (an assumption; to confirm with Steve). Messy Church needed no calendar change: its three dates (17 Oct, 21 Nov, 19 Dec) are all third Saturdays at St Mary's, and a test now checks that for every group.
 
 ### R5 — Clergy & contacts (items 19, 22)
 - [ ] Tests (from `people.config.mjs`): exactly the people agreed in Q4/Q5, correct names and roles; the Rector is Revd Susan Atkinson-Jones (not John Tranter); no bare email address in the page source; every role card passes axe.

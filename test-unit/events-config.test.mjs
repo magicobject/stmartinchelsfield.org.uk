@@ -53,13 +53,16 @@ describe('expandEvents', () => {
     }
   });
 
-  test("a series with an earlier `until` than the others stops expanding past it", () => {
-    // Choir Practice's own recurrence rule stops after 13 November 2026.
+  test("a series honours its own `until` and its `except` dates", () => {
+    // Choir Practice runs Fridays to 31 December 2026 (the 13 November end date on the
+    // source calendar was an error, per the parish), skipping Christmas Day.
     const dates = expandEvents()
       .filter((e) => e.title === 'Choir Practice')
       .map((e) => e.date);
-    assert.ok(dates.every((d) => d <= '2026-11-13'));
-    assert.ok(!dates.some((d) => d > '2026-11-13'));
+    assert.ok(dates.includes('2026-11-20'));
+    assert.ok(dates.includes('2026-12-18'));
+    assert.ok(!dates.includes('2026-12-25'), 'Christmas Day is excepted');
+    assert.ok(dates.every((d) => d <= '2026-12-31'));
   });
 
   test('one-off events and expanded recurring events are merged into a single chronologically sorted list', () => {
