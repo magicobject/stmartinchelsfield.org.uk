@@ -93,10 +93,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [x] Implement `people.config.mjs`, `people.html`; fix every other place the old names appear (`contact.html`, search index, safeguarding page, `CLAUDE.md` "About this build").
 - [x] `risk:complex`; security-architect (design) done. security-engineer release check: see the PR.
 
-### R6 — Get in touch (items 20–23)
-- [ ] Tests: no "Parish office" heading; "Chelsfield Rectory" with 01689 825749; "Benefice office" with Mrs Suzanne Diamond and an obfuscated mailto for `office@smasch.org` plus 01689 852905; Rector/Associate Vicar/Churchwarden agree with the people list; "Room bookings" heading and Steve's sentence; `contact-details.spec.ts` still enforces obfuscation.
-- [ ] Implement in `contact.html` / `site.config.mjs`; remove the "two sources disagreed" caveat only where Steve's list settles it.
-- [ ] `risk:complex`; same security gates.
+### R6 — Get in touch (items 20–23) — done (PR #14)
+- [x] Tests: no "Parish office" heading; "Chelsfield Rectory" with 01689 825749; "Benefice office" with Mrs Suzanne Diamond and an obfuscated mailto for `office@smasch.org` plus 01689 852905; Rector/Associate Vicar/Churchwarden agree with the people list; "Room bookings" heading and Steve's sentence; `contact-details.spec.ts` still enforces obfuscation.
+- [x] Implement in `contact.html` / `site.config.mjs`; remove the "two sources disagreed" caveat only where Steve's list settles it.
+- [x] Labelled `risk:simple` rather than `risk:complex` as first planned: it adds no new personal data (every name, number and address was already published and security-reviewed in R5), so no new security review was needed. (Greg can overrule this labelling.) Q2 and Q3 used the plan defaults: bookings email as given in R5; the Rectory card shows only the phone number (the general parish email stays in the footer, the privacy policy and the removal route). Rector, Associate Vicar and Churchwarden now also show names (and the Rector's phone) to match the Clergy page; a test compares them with `people.config.mjs`.
 
 ### R7 — Safeguarding page (items 3, 4.1–4.4)
 - [ ] Tests: page lists exactly the four contacts in item 4 with the right roles, email (obfuscated) and, for the diocesan pair, phone numbers; no mention of Steve McCann as PSO; key information about the policy, "where to go for help" (999, NSPCC, Bromley, Diocese) retained; a link to the policy statements page (R8); header pill (R1) points here; axe clean; no card overflow (existing regression test still passes).
