@@ -52,6 +52,12 @@ test.describe('Groups & activities cards', () => {
   test('the old "times come from the parish calendar" note no longer mentions the choir running to a date', async ({ page }) => {
     await expect(page.locator('main')).not.toContainText('Currently running to');
   });
+
+  test('the Ladies Group time is said to be unconfirmed once, in its card, not repeated below the grid', async ({ page }) => {
+    const text = await page.locator('main').innerText();
+    expect(text.match(/Ladies Group/g)?.length).toBe(1);
+    await expect(card(page, 'Ladies Group')).toContainText(/get in touch/i);
+  });
 });
 
 test.describe('the calendar agrees with what the cards say', () => {

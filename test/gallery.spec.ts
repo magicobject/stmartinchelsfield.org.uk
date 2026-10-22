@@ -30,9 +30,12 @@ test.describe('Gallery', () => {
     await expect(main.locator('img')).toHaveCount(0);
   });
 
-  test('invites people with photos to get in touch, without inventing a process', async ({ page }) => {
+  test('invites people with photos to get in touch with a clear button, without inventing a process', async ({ page }) => {
     await page.goto('/gallery.html');
-    await expect(page.locator('main a[href="contact.html"]')).toHaveCount(1);
+    const button = page.locator('main a.btn-outline[href="contact.html"]');
+    await expect(button).toHaveCount(1);
+    await expect(button).toHaveText(/Share a photograph/);
+    expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   });
 
   test('is in the sitemap once and found by site search', async ({ request }) => {

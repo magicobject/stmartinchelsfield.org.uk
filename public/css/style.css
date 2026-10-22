@@ -262,7 +262,7 @@ nav.links a:hover, nav.links a[aria-current="page"] {
 .btn-primary { background: var(--navy); color: #fff; }
 .btn-primary:hover { background: var(--navy-dark); color: #fff; }
 .btn-outline {
-  display: inline-block;
+  display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box;
   line-height: 1;
   padding: 12px 22px 10px;
   border-radius: 999px;
@@ -368,6 +368,14 @@ section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 .gallery-item { margin: 0; }
 .gallery-item img { display: block; width: 100%; height: auto; border-radius: var(--radius-sm); }
 .gallery-item figcaption { margin-top: 8px; font-size: 0.9rem; color: var(--ink-soft); }
+/* History page: contents list, and the rector list folded inside a details element. */
+.contents { padding: 24px 0 0; }
+.contents-label { font-weight: 700; color: var(--navy); margin: 0 0 6px; }
+.contents-list { list-style: none; margin: 0; padding: 0; columns: 2 14em; column-gap: 32px; }
+.contents-list li { break-inside: avoid; }
+.contents-list a { display: inline-block; padding: 6px 0; }
+.rector-details > summary { cursor: pointer; font-weight: 600; color: var(--gold-dark); min-height: 44px; display: flex; align-items: center; }
+.rector-details[open] > summary { margin-bottom: 8px; }
 /* History page: the recorded rectors, in columns that collapse to one on a phone. */
 .rector-list { list-style: none; margin: 0 0 1.2em; padding: 0; columns: 2 16em; column-gap: 32px; }
 .rector-list li { break-inside: avoid; padding: 3px 0; }
@@ -385,7 +393,13 @@ section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 .card .meta { font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 4px; }
 
 .fact-list { list-style: none; padding: 0; margin: 0; }
-.fact-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+/* Label on the left, text wrapping beside it (a hanging indent). Not display:flex: every text run or inline element in a flex row becomes its own column and spills sideways. */
+.fact-list li { position: relative; padding: 10px 0 10px 9.6em; border-bottom: 1px solid var(--line); }
+.fact-list li > .fact-label { position: absolute; left: 0; top: 10px; width: 9em; }
+@media (max-width: 560px) {
+  .fact-list li { padding-left: 0; }
+  .fact-list li > .fact-label { position: static; display: block; width: auto; margin-bottom: 2px; }
+}
 .fact-list li:last-child { border-bottom: none; }
 .fact-list dt, .fact-list .fact-label { font-weight: 700; color: var(--navy); min-width: 9em; }
 
@@ -621,6 +635,10 @@ iframe.map-embed { width: 100%; height: 360px; border: 0; }
 .changelog-build { font-weight: 700; color: var(--navy); }
 
 /* ---------- Utility ---------- */
-.two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: start; }
-@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+/* minmax(0, ...) lets a column shrink below its widest child instead of pushing the page sideways on phones. */
+.two-col { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 40px; align-items: start; }
+@media (max-width: 860px) { .two-col { grid-template-columns: minmax(0, 1fr); } }
+/* Long links and code (the help guide, the changelog) wrap rather than widen the page; code blocks scroll inside themselves. */
+main a, main code { overflow-wrap: anywhere; }
+main pre { max-width: 100%; overflow-x: auto; }
 .small-print { font-size: 0.88rem; color: var(--ink-soft); }

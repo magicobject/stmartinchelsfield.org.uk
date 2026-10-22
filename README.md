@@ -2,7 +2,7 @@
 
 Static site for St Martin of Tours, a Church of England parish church in Chelsfield, Kent (Diocese of Rochester). Same lightweight templated-build pipeline as [kington-parishes](https://github.com/magicobject/kington-parishes) and other MediaWright-built parish sites.
 
-**Not live at its real domain yet** — only previewable at the Cloudflare Workers subdomain `https://stmartinchelsfield-org-uk.magicobject.workers.dev`. This build was put together from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Room extension) rather than commissioned or reviewed by the parish — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow`, `robots.txt` disallows everything, and every response sends `X-Robots-Tag: noindex, nofollow` for exactly this reason — the workers.dev preview shouldn't turn up in search results.
+**Not live at its real domain yet** — currently served at `https://smc.mediawright.uk/` (MediaWright's own domain; it will move to the parish's real domain) and at the Cloudflare Workers subdomain `https://stmartinchelsfield-org-uk.magicobject.workers.dev`. This build started from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Room extension, the parish's former website), and since October 2026 has been developed with the parish's own requirements (see `docs/plans/2026-10-parish-requirements.md`), though it is still not formally reviewed or approved by the PCC — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow`, `robots.txt` disallows everything, and every response sends `X-Robots-Tag: noindex, nofollow` for exactly this reason — neither address should turn up in search results.
 
 ## Quick start
 
@@ -57,4 +57,4 @@ Playwright specs in [test/](test) cover navigation (including the mobile menu), 
 
 ## Deployment
 
-The GitHub repo is linked to a Cloudflare Worker, auto-deploying `main` to `https://stmartinchelsfield-org-uk.magicobject.workers.dev` on every push — no custom domain is wired up yet, and `MAILERLITE_GROUP_ID`/`MAILERLITE_API_KEY` aren't configured — see [CLAUDE.md](CLAUDE.md)'s "About this build" and "Newsletter" sections for what needs to happen before this is ready for the parish's real domain.
+The GitHub repo is linked to a Cloudflare Worker, auto-deploying `main` on every push (to `smc.mediawright.uk` and the workers.dev address; the parish's own domain is not wired up yet), and `MAILERLITE_GROUP_ID`/`MAILERLITE_API_KEY` aren't configured — see [CLAUDE.md](CLAUDE.md)'s "About this build" and "Newsletter" sections for what needs to happen before this is ready for the parish's real domain.
