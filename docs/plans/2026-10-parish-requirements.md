@@ -85,10 +85,13 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] Cross-link Working Party card to the Churchyard page once R10 exists.
 - Choir Practice now runs to 31 Dec on the calendar, skipping Christmas Day (an assumption; to confirm with Steve). Messy Church needed no calendar change: its three dates (17 Oct, 21 Nov, 19 Dec) are all third Saturdays at St Mary's, and a test now checks that for every group.
 
-### R5 — Clergy & contacts (items 19, 22)
-- [ ] Tests (from `people.config.mjs`): exactly the people agreed in Q4/Q5, correct names and roles; the Rector is Revd Susan Atkinson-Jones (not John Tranter); no bare email address in the page source; every role card passes axe.
-- [ ] Implement `people.config.mjs`, `people.html`; fix every other place the old names appear (`contact.html`, search index, safeguarding page, `CLAUDE.md` "About this build").
-- [ ] `risk:complex`; security-architect (design) and security-engineer (release) gates.
+### R5 — Clergy & contacts (items 19, 22) — done (PR #13)
+- Decisions (Greg, 22 Oct 2026): all ten people from A Church Near You, with their photos, obfuscated emails and phone numbers; Steve McCann is the only Churchwarden; the parish has given permission for the people to be listed (Greg); the Gift Aid Secretary has no photo, so that card uses a public-domain coin image (Wikimedia Commons, Heritage Auctions), credited on the page.
+- Security review (`security-architect`): PASS WITH CONDITIONS. Built in: photos re-encoded as JPEG, no EXIF/XMP/IPTC, under 120 KB, checked by a test; emails only as obfuscated mailto links labelled "Email <first name>", with tests that none appears as plain text anywhere in the built site, search index or structured data; a removal/correction line, a fraud warning and a pointer to the safeguarding routes on the page; a section in the privacy policy; `noindex` kept.
+- [ ] Still to do outside the code: keep a record of each person's agreement outside this public repo (Greg says permission is given); consider role-based mailboxes in place of personal ones; confirm the address used for removal requests (currently the general parish email). Re-check before go-live.
+- [x] Tests (from `people.config.mjs`): exactly the people agreed in Q4/Q5, correct names and roles; the Rector is Revd Susan Atkinson-Jones (not John Tranter); no bare email address in the page source; every role card passes axe.
+- [x] Implement `people.config.mjs`, `people.html`; fix every other place the old names appear (`contact.html`, search index, safeguarding page, `CLAUDE.md` "About this build").
+- [x] `risk:complex`; security-architect (design) done. security-engineer release check: see the PR.
 
 ### R6 — Get in touch (items 20–23)
 - [ ] Tests: no "Parish office" heading; "Chelsfield Rectory" with 01689 825749; "Benefice office" with Mrs Suzanne Diamond and an obfuscated mailto for `office@smasch.org` plus 01689 852905; Rector/Associate Vicar/Churchwarden agree with the people list; "Room bookings" heading and Steve's sentence; `contact-details.spec.ts` still enforces obfuscation.

@@ -361,6 +361,8 @@ section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
   border: 1px solid var(--line);
 }
 .icon-badge svg { width: 24px; height: 24px; }
+/* People cards: a round 96px photo (square-cropped from portraits of any shape). */
+.person-photo { display: block; width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: center 20%; margin-bottom: 14px; border: 1px solid var(--line); background: #fff; }
 .tags {
   display: inline-block;
   font-size: 0.78rem;

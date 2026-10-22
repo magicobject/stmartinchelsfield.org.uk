@@ -97,9 +97,12 @@ function obfuscateMailtoLinks(html) {
   return html.replace(/\{\{OBFUSCATE_MAILTO:([^}]+)\}\}/g, (_, email) => encodeEntities(`mailto:${email}`));
 }
 
-function renderPersonCard({ iconSvg, role, name, bio }) {
+function renderPersonCard({ iconSvg, photo, role, name, bio }) {
+  const media = photo
+    ? `<img class="person-photo" src="${photo.src}" alt="${photo.alt}" width="96" height="96" loading="lazy" decoding="async">`
+    : `<div class="icon-badge">${iconSvg}</div>`;
   return `        <div class="card reveal">
-          <div class="icon-badge">${iconSvg}</div>
+          ${media}
           <div class="tags">${role}</div>
           <h3>${name}</h3>
           <p>${bio}</p>
