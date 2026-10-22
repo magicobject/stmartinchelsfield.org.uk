@@ -174,8 +174,10 @@ test.describe('data protection', () => {
   });
 });
 
-test('no page still names the previous Rector', async ({ page }) => {
-  for (const { path } of ALL_PAGES) {
+// The History page's list of past rectors legitimately includes him (as a past rector, 2014), so it is
+// the one page exempt; everywhere else the previous Rector must not appear.
+test('no other page still names the previous Rector', async ({ page }) => {
+  for (const { path } of ALL_PAGES.filter((p) => p.path !== '/about.html')) {
     await page.goto(path);
     expect(await page.locator('body').innerText(), path).not.toMatch(/tranter/i);
   }
