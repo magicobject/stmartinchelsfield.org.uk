@@ -5,7 +5,7 @@
 // by scripts/build.mjs on every build.
 import { parse } from 'node-html-parser';
 
-// Turns heading text into a URL-safe id: "Hire the Brass Crosby Rooms" -> "hire-the-brass-crosby-rooms".
+// Turns heading text into a URL-safe id: "Hire the Brass Crosby Room" -> "hire-the-brass-crosby-room".
 export function slugify(text) {
   return text
     .toLowerCase()

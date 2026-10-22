@@ -32,7 +32,7 @@ describe('searchEntries', () => {
     { heading: 'Services', text: 'Sunday Holy Communion at 8am, Family Service at 9:45am.' },
     { heading: 'Visit Us', text: "Church Road, Chelsfield — a short walk from Orpington station." },
     { heading: 'Toddler Group', text: 'A weekly session for parents, carers and pre-school children.' },
-    { heading: 'The Brass Crosby Rooms', text: 'A contemporary extension completed in 2007.' },
+    { heading: 'The Brass Crosby Room', text: 'A contemporary extension completed in 2007.' },
   ];
 
   test('returns nothing for an empty query', () => {
@@ -54,7 +54,7 @@ describe('searchEntries', () => {
   test('requires every query word to match (AND, not OR)', () => {
     const results = searchEntries('brass crosby', entries);
     assert.equal(results.length, 1);
-    assert.equal(results[0].heading, 'The Brass Crosby Rooms');
+    assert.equal(results[0].heading, 'The Brass Crosby Room');
   });
 
   test('ranks an exact heading match above a heading that merely contains the word', () => {

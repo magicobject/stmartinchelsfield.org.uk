@@ -46,7 +46,7 @@ describe('ensureSectionIds', () => {
   });
 
   test('leaves a heading alone if an ancestor already has an id', () => {
-    const html = '<article id="brass-crosby-rooms"><div class="wrap"><h2>The Brass Crosby Rooms</h2></div></article>';
+    const html = '<article id="brass-crosby-room"><div class="wrap"><h2>The Brass Crosby Room</h2></div></article>';
     assert.equal(ensureSectionIds(html), html);
   });
 
@@ -99,9 +99,9 @@ describe('extractSearchEntries', () => {
   });
 
   test('uses the nearest id\'d ancestor as the anchor, not a generated one', () => {
-    const html = '<article id="brass-crosby-rooms"><div class="wrap"><h2>The Brass Crosby Rooms</h2><p>Built 2007.</p></div></article>';
+    const html = '<article id="brass-crosby-room"><div class="wrap"><h2>The Brass Crosby Room</h2><p>Built 2007.</p></div></article>';
     const [entry] = extractSearchEntries(html, page);
-    assert.equal(entry.anchor, 'brass-crosby-rooms');
+    assert.equal(entry.anchor, 'brass-crosby-room');
   });
 
   test('every entry gets its own distinct anchor, never the page-wide #main', () => {

@@ -74,10 +74,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [ ] Implement on the homepage; add the Benefice sentence and link to History and the footer.
 - [ ] Also update `pages.config.mjs` structured data if appropriate (no invented facts).
 
-### R3 — "Brass Crosby Room", singular, everywhere (item 8)
-- [ ] Tests: a site-wide check that the string "Brass Crosby Rooms" never appears on any page, in the search index, or in structured data (fails first on the current site).
-- [ ] Replace in all sources, including `about.html`, `index.html`, `contact.html`, `get-involved.html`, `pages.config.mjs`, README, `CLAUDE.md`, unit tests; keep the anchor `#brass-crosby-rooms` working or rename it and update every link (decide in the PR; anchor tests must stay green).
-- [ ] Describe it as one room plus kitchen and toilets.
+### R3 — "Brass Crosby Room", singular, everywhere (item 8) — done (PR #9)
+- [x] Tests: a site-wide check that the string "Brass Crosby Rooms" never appears on any page, in the search index, or in structured data (fails first on the current site).
+- [x] Replace in all sources, including `about.html`, `index.html`, `contact.html`, `get-involved.html`, `pages.config.mjs`, README, `CLAUDE.md`, unit tests; renamed the anchor to `#brass-crosby-room` and updated every link; the anchor-scroll test follows it.
+- [x] Describe it as one room plus kitchen and toilets.
 
 ### R4 — Groups & activities (items 14–18)
 - [ ] Tests: Toddler Group text and "10.30am – 12.00 noon"; Choir text ends at "new voices are always welcome." with no date; cards exist for Messy Church, Community Café and Churchyard Working Party with Steve's wording; Choir Practice appears on the calendar through December (Q8).
@@ -126,6 +126,7 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 ### R13 — Close-out
 - [ ] **Found during R1, not yet fixed:** with the real webfonts, the footer's mediawright.uk credit link pushes the page 6px wider than a 320px screen (sideways scroll). The test suite blocks Google Fonts, so it cannot see this; add a font-aware overflow check as part of the fix.
 - [ ] Whole-site review by `tester` (keyboard, zoom, 320/768/1280 widths, dark mode if present, console) and `ux-designer`; fix findings in follow-up PRs.
+- [ ] README still says the site is only previewable at the workers.dev address; it is now at smc.mediawright.uk (found during R3).
 - [ ] Update `/help` pages and `README` so a non-technical person can see where each fact lives.
 - [ ] Update `CLAUDE.md` ("About this build": who the people are, what is now confirmed).
 - [ ] Final production check on `smc.mediawright.uk` (console, headers, `robots.txt`).
