@@ -17,6 +17,7 @@
 export const NAV = [
   { href: 'index.html', label: 'Home' },
   { href: 'about.html', label: 'History' },
+  { href: 'churchyard.html', label: 'Churchyard' },
   { href: 'visit-us.html', label: 'Visit Us' },
   { href: 'services.html', label: 'Services' },
   { href: 'calendar.html', label: 'Calendar' },
@@ -139,6 +140,14 @@ export const PAGES = [
     title: 'Donate — St Martin of Tours, Chelsfield',
     description: 'How to support St Martin of Tours, Chelsfield financially.',
     active: null,
+    header: true,
+    robots: 'noindex, nofollow',
+  },
+  {
+    slug: 'churchyard',
+    title: 'Churchyard — St Martin of Tours, Chelsfield',
+    description: 'The churchyard of St Martin of Tours, Chelsfield: about four acres through the seasons, the monthly working party, and the churchyard regulations.',
+    active: 'churchyard.html',
     header: true,
     robots: 'noindex, nofollow',
   },

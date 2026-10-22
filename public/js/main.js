@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Mobile nav: the primary links collapse behind the ellipsis toggle below
-  // 980px (see the matching @media block in style.css).
+  // 1100px (see the matching @media block in style.css).
   var navToggle = document.getElementById('nav-toggle');
   var navLinks = document.getElementById('primary-nav');
   if (navToggle && navLinks) {
