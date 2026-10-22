@@ -32,7 +32,7 @@ test.describe('Safeguarding page', () => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/safeguarding.html');
     const firstContact = (await page.locator('main .card a[href^="mailto:"]').first().boundingBox())!;
-    expect(firstContact.y).toBeLessThan(900);
+    expect(firstContact.y).toBeLessThan(960); // was 900 before the header gained its Benefice line (about 44px on a phone)
   });
 
   test('every phone and email link is a comfortable tap target (at least 44px tall) and there is space under the 999 box', async ({ page }) => {

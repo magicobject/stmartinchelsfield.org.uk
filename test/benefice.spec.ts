@@ -7,15 +7,41 @@ import { ALL_PAGES } from './support/pages';
 const BENEFICE_LINE = 'Part of the Benefice of Chelsfield with Green St Green and Pratts Bottom';
 const SMASCH = 'https://www.smasch.org';
 
-test('the homepage names the Benefice below the main title and above the row of buttons', async ({ page }) => {
+// Greg clarified (22 Oct 2026) that the line belongs in the HEADER of every page: below the church
+// title and above the row of buttons/links. (It was first put in the homepage banner.)
+for (const { path } of ALL_PAGES) {
+  test(`${path} header names the Benefice below the church title and above the menu`, async ({ page }) => {
+    await page.goto(path);
+    const line = page.locator('header.site .header-benefice');
+    await expect(line).toHaveText(BENEFICE_LINE);
+    const [brand, l, nav] = await Promise.all([
+      page.locator('header.site .brand').boundingBox(),
+      line.boundingBox(),
+      page.locator('header.site nav#primary-nav a').first().boundingBox(),
+    ]);
+    expect(l!.y).toBeGreaterThanOrEqual(brand!.y + brand!.height - 1);
+    expect(l!.y + l!.height).toBeLessThanOrEqual(nav!.y + 1);
+  });
+}
+
+test('on a phone the line sits under the title and above the Menu button and the two buttons', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/index.html');
-  const h1 = page.locator('.hero h1');
-  const line = page.locator('.hero .hero-benefice');
-  const buttons = page.locator('.hero .hero-ctas');
-  await expect(line).toHaveText(BENEFICE_LINE);
-  const [h, l, b] = await Promise.all([h1.boundingBox(), line.boundingBox(), buttons.boundingBox()]);
-  expect(l!.y).toBeGreaterThan(h!.y + h!.height - 1);
-  expect(l!.y + l!.height).toBeLessThanOrEqual(b!.y + 1);
+  const line = (await page.locator('header.site .header-benefice').boundingBox())!;
+  const brand = (await page.locator('header.site .brand').boundingBox())!;
+  expect(line.y).toBeGreaterThanOrEqual(brand.y + brand.height - 1);
+  for (const sel of ['header.site .nav-toggle', 'header.site a.btn-safeguarding', 'header.site .btn-donate']) {
+    const box = (await page.locator(sel).boundingBox())!;
+    expect(box.y, sel).toBeGreaterThanOrEqual(line.y + line.height - 1);
+  }
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('the homepage banner no longer repeats the line (it is in the header)', async ({ page }) => {
+  await page.goto('/index.html');
+  await expect(page.locator('main')).not.toContainText(BENEFICE_LINE);
+  await expect(page.locator('.hero-benefice')).toHaveCount(0);
 });
 
 test('History has an "Our Benefice" section that names the Benefice and links to the St Mary\'s website', async ({ page }) => {

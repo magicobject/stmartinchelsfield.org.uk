@@ -122,7 +122,7 @@ test.describe('Safeguarding pill in the header', () => {
     expect(Math.abs(menu.y - pill.y)).toBeLessThan(20);
     expect(Math.abs(pill.y - donate.y)).toBeLessThan(20);
     const headerHeight = (await page.locator('header.site').boundingBox())!.height;
-    expect(headerHeight).toBeLessThan(200);
+    expect(headerHeight).toBeLessThan(240); // brand + Benefice line + one row of Menu and buttons + search
   });
 
   test('the Safeguarding pill shows a strong keyboard focus ring', async ({ page }) => {
