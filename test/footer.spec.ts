@@ -27,3 +27,27 @@ for (const path of ALL_PATHS) {
     await expect(credit).toHaveText('mediawright.uk');
   });
 }
+
+// Greg's request (22 Oct 2026): "Church of England" and "Diocese of Rochester" in the footer
+// link to those organisations' own sites, each in a separate tab.
+for (const path of ALL_PATHS) {
+  test(`${path} footer links Church of England and Diocese of Rochester to their own sites, in new tabs`, async ({ page }) => {
+    await page.goto(path);
+    const coe = page.locator('footer.site a[href="https://www.churchofengland.org/"]');
+    const diocese = page.locator('footer.site a[href="https://www.rochester.anglican.org/"]');
+    await expect(coe).toHaveCount(1);
+    await expect(diocese).toHaveCount(1);
+    await expect(coe).toContainText('Church of England');
+    await expect(diocese).toContainText('Diocese of Rochester');
+    for (const link of [coe, diocese]) {
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', /noopener/);
+      await expect(link.locator('.visually-hidden')).toHaveText('(opens in a new tab)');
+    }
+  });
+}
+
+test('the footer still reads "Church of England · Diocese of Rochester" as one line of text', async ({ page }) => {
+  await page.goto('/index.html');
+  await expect(page.locator('footer.site .foot-note').first()).toHaveText(/^Church of England \(opens in a new tab\) · Diocese of Rochester \(opens in a new tab\)$/);
+});
