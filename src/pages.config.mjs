@@ -64,7 +64,7 @@ export const PAGES = [
   {
     slug: 'about',
     title: 'History &amp; Architecture — St Martin of Tours, Chelsfield',
-    description: 'The history of St Martin of Tours, Chelsfield, from its 12th-century origins to the Brass Crosby Rooms extension of 2007.',
+    description: 'The history of St Martin of Tours, Chelsfield, from its 12th-century origins to the Brass Crosby Room extension of 2007.',
     active: 'about.html',
     header: true,
     robots: 'noindex, nofollow',
@@ -96,7 +96,7 @@ export const PAGES = [
   {
     slug: 'get-involved',
     title: 'Groups &amp; Activities — St Martin of Tours, Chelsfield',
-    description: 'Groups meeting at St Martin of Tours, Chelsfield — toddler group, choir, bellringers and more — plus how to volunteer or hire the Brass Crosby Rooms.',
+    description: 'Groups meeting at St Martin of Tours, Chelsfield — toddler group, choir, bellringers and more — plus how to volunteer or hire the Brass Crosby Room.',
     active: 'get-involved.html',
     header: true,
     robots: 'noindex, nofollow',

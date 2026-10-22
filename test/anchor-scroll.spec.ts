@@ -61,8 +61,8 @@ test.describe('narrow viewport (taller, wrapped header)', () => {
   });
 });
 
-test('a direct link to a page section (the Brass Crosby Rooms) is not hidden behind the header', async ({ page }) => {
+test('a direct link to a page section (the Brass Crosby Room) is not hidden behind the header', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/about.html#brass-crosby-rooms');
-  await expectClearOfHeader(page, '#brass-crosby-rooms');
+  await page.goto('/about.html#brass-crosby-room');
+  await expectClearOfHeader(page, '#brass-crosby-room');
 });

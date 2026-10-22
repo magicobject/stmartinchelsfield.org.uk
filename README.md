@@ -2,7 +2,7 @@
 
 Static site for St Martin of Tours, a Church of England parish church in Chelsfield, Kent (Diocese of Rochester). Same lightweight templated-build pipeline as [kington-parishes](https://github.com/magicobject/kington-parishes) and other MediaWright-built parish sites.
 
-**Not live at its real domain yet** — only previewable at the Cloudflare Workers subdomain `https://stmartinchelsfield-org-uk.magicobject.workers.dev`. This build was put together from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Rooms extension) rather than commissioned or reviewed by the parish — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow`, `robots.txt` disallows everything, and every response sends `X-Robots-Tag: noindex, nofollow` for exactly this reason — the workers.dev preview shouldn't turn up in search results.
+**Not live at its real domain yet** — only previewable at the Cloudflare Workers subdomain `https://stmartinchelsfield-org-uk.magicobject.workers.dev`. This build was put together from public sources (A Church Near You, the London Borough of Bromley's community directory, Clague Architects' description of the Brass Crosby Room extension) rather than commissioned or reviewed by the parish — see [CLAUDE.md](CLAUDE.md)'s "About this build" for what that means and what still needs confirming before go-live. Every page carries `robots: noindex, nofollow`, `robots.txt` disallows everything, and every response sends `X-Robots-Tag: noindex, nofollow` for exactly this reason — the workers.dev preview shouldn't turn up in search results.
 
 ## Quick start
 
@@ -29,7 +29,7 @@ Running `npm run build` writes the finished files into `public/`, which is what 
 
 ## Design
 
-Deliberately distinct from other MediaWright-built parish sites: a light (not dark) header, pill-shaped buttons, rounded 14px cards with a soft shadow, and a navy/gold/rose palette — see [public/css/style.css](public/css/style.css)'s own opening comment. Gold is the general accent (links, primary buttons, card borders); rose is kept for anything alert-shaped (safeguarding, form errors) so it reads as its own signal rather than a second "brand" colour. The "old nave, new extension" hero illustration echoes the church's own history: a 12th-century core beside the contemporary Brass Crosby Rooms, added in 2007.
+Deliberately distinct from other MediaWright-built parish sites: a light (not dark) header, pill-shaped buttons, rounded 14px cards with a soft shadow, and a navy/gold/rose palette — see [public/css/style.css](public/css/style.css)'s own opening comment. Gold is the general accent (links, primary buttons, card borders); rose is kept for anything alert-shaped (safeguarding, form errors) so it reads as its own signal rather than a second "brand" colour. The "old nave, new extension" hero illustration echoes the church's own history: a 12th-century core beside the contemporary Brass Crosby Room, added in 2007.
 
 The homepage hero photo ([public/img/hero-church.jpg](public/img/hero-church.jpg)) was supplied directly by the site owner. Every other illustration (favicon, Open Graph image, the 404 page) is original inline SVG — no other photos could be sourced with clear rights to reuse.
 

@@ -5,7 +5,7 @@
    dark), pill buttons (not rectangular), rounded 14px cards with soft
    shadow (not flat bordered), navy/gold/rose (not slate/brass, not
    green/terracotta) — echoing the church's own old-meets-new contrast: a
-   medieval nave beside the contemporary Brass Crosby Rooms extension. Gold
+   medieval nave beside the contemporary Brass Crosby Room extension. Gold
    is the general accent (links, primary buttons, card borders); rose is
    reserved for anything alert-shaped (safeguarding, form errors) so it
    reads as a distinct signal, not just "the other accent colour". */
@@ -313,6 +313,8 @@ nav.links a:hover, nav.links a[aria-current="page"] {
   filter: blur(40px);
 }
 .hero h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.4rem); max-width: 20ch; position: relative; }
+/* #F3ECDC on the navy hero gradient: about 12:1. */
+.hero p.hero-benefice { margin: 0 0 14px; max-width: 44ch; font-size: 1.02rem; font-weight: 600; letter-spacing: 0.02em; color: #F3ECDC; position: relative; }
 .hero p.lede { max-width: 60ch; font-size: 1.18rem; color: #E3D9C4; position: relative; }
 .hero .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; position: relative; }
 .hero .hero-ctas .btn-outline { border-color: #fff; color: #fff; }
@@ -441,6 +443,7 @@ footer.site p { margin: 0 0 6px; }
 footer.site a { color: #D7CFB8; text-decoration: none; }
 footer.site a:hover { color: #fff; text-decoration: underline; }
 .foot-note { color: #B8AE92; font-size: 0.88rem; }
+footer.site .foot-note a { text-decoration: underline; text-underline-offset: 2px; } /* a link inside a sentence must not rely on colour alone (WCAG 1.4.1) */
 .foot-social { margin-top: 12px; }
 .foot-social a {
   display: inline-flex;
