@@ -32,7 +32,7 @@ export const SAFEGUARDING_PAGE: SitePage = {
   path: '/safeguarding.html',
   navLabel: 'Safeguarding',
   titleContains: 'Safeguarding',
-  heading: /safeguarding, care and nurture/i,
+  heading: /^safeguarding$/i,
 };
 
 export const SAFEGUARDING_POLICY_PAGE: SitePage = {

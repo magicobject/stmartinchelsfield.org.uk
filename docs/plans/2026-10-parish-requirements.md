@@ -98,10 +98,13 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [x] Implement in `contact.html` / `site.config.mjs`; remove the "two sources disagreed" caveat only where Steve's list settles it.
 - [x] Labelled `risk:simple` rather than `risk:complex` as first planned: it adds no new personal data (every name, number and address was already published and security-reviewed in R5), so no new security review was needed. (Greg can overrule this labelling.) Q2 and Q3 used the plan defaults: bookings email as given in R5; the Rectory card shows only the phone number (the general parish email stays in the footer, the privacy policy and the removal route). Rector, Associate Vicar and Churchwarden now also show names (and the Rector's phone) to match the Clergy page; a test compares them with `people.config.mjs`.
 
-### R7 — Safeguarding page (items 3, 4.1–4.4)
-- [ ] Tests: page lists exactly the four contacts in item 4 with the right roles, email (obfuscated) and, for the diocesan pair, phone numbers; no mention of Steve McCann as PSO; key information about the policy, "where to go for help" (999, NSPCC, Bromley, Diocese) retained; a link to the policy statements page (R8); header pill (R1) points here; axe clean; no card overflow (existing regression test still passes).
-- [ ] Implement `templates/safeguarding-essentials.html`, `safeguarding.html`, and `people.config.mjs` for the Parish Safeguarding Officer.
-- [ ] `risk:complex`; security gates; `ux-designer` review.
+### R7 — Safeguarding page (items 3, 4.1–4.4) — done (PR #16)
+- [x] Tests: page lists exactly the four contacts in item 4 with the right roles, email (obfuscated) and, for the diocesan pair, phone numbers; no mention of Steve McCann as PSO; key information about the policy, "where to go for help" (999, NSPCC, Bromley, Diocese) retained; a link to the policy statements page (R8); header pill (R1) points here; axe clean; no card overflow (existing regression test still passes).
+- [x] Implement `templates/safeguarding-essentials.html`, `safeguarding.html`, and `people.config.mjs` for the Parish Safeguarding Officer.
+- [x] `risk:complex`; security gates; `ux-designer` review.
+
+- Built as: h1 "Safeguarding" (so it still ranks first in site search); sections "Our commitment" (summary of the policy, linking to the policy statements), "Our safeguarding team" (the four contacts) and "Where to get help" (NSPCC, Bromley, Diocese). Steve McCann no longer appears as the officer. The old shared template and its build token were removed. Karen Barter and the shared parish mailbox are as given by the parish; the two parish contacts share one email address (each card now says so).
+- Reviews: `ux-designer` (order for someone in distress, 44px tap targets, 2x2 grid, wording — applied) and `security-engineer` (PASS; the diocesan numbers also appear in `search-index.json`, accepted as they are public on the page). The diocesan officers' roles, numbers and emails were checked against the Diocese of Rochester's own safeguarding page.
 
 ### R8 — Safeguarding policy statements (item 4.5, from the Word document) — done (PR #15); built before R7 so that R7 can link to it
 - [x] Tests: new `safeguarding-policy.html` has the formal statement and the full policy (all 6 commitments and 11 parish undertakings, verbatim), dated 23 July 2026, in correct heading order, indexed by site search, in the sitemap, linked from the safeguarding page and the footer.
@@ -129,6 +132,7 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 
 ### R13 — Close-out
 - [ ] **Found during R1, not yet fixed:** with the real webfonts, the footer's mediawright.uk credit link pushes the page 6px wider than a 320px screen (sideways scroll). The test suite blocks Google Fonts, so it cannot see this; add a font-aware overflow check as part of the fix.
+- [ ] **Found during R7 review, not yet fixed:** the footer on every page shows the parish email (stmartin.chelsfield@btinternet.com) as plain text in the page source, against the repo rule on plain emails. Needs the obfuscation token and a decision on whether the address should be visible at all.
 - [ ] Whole-site review by `tester` (keyboard, zoom, 320/768/1280 widths, dark mode if present, console) and `ux-designer`; fix findings in follow-up PRs.
 - [ ] README still says the site is only previewable at the workers.dev address; it is now at smc.mediawright.uk (found during R3).
 - [ ] Update `/help` pages and `README` so a non-technical person can see where each fact lives.

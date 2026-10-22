@@ -36,7 +36,6 @@ const pageTemplate = read('templates/page.html');
 const headerTemplate = read('templates/header.html').trimEnd();
 const footerTemplate = read('templates/footer.html').trimEnd();
 const safeguardStripTemplate = read('templates/safeguard-strip.html').trimEnd();
-const safeguardingEssentialsTemplate = read('templates/safeguarding-essentials.html').trim();
 const newsletterSignupFormPartial = read('templates/newsletter-signup-form.html').trim();
 
 // Cache-busting for every same-origin stylesheet, script and icon a page
@@ -120,10 +119,6 @@ function renderPeopleTokens(html) {
     if (key === 'officers') return renderPeopleCards(OFFICERS);
     return '';
   });
-}
-
-function renderSafeguardingEssentials(html) {
-  return html.replace(/\{\{SAFEGUARDING_ESSENTIALS\}\}/g, () => safeguardingEssentialsTemplate);
 }
 
 function renderNewsletterCard({ slug, title, date, summary }) {
@@ -241,7 +236,7 @@ const searchEntries = [];
 const sitemapUrls = [];
 
 for (const page of PAGES) {
-  const content = ensureSectionIds(renderEventsToken(renderNewsletterTokens(renderPeopleTokens(renderSafeguardingEssentials(read(`src/pages/${page.slug}.html`).trimEnd())))));
+  const content = ensureSectionIds(renderEventsToken(renderNewsletterTokens(renderPeopleTokens(read(`src/pages/${page.slug}.html`).trimEnd()))));
 
   if (isIndexable(page)) {
     const resolvedForSearch = replaceTokens(content, tokens);
