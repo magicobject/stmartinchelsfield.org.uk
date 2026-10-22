@@ -137,14 +137,14 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [x] Also fixed the homepage line ("a short walk from Chelsfield and Orpington stations") so it no longer contradicts the new facts.
 
 ### R13 — Close-out
-- [ ] **Found during R1, not yet fixed:** with the real webfonts, the footer's mediawright.uk credit link pushes the page 6px wider than a 320px screen (sideways scroll). The test suite blocks Google Fonts, so it cannot see this; add a font-aware overflow check as part of the fix.
-- [ ] **Found during R7 review, not yet fixed:** the footer on every page shows the parish email (stmartin.chelsfield@btinternet.com) as plain text in the page source, against the repo rule on plain emails. Needs the obfuscation token and a decision on whether the address should be visible at all.
-- [ ] Whole-site review by `tester` (keyboard, zoom, 320/768/1280 widths, dark mode if present, console) and `ux-designer`; fix findings in follow-up PRs.
-- [ ] README still says the site is only previewable at the workers.dev address; it is now at smc.mediawright.uk (found during R3).
-- [ ] Update `/help` pages and `README` so a non-technical person can see where each fact lives.
-- [ ] Update `CLAUDE.md` ("About this build": who the people are, what is now confirmed).
-- [ ] Final production check on `smc.mediawright.uk` (console, headers, `robots.txt`).
-- [ ] Send Steve a short "what's done and what we still need" note (**drafted for Greg to send**; outward words are drafts).
+- [x] **Found during R1:** the footer's sideways scroll at 320px with real fonts came from the plain-text parish email in the footer; the footer now says "Email the parish" (a link, obfuscated), and a new every-page overflow test (`test/layout.spec.ts`) guards layout.
+- [x] **Found during R7 review:** the plain-text parish email in the footer is gone (footer and privacy policy now link without printing it; test in `test/parish-email.spec.ts`).
+- [x] Whole-site review by `tester`, `ux-designer` and `security-engineer` (PR #21). Fixed: sideways scrolling on Visit us (the fact-list layout let long items push the page wider; also the help guide and changelog), the empty Gallery (a clear "Share a photograph" button), the duplicated Ladies Group note, the long History page (a contents list and a folded rector list), robots.txt's non-ASCII dashes. Security: PASS. **Left for Greg to decide (not changed):** (1) the menu has 11 links plus two buttons and wraps to three header rows between 1101px and about 1280px; the reviewer suggests grouping items and renaming "Clergy & contacts" / "Contact", but Steve named those items; (2) the four non-portrait images on Clergy & contacts (a notebook, map, pad, calendar) and the coin look like missing photos beside real portraits: initials circles would be tidier; (3) the red safeguarding banner on every page plus the header pill is double signalling; (4) Cloudflare injects a bot-detection script that our CSP blocks on every page (a harmless console error): switching off "JavaScript Detections" in the Cloudflare dashboard is Greg's account setting, and the CSP must not be loosened.
+- [x] README updated: the site is at smc.mediawright.uk (and the workers.dev address), developed with the parish's requirements.
+- [x] The help guide now has a plain-English "Where each fact lives" section (test: `test/help-facts.spec.ts`).
+- [x] `CLAUDE.md` "About this build" updated: what is confirmed and what is not.
+- [x] Final production check on smc.mediawright.uk (headers, CSP, robots.txt, noindex, all pages, links, emails, images): PASS apart from the Cloudflare script above.
+- [ ] Send Steve a short "what is done and what we still need" note: drafted below for Greg to send (outward words are drafts, not sent).
 
 ## Extra requests (from Greg, during delivery)
 
@@ -154,3 +154,25 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 
 R0 → R1 → R12 → R3 → R2 → R4 → R5 → R6 → R7 → R8 → R9 → R10 → R11 → R13
 (small safe changes first; people and safeguarding together once Q1–Q5 are answered; R10b and the deferred items whenever the parish supplies them).
+
+## Draft note to Steve (for Greg to review and send; not sent)
+
+> Hi Steve,
+>
+> The site is at https://smc.mediawright.uk/ and has all of your list in it, apart from the parts we are waiting for. Here is where we have got to, and what we still need from you.
+>
+> **Done:** the Home link, the Safeguarding button, the Benefice line and link to St Mary's, the Safeguarding page (with the four contacts and where to get help), the policy statements page (word for word from the Word document), the History (imported from the old site), Visit us, Groups & activities (Toddler Group, Choir, Messy Church, Community Café, Churchyard Working Party), Clergy & contacts (all ten people from A Church Near You, with photos), Get in touch, a Churchyard page and a Gallery page. The site is still hidden from search engines until the PCC has approved it.
+>
+> **What we still need from you or the parish**
+> 1. The current, approved **Churchyard Regulations** (the old site linked a 1981 PDF; we have not used it).
+> 2. **Photographs** for the Gallery, and permission to use the old site's photographs.
+> 3. Confirmation that **each person listed** (especially the personal mobile number for the Tower Captain) is happy for their name, photo, email and phone number to be shown. Greg has said permission is given; we would like it on record.
+> 4. The **Ladies Group** meeting time, and whether **Choir Practice** meets on Christmas Day (we have assumed not).
+> 5. Whether the **Rectory** card should carry an email address, and which address people should use to ask for their details to be corrected or removed.
+> 6. A couple of points on the History page that we copied unchanged from the old site and would like you to check (the stained-glass artist's name "Forsythe", the date 1122 for the Textus Roffensis, and "late 1700s" for Brass Crosby's imprisonment).
+> 7. When Philippa has time: "what's happening next and soon" and more on the Donate page.
+> 8. Is "Warren-Axe" (hyphenated) right for the Parish Safeguarding Officer's surname? Your list has no hyphen; the policy document has one.
+>
+> Thank you, and well done on getting the safeguarding statement agreed.
+>
+> Greg

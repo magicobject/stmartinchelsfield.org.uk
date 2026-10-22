@@ -105,6 +105,25 @@ test.describe('History & architecture', () => {
     await expect(page.locator('main')).not.toContainText('particularly beautiful and peaceful sanctuary'); // ambiguous in the source, so left out
   });
 
+  test('has an "On this page" contents list whose every link goes to a real section', async ({ page }) => {
+    const links = page.locator('nav[aria-label="On this page"] a');
+    expect(await links.count()).toBeGreaterThanOrEqual(8);
+    for (let i = 0; i < (await links.count()); i++) {
+      const href = (await links.nth(i).getAttribute('href'))!;
+      expect(href).toMatch(/^#[a-z0-9-]+$/);
+      await expect(page.locator(href), href).toHaveCount(1);
+    }
+  });
+
+  test('the long list of rectors sits inside a closed "details" so it does not dominate the page', async ({ page }) => {
+    const details = page.locator('details.rector-details');
+    await expect(details).toHaveCount(1);
+    await expect(details.locator('summary')).toContainText('43 recorded rectors');
+    expect(await details.evaluate((el: HTMLDetailsElement) => el.open)).toBe(false);
+    await details.locator('summary').click();
+    await expect(details.locator('ul.rector-list li').first()).toBeVisible();
+  });
+
   test('headings never skip a level', async ({ page }) => {
     const levels = await page.$$eval('main h1, main h2, main h3, main h4', (els) => els.map((e) => Number(e.tagName[1])));
     for (let i = 1; i < levels.length; i++) expect(levels[i] - levels[i - 1], `heading ${i}`).toBeLessThanOrEqual(1);
