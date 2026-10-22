@@ -69,10 +69,10 @@ link beside it. Requirement numbers are Steve's own, so the two documents can be
 - [x] Implement in `pages.config.mjs` (`NAV`) and `templates/header.html`; pill styling with computed contrast.
 - [x] `ux-designer` review (the header now carries more): fixed the tall four-row phone header and the faint focus ring; noted a wide-desktop layout nicety (search and pills sit on a lower row than the brand) for later.
 
-### R2 — Benefice line and link (items 2, 26)
-- [ ] Tests: the homepage shows "Part of the Benefice of Chelsfield with Green St Green and Pratts Bottom" below the title and above the button row; a link to `https://www.smasch.org` (opens safely, `rel=noopener`) is present; no mention of All Souls or St Mary's details imported from A Church Near You.
-- [ ] Implement on the homepage; add the Benefice sentence and link to History and the footer.
-- [ ] Also update `pages.config.mjs` structured data if appropriate (no invented facts).
+### R2 — Benefice line and link (items 2, 26) — done (PR #10)
+- [x] Tests: the homepage shows "Part of the Benefice of Chelsfield with Green St Green and Pratts Bottom" below the title and above the button row; a link to `https://www.smasch.org` (opens safely, `rel=noopener`) is present; no mention of All Souls or St Mary's details imported from A Church Near You.
+- [x] Implement on the homepage; add the Benefice sentence and link to History and the footer.
+- [x] Structured data left alone (nothing to add without inventing facts). The link to smasch.org is in the footer of every page and in a new "Our Benefice" section on History; the hero line is plain text.
 
 ### R3 — "Brass Crosby Room", singular, everywhere (item 8) — done (PR #9)
 - [x] Tests: a site-wide check that the string "Brass Crosby Rooms" never appears on any page, in the search index, or in structured data (fails first on the current site).
