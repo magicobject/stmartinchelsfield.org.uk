@@ -16,9 +16,10 @@ import { GALLERY_PHOTOS } from '../src/gallery.config.mjs';
 import { renderGallery } from './render-gallery.mjs';
 import { SPECIAL_NOTICES } from '../src/special-notices.config.mjs';
 import { renderSpecialNotices } from './render-special-notices.mjs';
+import { jsonForScript } from './json-for-script.mjs';
 import { SPOTLIGHT } from '../src/spotlight.config.mjs';
 import { renderSpotlight } from './render-spotlight.mjs';
-import { ONE_OFF_EVENTS, expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
+import { expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
 import { ensureSectionIds, extractSearchEntries, isSearchablePage, isIndexable, isHelpPage } from './build-search-index.mjs';
 import { splitNewsletterIssues, formatIssueMonth } from './newsletter-issues.mjs';
 
@@ -177,7 +178,7 @@ function renderSpotlightToken(html) {
 
 function renderEventsToken(html) {
   return html.replace(/\{\{EVENTS_NOSCRIPT\}\}/g, () =>
-    ONE_OFF_EVENTS.map((e) => {
+    expandEvents().filter((e) => !e.weekly).map((e) => {
       const suffix = e.location ? ` — ${escapeHtml(e.location)}` : '';
       return `          <li>${formatEventDate(e.date)}, ${formatTime12h(e.time)} — ${escapeHtml(e.title)}${suffix}</li>`;
     }).join('\n'));
@@ -305,7 +306,7 @@ for (const page of PAGES) {
   extraHead += `<meta name="twitter:description" content="${page.description}">\n`;
   extraHead += `<meta name="twitter:image" content="${pageImage}">\n`;
   const structuredData = structuredDataFor(page, pageUrl);
-  if (structuredData) extraHead += `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>\n`;
+  if (structuredData) extraHead += `<script type="application/ld+json">${jsonForScript(structuredData)}</script>\n`;
 
   const header = page.header
     ? replaceTokens(headerTemplate.replace('{{NAV_ITEMS}}', renderNavItems(NAV, page.active)), tokens)

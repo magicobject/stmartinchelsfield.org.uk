@@ -37,3 +37,6 @@ blob-report/
 # Zip bundles / backups you might drop in this folder while working
 *.zip
 *.bak
+
+# Parish calendar IDs for the importer: the repo is public and the calendars hold private bookings
+.calendar-sources.local.json

@@ -45,11 +45,11 @@ describe('placeFor', () => {
 describe('expandEvents', () => {
   test('a recurring series expands to one occurrence per matching weekday between from and until, inclusive', () => {
     const events = expandEvents().filter((e) => e.title === 'Bell Ringing Practice');
-    // Mondays (ISO weekday 1), 2026-09-01 to 2026-12-31, no exceptions.
+    // Mondays (ISO weekday 1), across the imported range (2026-09-01 to 2027-06-30).
     assert.ok(events.length > 0);
     for (const e of events) {
       assert.equal(new Date(`${e.date}T00:00:00`).getDay(), 1); // Monday
-      assert.ok(e.date >= '2026-09-01' && e.date <= '2026-12-31');
+      assert.ok(e.date >= '2026-09-01' && e.date <= '2027-06-30');
     }
   });
 

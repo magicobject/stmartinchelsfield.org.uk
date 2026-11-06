@@ -4,123 +4,32 @@
 // noscript fallback list on calendar.html ({{EVENTS_NOSCRIPT}}), and the
 // Event structured data on calendar.html.
 //
-// SOURCE: scraped 2026-09-11 from the parish's own combined Google Calendar
-// (church + Well Hill Mission + Parish Events), linked from
-// https://chelsfieldstmartintemp.wordpress.com/2024/11/16/for-more-information/
-// — this is the parish's own real, current calendar, not a third-party
-// directory guess. Covers 2026-09-01 to 2026-12-31 only, per what was asked;
-// re-scrape (or ask the parish) to extend past that. Two honest gaps, left
-// as gaps rather than invented: no service is listed for Sunday 29 November
-// 2026 (a 5th Sunday — the calendar simply has nothing that day), and no
-// Christmas Eve/Day services were on the calendar yet as of the scrape date
-// (they're usually added closer to the time — check back nearer December).
-// Event titles are lightly cleaned up from the source calendar's own
-// inconsistent capitalisation/punctuation ("Church:Ringing Practice." etc.)
-// — same wording and times, just tidied.
-
+// SOURCE: the parish's own public Google Calendars, imported by
+// `npm run import:calendar` into src/events.imported.mjs (rules, and what is never
+// published: src/calendar-import.config.mjs). To change the calendar, change the
+// Google Calendar and run the import; do not hand-edit events.imported.mjs.
+// MANUAL_EVENTS below is only for something that is genuinely not on the Google
+// Calendar. Before 6 Nov 2026 this file held a hand-scraped copy (September to
+// December 2026); it is in git history.
 import { classifyEvent } from './event-kinds.mjs';
 
-// Special services, concerts and one-off events, plus the Sunday/Well Hill
-// services below (titles rotate week to week — see services.html — so they
-// don't fit RECURRING_SERIES' one-fixed-title-per-weekday model). Recurring
-// weekly things with one unchanging title go in RECURRING_SERIES instead.
-export const ONE_OFF_EVENTS = [
-  // -- September 2026 --
-  { date: '2026-09-06', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-09-06', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-09-05', time: '09:00', title: 'Churchyard Working Party', location: 'St Martin of Tours' },
-  { date: '2026-09-12', time: '11:30', title: 'Visiting Ringers', location: 'St Martin of Tours' },
-  { date: '2026-09-13', time: '09:30', title: 'Family Worship', location: 'St Martin of Tours' },
-  { date: '2026-09-13', time: '11:00', title: 'Well Hill: Morning Prayer', location: 'Well Hill Mission' },
-  { date: '2026-09-13', time: '18:30', title: 'Sung Eucharist (BCP)', location: 'St Martin of Tours' },
-  { date: '2026-09-16', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-09-19', time: '10:00', title: 'Repair Cafe', location: "St Mary's" },
-  { date: '2026-09-19', time: '10:00', title: "Autumn Walk from St Martin's Church", location: 'St Martin of Tours' },
-  { date: '2026-09-20', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-09-20', time: '17:00', title: 'Bells Quarter Peal', location: 'St Martin of Tours' },
-  { date: '2026-09-20', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-09-24', time: '10:00', title: 'Local History Group', location: 'Chelsfield Village Hall' },
-  { date: '2026-09-27', time: '09:30', title: 'Morning Worship', location: 'St Martin of Tours' },
-  { date: '2026-09-27', time: '11:00', title: 'Well Hill: Holy Communion', location: 'Well Hill Mission' },
-  { date: '2026-09-27', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
+import { IMPORTED_EVENTS } from './events.imported.mjs';
 
-  // -- October 2026 --
-  { date: '2026-10-03', time: '09:00', title: 'Churchyard Working Party', location: 'St Martin of Tours' },
-  { date: '2026-10-04', time: '10:30', title: 'Holy Communion (Harvest Festival)', location: 'St Martin of Tours' },
-  { date: '2026-10-04', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-10-07', time: '19:00', title: 'Taizé Service of Prayers and Readings', location: 'St Martin of Tours' },
-  { date: '2026-10-07', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-10-11', time: '09:30', title: 'Family Worship', location: 'St Martin of Tours' },
-  { date: '2026-10-11', time: '11:00', title: 'Well Hill: Morning Prayer', location: 'Well Hill Mission' },
-  { date: '2026-10-11', time: '18:30', title: 'Sung Eucharist (BCP)', location: 'St Martin of Tours' },
-  { date: '2026-10-17', time: '10:00', title: 'Repair Cafe', location: "St Mary's" },
-  { date: '2026-10-17', time: '16:00', title: 'Messy Church (Benefice Event)', location: "St Mary's" },
-  { date: '2026-10-18', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-10-18', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-10-21', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-10-24', time: '19:00', title: "Annual St Martin's Quiz Night", location: 'Chelsfield Village Hall' },
-  { date: '2026-10-25', time: '09:30', title: 'Morning Worship', location: 'St Martin of Tours' },
-  { date: '2026-10-25', time: '11:00', title: 'Well Hill: Holy Communion', location: 'Well Hill Mission' },
-  { date: '2026-10-25', time: '16:00', title: 'Thanksgiving and Memorial Service', location: 'St Martin of Tours' },
-  { date: '2026-10-29', time: '10:00', title: 'Local History Group', location: 'Chelsfield Village Hall' },
+// Dated entries that are not on the Google Calendar (rare). Same shape as the imported ones:
+// { date: 'YYYY-MM-DD', time: 'HH:MM', title, location }. Optional `kind` / `special` set the
+// tags by hand (see src/event-kinds.mjs).
+export const MANUAL_EVENTS = [];
 
-  // -- November 2026 --
-  { date: '2026-11-01', time: '09:30', title: "Holy Communion (All Saints' Day)", location: 'St Martin of Tours' },
-  { date: '2026-11-01', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-11-04', time: '19:00', title: 'Taizé Service of Prayers and Readings', location: 'St Martin of Tours' },
-  { date: '2026-11-04', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-11-07', time: '09:00', title: 'Churchyard Working Party', location: 'St Martin of Tours' },
-  { date: '2026-11-08', time: '09:30', title: 'Family Worship', location: 'St Martin of Tours' },
-  { date: '2026-11-08', time: '11:00', title: 'Well Hill: Morning Prayer', location: 'Well Hill Mission' },
-  { date: '2026-11-08', time: '18:30', title: 'Sung Eucharist (BCP)', location: 'St Martin of Tours' },
-  { date: '2026-11-15', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-11-15', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-11-18', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-11-21', time: '10:00', title: 'Repair Cafe', location: "St Mary's" },
-  { date: '2026-11-21', time: '16:00', title: 'Messy Church (Benefice Event)', location: "St Mary's" },
-  { date: '2026-11-22', time: '09:30', title: 'Morning Worship', location: 'St Martin of Tours' },
-  { date: '2026-11-22', time: '11:00', title: 'Well Hill: Holy Communion', location: 'Well Hill Mission' },
-  { date: '2026-11-22', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-11-26', time: '10:00', title: 'Local History Group', location: 'Chelsfield Village Hall' },
-  // Sunday 29 November: no service listed on the parish calendar — see the
-  // file-level note above. Not an oversight; don't fill it in with a guess.
+export const ONE_OFF_EVENTS = [...IMPORTED_EVENTS, ...MANUAL_EVENTS];
 
-  // -- December 2026 --
-  { date: '2026-12-02', time: '19:00', title: 'Taizé Service of Prayers and Readings', location: 'St Martin of Tours' },
-  { date: '2026-12-02', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-12-05', time: '09:00', title: 'Churchyard Working Party', location: 'St Martin of Tours' },
-  { date: '2026-12-06', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-12-06', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-12-09', time: '14:00', title: 'Chelsfield Evening WI Christmas Service', location: 'St Martin of Tours' },
-  { date: '2026-12-13', time: '09:30', title: 'Family Worship', location: 'St Martin of Tours' },
-  { date: '2026-12-13', time: '11:00', title: 'Well Hill: Morning Prayer', location: 'Well Hill Mission' },
-  { date: '2026-12-13', time: '18:30', title: 'Sung Eucharist (BCP)', location: 'St Martin of Tours' },
-  { date: '2026-12-16', time: '14:30', title: 'Chelsfield Community Cafe', location: 'Chelsfield Village Hall' },
-  { date: '2026-12-17', time: '19:00', title: 'Village School Christmas Service', location: 'St Martin of Tours' },
-  { date: '2026-12-19', time: '10:00', title: 'Repair Cafe', location: "St Mary's" },
-  { date: '2026-12-19', time: '16:00', title: 'Messy Church (Benefice Event)', location: "St Mary's" },
-  { date: '2026-12-20', time: '09:30', title: 'Holy Communion', location: 'St Martin of Tours' },
-  { date: '2026-12-20', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-12-27', time: '09:30', title: 'Morning Worship', location: 'St Martin of Tours' },
-  { date: '2026-12-27', time: '11:00', title: 'Well Hill: Holy Communion', location: 'Well Hill Mission' },
-  { date: '2026-12-27', time: '18:30', title: 'Choral Evensong', location: 'St Martin of Tours' },
-  { date: '2026-12-31', time: '10:00', title: 'Local History Group', location: 'Chelsfield Village Hall' },
-  // No Christmas Eve/Day services were listed as of the scrape date — see
-  // the file-level note above.
-];
-
-// The three weekly fixtures that really do keep one unchanging title —
-// confirmed against the calendar's own recurrence rule, not the visible
-// occurrences alone: Ringing Practice and Holy Communion (BCP) recur with no
-// end date. Choir Practice's source recurrence stopped after 13 November
-// 2026, but the parish (Steve McCann, Oct 2026) says that date is a calendar
-// error, so it now runs to the end of the range we cover; Christmas Day is
-// skipped via `except` (to be confirmed with the parish). To skip a one-off
-// date, add it to `except`.
+// The importer expands repeating events from the Google Calendar's own repeat rules. This
+// engine is for hand-made weekly entries, and there is one: Choir Practice. The Google
+// Calendar stops it after 19 November 2026, which the parish (Steve McCann, Oct 2026) says is
+// an error, so it carries on to the end of 2026, skipping Christmas Day (to be confirmed with
+// the parish). The import supplies the practices up to 13 November. Once the parish extends
+// the repeat on the Google Calendar, delete this entry (duplicates are removed either way).
 export const RECURRING_SERIES = [
-  { title: 'Bell Ringing Practice', location: 'St Martin of Tours', weekday: 1, time: '19:45', from: '2026-09-01', until: '2026-12-31' },
-  { title: 'Holy Communion (BCP)', location: 'St Martin of Tours', weekday: 3, time: '09:30', from: '2026-09-01', until: '2026-12-31' },
-  { title: 'Choir Practice', location: 'St Martin of Tours', weekday: 5, time: '20:00', from: '2026-09-01', until: '2026-12-31', except: ['2026-12-25'] },
+  { title: 'Choir Practice', location: 'St Martin of Tours', weekday: 5, time: '20:00', from: '2026-11-20', until: '2026-12-31', except: ['2026-12-25'] },
 ];
 
 const CHURCH_LOCALITY = { addressLocality: 'Chelsfield', addressRegion: 'Kent', addressCountry: 'GB' };
@@ -154,7 +63,7 @@ function expandSeries(series) {
   while (d <= until) {
     const ds = dateStr(d);
     if (!except.includes(ds)) {
-      out.push({ date: ds, time: series.time, title: series.title, location: series.location });
+      out.push({ date: ds, time: series.time, title: series.title, location: series.location, weekly: true });
     }
     d.setDate(d.getDate() + 7);
   }
@@ -163,7 +72,13 @@ function expandSeries(series) {
 
 export function expandEvents() {
   const recurring = RECURRING_SERIES.flatMap(expandSeries);
-  return [...ONE_OFF_EVENTS, ...recurring].map((ev) => ({ ...ev, ...classifyEvent(ev) })).sort((a, b) =>
+  const seen = new Set();
+  return [...ONE_OFF_EVENTS, ...recurring].filter((ev) => {
+    const key = `${ev.date}|${ev.time}|${ev.title}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).map((ev) => ({ ...ev, ...classifyEvent(ev) })).sort((a, b) =>
     a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date));
 }
 
