@@ -99,3 +99,44 @@ test.describe('the calendar agrees with what the cards say', () => {
     }
   });
 });
+
+// Greg's request (6 Nov 2026): Groups & activities also lists upcoming one-off events from the calendar.
+test.describe('Groups & activities: one-off events', () => {
+  test('lists the next one-off events, with the date, time and place, in date order', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-09-01T10:00:00'));
+    await page.goto('/get-involved.html');
+    const section = page.locator('section', { has: page.getByRole('heading', { level: 2, name: 'One-off events' }) });
+    const items = section.locator('li');
+    await expect(items).toHaveCount(2);
+    await expect(items.nth(0)).toContainText('Sat 19 Sep, 10am');
+    await expect(items.nth(0)).toContainText("Autumn Walk from St Martin's Church");
+    await expect(items.nth(1)).toContainText('Sat 24 Oct, 7pm');
+    await expect(items.nth(1)).toContainText("Annual St Martin's Quiz Night");
+    await expect(items.nth(1)).toContainText('Chelsfield Village Hall');
+  });
+
+  test('services and regular groups are not listed as one-off events', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-09-01T10:00:00'));
+    await page.goto('/get-involved.html');
+    const section = page.locator('section', { has: page.getByRole('heading', { level: 2, name: 'One-off events' }) });
+    await expect(section).not.toContainText('Holy Communion');
+    await expect(section).not.toContainText('Repair Cafe');
+  });
+
+  test('an event that has already happened is not listed', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-10-01T10:00:00'));
+    await page.goto('/get-involved.html');
+    const section = page.locator('section', { has: page.getByRole('heading', { level: 2, name: 'One-off events' }) });
+    await expect(section.locator('li')).toHaveCount(1);
+    await expect(section).not.toContainText('Autumn Walk');
+  });
+
+  test('with none upcoming the page says so and points to the calendar', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2027-02-01T10:00:00'));
+    await page.goto('/get-involved.html');
+    const section = page.locator('section', { has: page.getByRole('heading', { level: 2, name: 'One-off events' }) });
+    await expect(section.locator('li')).toHaveCount(1);
+    await expect(section.locator('li')).toContainText('No one-off events are booked at the moment');
+    await expect(section.locator('li a')).toHaveAttribute('href', 'calendar.html');
+  });
+});
