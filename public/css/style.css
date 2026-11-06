@@ -536,7 +536,12 @@ footer.site .fine a:hover { color: #fff; }
 .spotlight h2 { color: var(--rose-dark); margin-bottom: 0.3em; }
 .spotlight p:last-child { margin-bottom: 0; }
 .spotlight a { color: var(--rose-dark); font-weight: 700; text-decoration: underline; }
-.whats-next .card .wn-when { color: var(--ink-soft); font-weight: 600; }
+.whats-next .card .wn-when { color: var(--ink-soft); font-weight: 600; margin-bottom: 2px; }
+.whats-next .card .wn-where { color: var(--ink-soft); margin-bottom: 0; }
+/* The links are the cards' actions: at least 44px tall (WCAG 2.5.5), as on the safeguarding cards. */
+.whats-next .card .wn-link a { display: inline-flex; align-items: center; min-height: 44px; }
+/* On a phone the photo would push the cards a full screen down; the Service times and Find us buttons stay. */
+@media (max-width: 600px) { .hero-photo { display: none; } }
 
 /* ---------- Special services box (services.html) ---------- */
 .special-notices .card { border-top-color: var(--rose); }

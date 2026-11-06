@@ -46,12 +46,30 @@
     return kind === 'special' ? ev.special === true : ev.kind === kind;
   }
 
-  cards.forEach(function (card) {
-    var kind = card.getAttribute('data-kind');
-    var ev = upcoming.find(function (e) { return matches(kind, e); });
+  function sameEvent(a, b) {
+    return a && b && a.date === b.date && a.time === b.time && a.title === b.title;
+  }
+
+  // The church is the default venue, so it is only named for events held elsewhere.
+  function venue(ev) {
+    return ev.location && !/martin of tours/i.test(ev.location) ? ev.location : '';
+  }
+
+  // Service first, so that a special service (Harvest, Christmas, ...) is not shown twice:
+  // the special card then moves on to the next special event that is a different one.
+  var shown = {};
+  ['service', 'group', 'special'].forEach(function (kind) {
+    var card = document.querySelector('[data-whats-next] [data-kind="' + kind + '"]');
+    if (!card) return;
+    var ev = upcoming.find(function (e) { return matches(kind, e) && !sameEvent(e, shown.service); });
     if (!ev) return;
+    shown[kind] = ev;
     card.querySelector('.wn-title').textContent = ev.title;
-    var when = card.querySelector('.wn-when');
-    when.textContent = whenText(ev) + (ev.location ? ' · ' + ev.location : '');
+    card.querySelector('.wn-when').textContent = whenText(ev);
+    var where = card.querySelector('.wn-where');
+    if (where) {
+      where.textContent = venue(ev);
+      where.hidden = !where.textContent;
+    }
   });
 })();
