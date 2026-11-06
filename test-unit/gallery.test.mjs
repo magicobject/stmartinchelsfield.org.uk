@@ -39,6 +39,24 @@ describe('renderGallery', () => {
     assert.ok(html.includes('First') && html.includes('Photo: A. Photographer') && html.includes('Second'));
   });
 
+  test('groups landscape photos together and portrait photos together, keeping the given order in each', () => {
+    const html = renderGallery([
+      { ...photo, file: 'tall1.jpg', width: 600, height: 1200 },
+      { ...photo, file: 'wide1.jpg' },
+      { ...photo, file: 'tall2.jpg', width: 600, height: 1200 },
+      { ...photo, file: 'wide2.jpg' },
+    ]);
+    const wide = html.indexOf('gallery-row--wide');
+    const tall = html.indexOf('gallery-row--tall');
+    assert.ok(wide !== -1 && wide < tall);
+    assert.ok(wide < html.indexOf('wide1.jpg') && html.indexOf('wide1.jpg') < html.indexOf('wide2.jpg') && html.indexOf('wide2.jpg') < tall);
+    assert.ok(tall < html.indexOf('tall1.jpg') && html.indexOf('tall1.jpg') < html.indexOf('tall2.jpg'));
+  });
+
+  test('a gallery of only one shape has just one group', () => {
+    assert.ok(!renderGallery([photo]).includes('gallery-row--tall'));
+  });
+
   test('escapes text so a quote or angle bracket in alt, caption or credit cannot break the markup', () => {
     const html = renderGallery([{ ...photo, alt: 'A "quoted" <b>name</b>', caption: '<script>x</script>', credit: 'M&S' }]);
     assert.ok(!html.includes('<script>'));

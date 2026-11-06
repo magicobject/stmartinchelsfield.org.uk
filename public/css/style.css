@@ -365,8 +365,17 @@ section h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 /* People cards: a round 96px photo (square-cropped from portraits of any shape). */
 /* Gallery: responsive grid of photos (the page shows a plain message while there are none). */
 .gallery-empty { max-width: 60ch; font-size: 1.1rem; color: var(--ink-soft); }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-.gallery-item { margin: 0; }
+.gallery-grid { display: flex; flex-direction: column; gap: 32px; }
+/* Justified rows: each photo's width is proportional to its shape (--ratio, set per figure), so
+   every photo in a row comes out the same height. The empty ::after keeps a short last row from
+   stretching its photos to fill the width. */
+.gallery-row { display: flex; flex-wrap: wrap; gap: 20px; }
+.gallery-row::after { content: ''; flex-grow: 1000; }
+.gallery-row--wide .gallery-item { flex: calc(var(--ratio) * 100) 1 calc(var(--ratio) * 240px); }
+.gallery-row--tall .gallery-item { flex: calc(var(--ratio) * 100) 1 calc(var(--ratio) * 340px); }
+/* The first landscape photo is a full-width banner; the rest sit in rows below it. */
+.gallery-row--wide .gallery-item:first-child { flex-basis: 100%; }
+.gallery-item { margin: 0; min-width: 0; }
 .gallery-item img { display: block; width: 100%; height: auto; border-radius: var(--radius-sm); }
 .gallery-item figcaption { margin-top: 8px; font-size: 0.9rem; color: var(--ink-soft); }
 /* History page: contents list, and the rector list folded inside a details element. */
