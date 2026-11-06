@@ -16,16 +16,16 @@
 // going to index.html, because visitors look for the word, not just a logo.
 export const NAV = [
   { href: 'index.html', label: 'Home' },
-  { href: 'about.html', label: 'History' },
-  { href: 'churchyard.html', label: 'Churchyard' },
-  { href: 'gallery.html', label: 'Gallery' },
-  { href: 'visit-us.html', label: 'Visit Us' },
+  { href: 'people.html', label: 'Clergy &amp; Contacts' },
   { href: 'services.html', label: 'Services' },
   { href: 'calendar.html', label: 'Calendar' },
   { href: 'get-involved.html', label: 'Groups &amp; Activities' },
   { href: 'newsletter.html', label: 'Newsletter' },
-  { href: 'people.html', label: 'Clergy &amp; Contacts' },
+  { href: 'visit-us.html', label: 'Visit Us' },
   { href: 'contact.html', label: 'Contact' },
+  { href: 'churchyard.html', label: 'Churchyard' },
+  { href: 'about.html', label: 'History' },
+  { href: 'gallery.html', label: 'Gallery' },
 ];
 
 // The footer's shorter "Explore" list — deliberately a different set than
