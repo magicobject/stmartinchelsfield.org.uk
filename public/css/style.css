@@ -531,6 +531,9 @@ footer.site .fine a:hover { color: #fff; }
   color: var(--rose-dark);
 }
 
+/* ---------- Special services box (services.html) ---------- */
+.special-notices .card { border-top-color: var(--rose); }
+
 /* ---------- Noticeboard ---------- */
 #noticeboard .card { border-top-color: var(--sage); }
 .archive-empty { color: var(--ink-soft); }

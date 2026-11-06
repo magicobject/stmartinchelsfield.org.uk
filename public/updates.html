@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=9ef8f27a30">
+<link rel="stylesheet" href="/css/style.css?v=9ba755c4fe">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -95,12 +95,20 @@
   <div class="wrap">
     <h1 id="site-updates">Site updates</h1>
     <p class="lede">Internal build changelog — not linked from anywhere on the site.</p>
-    <p class="build-number">Current build: 2026.11.06.003</p>
+    <p class="build-number">Current build: 2026.11.06.004</p>
   </div>
 </div>
 
 <section>
   <div class="wrap" style="max-width:74ch;">
+    <div class="changelog-entry">
+      <div class="changelog-meta">
+        <span class="changelog-build">Build 2026.11.06.004</span>
+        <span class="changelog-author">Greg Wright</span>
+        <span class="changelog-date">6 November 2026</span>
+      </div>
+      <p>New "Special services coming up" box at the top of <a href="services.html">Services</a>, for one-off services. Entries live in <code>src/special-notices.config.mjs</code> and hide themselves the day after their date, with no rebuild; the box disappears when none are left. First two entries: Remembrance Sunday (morning) and Patronal Festival Holy Communion (evening), Sunday 8 November. (Build 003 was a test-only fix with no entry of its own.)</p>
+    </div>
     <div class="changelog-entry">
       <div class="changelog-meta">
         <span class="changelog-build">Build 2026.11.06.002</span>
@@ -453,7 +461,7 @@
   </div>
 </footer>
 
-<script src="/js/main.js?v=f97a5cbb20" defer></script>
+<script src="/js/main.js?v=0b2c080df5" defer></script>
 <script src="/js/search-match.js?v=ede5527510" defer></script>
 <script src="/js/search-ui.js?v=002d73d6ca" defer></script>
 </body>

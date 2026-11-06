@@ -14,6 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (today >= expires) { card.style.display = 'none'; }
   });
 
+  // Services page "Special services coming up": same data-expires rule; when
+  // nothing is left showing, the whole box goes.
+  document.querySelectorAll('.special-notices').forEach(function (box) {
+    var anyShowing = false;
+    box.querySelectorAll('[data-expires]').forEach(function (card) {
+      var expires = new Date(card.dataset.expires + 'T00:00:00');
+      if (today >= expires) { card.style.display = 'none'; } else { anyShowing = true; }
+    });
+    if (!anyShowing) { box.style.display = 'none'; }
+  });
+
   var archiveSection = document.getElementById('archive');
   if (archiveSection) {
     var anyRevealed = false;

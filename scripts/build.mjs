@@ -14,6 +14,8 @@ import { CLERGY, OFFICERS } from '../src/people.config.mjs';
 import { NEWSLETTER_ISSUES } from '../src/newsletter.config.mjs';
 import { GALLERY_PHOTOS } from '../src/gallery.config.mjs';
 import { renderGallery } from './render-gallery.mjs';
+import { SPECIAL_NOTICES } from '../src/special-notices.config.mjs';
+import { renderSpecialNotices } from './render-special-notices.mjs';
 import { ONE_OFF_EVENTS, expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
 import { ensureSectionIds, extractSearchEntries, isSearchablePage, isIndexable, isHelpPage } from './build-search-index.mjs';
 import { splitNewsletterIssues, formatIssueMonth } from './newsletter-issues.mjs';
@@ -161,6 +163,11 @@ function renderNewsletterTokens(html) {
   });
 }
 
+// {{SPECIAL_NOTICES}} -> the Services page's box from src/special-notices.config.mjs.
+function renderSpecialNoticesToken(html) {
+  return html.replace(/\{\{SPECIAL_NOTICES\}\}/g, () => renderSpecialNotices(SPECIAL_NOTICES));
+}
+
 function renderEventsToken(html) {
   return html.replace(/\{\{EVENTS_NOSCRIPT\}\}/g, () =>
     ONE_OFF_EVENTS.map((e) => {
@@ -251,7 +258,7 @@ const searchEntries = [];
 const sitemapUrls = [];
 
 for (const page of PAGES) {
-  const content = ensureSectionIds(renderEventsToken(renderNewsletterTokens(renderGalleryToken(renderPeopleTokens(read(`src/pages/${page.slug}.html`).trimEnd())))));
+  const content = ensureSectionIds(renderSpecialNoticesToken(renderEventsToken(renderNewsletterTokens(renderGalleryToken(renderPeopleTokens(read(`src/pages/${page.slug}.html`).trimEnd()))))));
 
   if (isIndexable(page)) {
     const resolvedForSearch = replaceTokens(content, tokens);

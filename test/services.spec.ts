@@ -30,3 +30,31 @@ test.describe('Services page', () => {
     expect(unlinked).toHaveLength(0);
   });
 });
+
+// Greg's request (6 Nov 2026): a "Special services coming up" box for one-off services, driven by
+// src/special-notices.config.mjs, hiding itself once the date has passed (no rebuild).
+test.describe('Services page: special services box', () => {
+  test('shows the Remembrance Sunday and Patronal Festival entries before 9 November 2026', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-06T10:00:00'));
+    await page.goto('/services.html');
+    const box = page.locator('.special-notices');
+    await expect(box).toBeVisible();
+    await expect(box.getByRole('heading', { level: 2, name: 'Special services coming up' })).toBeVisible();
+    await expect(box.getByRole('heading', { level: 3, name: 'Remembrance Sunday' })).toBeVisible();
+    await expect(box.getByRole('heading', { level: 3, name: 'Patronal Festival Holy Communion' })).toBeVisible();
+    await expect(box).toContainText('Sunday 8 November, morning');
+    await expect(box).toContainText('Sunday 8 November, evening');
+  });
+
+  test('is still there on the day itself', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-08T07:00:00'));
+    await page.goto('/services.html');
+    await expect(page.locator('.special-notices')).toBeVisible();
+  });
+
+  test('disappears entirely once every entry has passed', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-09T09:00:00'));
+    await page.goto('/services.html');
+    await expect(page.locator('.special-notices')).toBeHidden();
+  });
+});
