@@ -9,7 +9,7 @@ import { ALL_PAGES } from './support/pages';
 // clean images, a removal route, a fraud warning).
 const PEOPLE = [
   { name: 'Revd Susan Atkinson-Jones', role: 'Rector of the Benefice', email: 'revsusan@smasch.org', tel: 'tel:+441689857763' },
-  { name: 'Revd Martin Hayward', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org' },
+  { name: 'Revd Martin Hayward', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org', tel: 'tel:+441689825749' },
   { name: 'Steve McCann', role: 'Churchwarden', email: 'churchwardens@stmartinchelsfield.org.uk' },
   { name: 'Suzanne Diamond', role: 'Benefice Administrator', email: 'office@smasch.org', tel: 'tel:+441689852905' },
   { name: 'Margaret Warren-Axe', role: 'Parish Safeguarding Officer', email: 'safeguarding@stmartinchelsfield.org.uk' },
@@ -53,8 +53,8 @@ test.describe('Clergy & contacts page', () => {
     }
   });
 
-  test('exactly the three published phone numbers are shown, as tap-to-call links', async ({ page }) => {
-    await expect(page.locator('main a[href^="tel:"]')).toHaveCount(3);
+  test('exactly the four published phone numbers are shown, as tap-to-call links', async ({ page }) => {
+    await expect(page.locator('main a[href^="tel:"]')).toHaveCount(4);
     const cards = page.locator('main .card');
     for (let i = 0; i < PEOPLE.length; i++) {
       const own = cards.nth(i).locator('a[href^="tel:"]');
