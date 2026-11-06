@@ -11,6 +11,14 @@
   <div class="wrap" style="max-width:74ch;">
     <div class="changelog-entry">
       <div class="changelog-meta">
+        <span class="changelog-build">Build 2026.11.06.005</span>
+        <span class="changelog-author">Greg Wright</span>
+        <span class="changelog-date">6 November 2026</span>
+      </div>
+      <p>The <a href="index.html">homepage</a> now opens with three "Coming up" cards under the banner &mdash; Next service, Next group activity, Next special event &mdash; each filled in from the <a href="calendar.html">calendar</a> and ending "More information&hellip;". They replace the old three "At a glance" boxes. Every calendar event is now tagged (service, group, practice or other, and special or not) by <code>src/event-kinds.mjs</code>; ringing and choir rehearsals are kept out of the group card. There is also an optional "spotlight" band above the cards for campaigns or urgent notices (<code>src/spotlight.config.mjs</code>; empty for now), which shows between its from and expiry dates. Also fixed: the first build after a calendar change left stale <code>?v=</code> hashes on the pages that load the calendar data.</p>
+    </div>
+    <div class="changelog-entry">
+      <div class="changelog-meta">
         <span class="changelog-build">Build 2026.11.06.004</span>
         <span class="changelog-author">Greg Wright</span>
         <span class="changelog-date">6 November 2026</span>
