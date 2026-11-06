@@ -37,11 +37,14 @@ test.describe('Churchyard page', () => {
     await expect(care.locator('a[href="get-involved.html"]')).toHaveCount(1);
   });
 
-  test('is honest that the official Churchyard Regulations are still to be added, and links no unapproved document', async ({ page }) => {
+  test('links the Diocese of Rochester Churchyard Regulations PDF supplied by the parish', async ({ page }) => {
     const regs = section(page, 'Churchyard regulations');
-    await expect(regs).toContainText('are being added to this page');
+    const pdf = regs.locator('a[href$="churchyard-regulations-1981.pdf"]');
+    await expect(pdf).toHaveCount(1);
+    await expect(pdf).toHaveAttribute('href', 'https://d3hgrlq6yacptf.cloudfront.net/6154babbee922/content/pages/documents/churchyard-regulations-1981.pdf');
+    await expect(pdf).toHaveAttribute('rel', /noopener/);
     await expect(regs.locator('a[href^="mailto:churchwardens@"]')).toHaveCount(1);
-    await expect(page.locator('main a[href$=".pdf"]')).toHaveCount(0);
+    await expect(page.locator('main a[href$=".pdf"]')).toHaveCount(1);
   });
 
   test('no email address is shown as text', async ({ page }) => {
