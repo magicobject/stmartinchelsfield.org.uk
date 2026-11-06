@@ -25,8 +25,39 @@ export const SOURCE_RULES = {
   'Well Hill': { location: 'Well Hill Mission' },
 };
 
-// Titles that are never published: private occasions, bookings and internal housekeeping.
-export const DENY_TITLE = /funeral|burial|wedding|baptism|christening|private|booking|rehears|unavailable|testing|preparation|preparing for|in use for|electrical|contractor/i;
+// A title is published only if, once tidied, it is on this list or is the tidy spelling of a
+// CANONICAL_TITLES entry below. Anything else is held back and reported when you run the
+// import ("not yet approved"): if it is genuinely public, add its tidy title here. This is
+// the main privacy protection, because a funeral can be written in endless ways ("Interment",
+// "Thanksgiving for the life of ...", "Requiem") and no block list catches them all.
+export const ALLOWED_TITLES = [
+  'Bell Ringing in connection with District Meeting',
+  'Benefice Holy Communion',
+  'Chelsfield Evening WI Christmas Service',
+  'Chelsfield Players ‘Christmas Carol’',
+  'Choral Evensong with Advent Carols',
+  'Christingle Service',
+  'Christmas Holy Communion',
+  'Family Worship',
+  'Holy Communion Benefice Service',
+  'Holy Communion Service with giving of gifts',
+  'Mattins',
+  'Midnight Mass',
+  'Morning Worship',
+  'Patronal Festival',
+  'Police drop in surgery',
+  'Remembrance Day Service',
+  'Thanksgiving and Memorial Service',
+  'Village School Christmas Service',
+  'Well Hill: Holy Communion',
+  'Well Hill: Morning Prayer',
+  'Worlds End Music Concert',
+];
+
+// A second layer on top of the approved list: titles that are never published whatever the
+// list says, and text that looks like contact details.
+export const DENY_TITLE = /funeral|burial|interment|committal|requiem|cremat|\bwake\b|wedding|marriage|banns|\bvows\b|baptism|christening|\bnaming\b|confirmation|thanksgiving for the (life|birth)|celebration of life|private|booking|\bbooked\b|\bhire\b|reserved|rehears|unavailable|testing|preparation|preparing for|in use for|electrical|contractor|pastoral|home communion|flowers|\bpcc\b|safeguarding|\baway\b|birthday/i;
+export const BLOCKED_TEXT = /\d{5,}|@|https?:|www\./i;
 
 // The parish writes "Church:", "Village Hall:" and so on at the start of a title to say
 // where it is. We use that as the place and drop it from the title. First match wins.

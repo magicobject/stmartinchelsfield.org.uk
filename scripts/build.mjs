@@ -16,6 +16,7 @@ import { GALLERY_PHOTOS } from '../src/gallery.config.mjs';
 import { renderGallery } from './render-gallery.mjs';
 import { SPECIAL_NOTICES } from '../src/special-notices.config.mjs';
 import { renderSpecialNotices } from './render-special-notices.mjs';
+import { jsonForScript } from './json-for-script.mjs';
 import { SPOTLIGHT } from '../src/spotlight.config.mjs';
 import { renderSpotlight } from './render-spotlight.mjs';
 import { expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
@@ -305,7 +306,7 @@ for (const page of PAGES) {
   extraHead += `<meta name="twitter:description" content="${page.description}">\n`;
   extraHead += `<meta name="twitter:image" content="${pageImage}">\n`;
   const structuredData = structuredDataFor(page, pageUrl);
-  if (structuredData) extraHead += `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>\n`;
+  if (structuredData) extraHead += `<script type="application/ld+json">${jsonForScript(structuredData)}</script>\n`;
 
   const header = page.header
     ? replaceTokens(headerTemplate.replace('{{NAV_ITEMS}}', renderNavItems(NAV, page.active)), tokens)
