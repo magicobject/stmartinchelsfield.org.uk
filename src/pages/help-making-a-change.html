@@ -23,7 +23,7 @@
       <p>Each kind of fact is kept in one place, so one change updates every page that uses it. You don't need to open these files, but naming the right one helps Claude make the right change.</p>
       <ul class="fact-list">
         <li><span class="fact-label">People</span> The clergy and officers on Clergy &amp; contacts, with their photos, are in <code>people.config.mjs</code>.</li>
-        <li><span class="fact-label">Services &amp; events</span> The calendar is in <code>events.config.mjs</code>.</li>
+        <li><span class="fact-label">Services &amp; events</span> The calendar comes from the parish’s Google Calendar: change it there, then ask for the calendar to be re-imported (<code>npm run import:calendar</code>, which writes <code>events.imported.mjs</code>; <code>events.config.mjs</code> combines it with any hand-added events). Only dates, times, titles and places are copied, never the notes, and private events such as funerals and weddings are always left out.</li>
         <li><span class="fact-label">Address &amp; phone</span> The church address, the Rectory phone number and the parish email are in <code>site.config.mjs</code>.</li>
         <li><span class="fact-label">Gallery photos</span> Added in <code>gallery.config.mjs</code> (each photo needs a description for people who cannot see it).</li>
         <li><span class="fact-label">Newsletter</span> Issues are listed in <code>newsletter.config.mjs</code>.</li>

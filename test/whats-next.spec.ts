@@ -18,12 +18,13 @@ test.describe('Homepage: Coming up cards', () => {
     const group = page.locator('[data-kind="group"]');
     const special = page.locator('[data-kind="special"]');
 
-    await expect(service.getByRole('heading', { level: 3 })).toHaveText('Family Worship');
-    await expect(service).toContainText('Sun 8 Nov, 9:30am');
+    await expect(service.getByRole('heading', { level: 3 })).toHaveText('Remembrance Day Service');
+    await expect(service).toContainText('Sun 8 Nov, 10:15am');
     await expect(group.getByRole('heading', { level: 3 })).toHaveText('Churchyard Working Party');
     await expect(group).toContainText('Tomorrow, 9am');
-    await expect(special.getByRole('heading', { level: 3 })).toHaveText('Chelsfield Evening WI Christmas Service');
-    await expect(special).toContainText('Wed 9 Dec, 2pm');
+    // Remembrance Day is special too, but it is already the service card, so the next different one shows.
+    await expect(special.getByRole('heading', { level: 3 })).toHaveText('Patronal Festival');
+    await expect(special).toContainText('Sun 8 Nov, 6:30pm');
   });
 
   test('"Today" is used on the day, and morning services already over are skipped', async ({ page }) => {
@@ -82,7 +83,7 @@ test.describe('Homepage: Coming up cards', () => {
   });
 
   test('with nothing left in the calendar the cards keep their plain wording and links', async ({ page }) => {
-    await page.clock.setFixedTime(new Date('2027-02-01T10:00:00'));
+    await page.clock.setFixedTime(new Date('2027-07-15T10:00:00'));
     await page.goto('/');
     await expect(page.locator('[data-kind="service"] h3')).toHaveText("Services at St Martin's");
     await expect(page.locator('[data-kind="special"] h3')).toHaveText('Special services & events');

@@ -52,8 +52,15 @@ describe('every calendar event is tagged', () => {
     }
   });
 
-  test('nothing in the calendar falls through to "event" by accident: the only events are the quiz and the autumn walk', () => {
+  test('nothing in the calendar falls through to "event" by accident: these are the genuine one-off events', () => {
     const titles = new Set(events.filter((ev) => ev.kind === 'event').map((ev) => ev.title));
-    assert.deepEqual([...titles].sort(), ["Annual St Martin's Quiz Night", "Autumn Walk from St Martin's Church"]);
+    assert.deepEqual([...titles].sort(), [
+      "Annual St Martin's Quiz Night",
+      "Autumn Walk from St Martin's Church",
+      'Bell Ringing in connection with District Meeting',
+      'Chelsfield Players \u2018Christmas Carol\u2019',
+      'Police drop in surgery',
+      'Worlds End Music Concert',
+    ]);
   });
 });

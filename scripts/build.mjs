@@ -18,7 +18,7 @@ import { SPECIAL_NOTICES } from '../src/special-notices.config.mjs';
 import { renderSpecialNotices } from './render-special-notices.mjs';
 import { SPOTLIGHT } from '../src/spotlight.config.mjs';
 import { renderSpotlight } from './render-spotlight.mjs';
-import { ONE_OFF_EVENTS, expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
+import { expandEvents, placeFor, formatTime12h, formatEventDate } from '../src/events.config.mjs';
 import { ensureSectionIds, extractSearchEntries, isSearchablePage, isIndexable, isHelpPage } from './build-search-index.mjs';
 import { splitNewsletterIssues, formatIssueMonth } from './newsletter-issues.mjs';
 
@@ -177,7 +177,7 @@ function renderSpotlightToken(html) {
 
 function renderEventsToken(html) {
   return html.replace(/\{\{EVENTS_NOSCRIPT\}\}/g, () =>
-    ONE_OFF_EVENTS.map((e) => {
+    expandEvents().filter((e) => !e.weekly).map((e) => {
       const suffix = e.location ? ` — ${escapeHtml(e.location)}` : '';
       return `          <li>${formatEventDate(e.date)}, ${formatTime12h(e.time)} — ${escapeHtml(e.title)}${suffix}</li>`;
     }).join('\n'));
