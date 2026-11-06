@@ -18,6 +18,8 @@
 // inconsistent capitalisation/punctuation ("Church:Ringing Practice." etc.)
 // — same wording and times, just tidied.
 
+import { classifyEvent } from './event-kinds.mjs';
+
 // Special services, concerts and one-off events, plus the Sunday/Well Hill
 // services below (titles rotate week to week — see services.html — so they
 // don't fit RECURRING_SERIES' one-fixed-title-per-weekday model). Recurring
@@ -161,7 +163,7 @@ function expandSeries(series) {
 
 export function expandEvents() {
   const recurring = RECURRING_SERIES.flatMap(expandSeries);
-  return [...ONE_OFF_EVENTS, ...recurring].sort((a, b) =>
+  return [...ONE_OFF_EVENTS, ...recurring].map((ev) => ({ ...ev, ...classifyEvent(ev) })).sort((a, b) =>
     a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date));
 }
 

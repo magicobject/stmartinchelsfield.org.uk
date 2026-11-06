@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=9ba755c4fe">
+<link rel="stylesheet" href="/css/style.css?v=bd7862274d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -95,12 +95,20 @@
   <div class="wrap">
     <h1 id="site-updates">Site updates</h1>
     <p class="lede">Internal build changelog — not linked from anywhere on the site.</p>
-    <p class="build-number">Current build: 2026.11.06.004</p>
+    <p class="build-number">Current build: 2026.11.06.005</p>
   </div>
 </div>
 
 <section>
   <div class="wrap" style="max-width:74ch;">
+    <div class="changelog-entry">
+      <div class="changelog-meta">
+        <span class="changelog-build">Build 2026.11.06.005</span>
+        <span class="changelog-author">Greg Wright</span>
+        <span class="changelog-date">6 November 2026</span>
+      </div>
+      <p>The <a href="index.html">homepage</a> now opens with three "Coming up" cards under the banner &mdash; Next service, Next group activity, Next special event &mdash; each filled in from the <a href="calendar.html">calendar</a> and ending "More information&hellip;". They replace the old three "At a glance" boxes. Every calendar event is now tagged (service, group, practice or other, and special or not) by <code>src/event-kinds.mjs</code>; ringing and choir rehearsals are kept out of the group card. There is also an optional "spotlight" band above the cards for campaigns or urgent notices (<code>src/spotlight.config.mjs</code>; empty for now), which shows between its from and expiry dates. Also fixed: the first build after a calendar change left stale <code>?v=</code> hashes on the pages that load the calendar data.</p>
+    </div>
     <div class="changelog-entry">
       <div class="changelog-meta">
         <span class="changelog-build">Build 2026.11.06.004</span>
@@ -461,7 +469,7 @@
   </div>
 </footer>
 
-<script src="/js/main.js?v=0b2c080df5" defer></script>
+<script src="/js/main.js?v=dfc39ad03a" defer></script>
 <script src="/js/search-match.js?v=ede5527510" defer></script>
 <script src="/js/search-ui.js?v=002d73d6ca" defer></script>
 </body>

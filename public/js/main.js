@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!anyShowing) { box.style.display = 'none'; }
   });
 
+  // Homepage spotlight band: shown from data-from (optional) up to, not including, data-expires.
+  document.querySelectorAll('.spotlight').forEach(function (band) {
+    var expires = new Date(band.dataset.expires + 'T00:00:00');
+    var from = band.dataset.from ? new Date(band.dataset.from + 'T00:00:00') : null;
+    if (today >= expires || (from && today < from)) { band.style.display = 'none'; }
+  });
+
   var archiveSection = document.getElementById('archive');
   if (archiveSection) {
     var anyRevealed = false;

@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=9ba755c4fe">
+<link rel="stylesheet" href="/css/style.css?v=bd7862274d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -108,31 +108,35 @@
   </div>
 </section>
 
-<section>
+
+
+<section class="whats-next">
   <div class="wrap">
-    <h2 class="visually-hidden" id="at-a-glance">At a glance</h2>
-    <div class="card-grid">
-      <div class="card reveal">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#866017" stroke-width="1.6"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/></svg></div>
-        <div class="tags">Since 2007</div>
-        <h3 id="old-and-new-side-by-side">Old and new, side by side</h3>
-        <p>The 12th-century nave sits beside the Brass Crosby Room — a contemporary extension that deliberately doesn't try to look medieval. <a href="about.html">Read the full history &rarr;</a></p>
+    <h2 id="coming-up">Coming up</h2>
+    <div class="card-grid" data-whats-next>
+      <div class="card" data-kind="service">
+        <div class="tags">Next service</div>
+        <h3 class="wn-title" id="services-at-st-martin-s">Services at St Martin's</h3>
+        <p class="wn-when">Worship every Sunday and on Wednesdays.</p>
+        <p><a href="services.html">More information&hellip;</a></p>
       </div>
-      <div class="card reveal">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#866017" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
-        <div class="tags">Every Sunday</div>
-        <h3 id="worship-week-by-week">Worship, week by week</h3>
-        <p>Holy Communion, a Family Service and Evensong on Sundays, plus a mid-week Holy Communion on Wednesdays. <a href="services.html">See the full pattern &rarr;</a></p>
+      <div class="card" data-kind="group">
+        <div class="tags">Next group activity</div>
+        <h3 class="wn-title" id="groups-activities">Groups &amp; activities</h3>
+        <p class="wn-when">Cafes, history, churchyard care and more.</p>
+        <p><a href="get-involved.html">More information&hellip;</a></p>
       </div>
-      <div class="card reveal">
-        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#866017" stroke-width="1.6"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/></svg></div>
-        <div class="tags">Church Road, Chelsfield</div>
-        <h3 id="easy-to-find">Easy to find</h3>
-        <p>Just off the M25, a 1 mile walk from Chelsfield station, or the R7 bus from Orpington station. <a href="visit-us.html">Directions &amp; map &rarr;</a></p>
+      <div class="card" data-kind="special">
+        <div class="tags">Next special event</div>
+        <h3 class="wn-title" id="special-services-events">Special services &amp; events</h3>
+        <p class="wn-when">Festivals, concerts and one-off occasions.</p>
+        <p><a href="calendar.html">More information&hellip;</a></p>
       </div>
     </div>
   </div>
 </section>
+<script src="/js/calendar-events.js?v=320645ec55"></script>
+<script src="/js/whats-next.js?v=d1a25d9290"></script>
 
 <section class="alt">
   <div class="wrap">
@@ -287,7 +291,7 @@
   </div>
 </footer>
 
-<script src="/js/main.js?v=0b2c080df5" defer></script>
+<script src="/js/main.js?v=dfc39ad03a" defer></script>
 <script src="/js/search-match.js?v=ede5527510" defer></script>
 <script src="/js/search-ui.js?v=002d73d6ca" defer></script>
 </body>
