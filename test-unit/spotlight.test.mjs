@@ -14,7 +14,7 @@ describe('renderSpotlight', () => {
     const html = renderSpotlight([item]);
     assert.ok(html.includes('class="spotlight" data-expires="2026-12-31"'));
     assert.ok(html.includes('<h2>Roof appeal</h2>'));
-    assert.ok(html.includes('<a href="donate.html">Give to the appeal &rarr;</a>'));
+    assert.ok(html.includes('<a href="donate.html">Give to the appeal <span aria-hidden="true">&rarr;</span></a>'));
   });
 
   test('"from" is carried through, a link is optional, and text is escaped', () => {

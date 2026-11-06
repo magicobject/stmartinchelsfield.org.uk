@@ -40,7 +40,7 @@ export function validateSpotlight(item) {
 
 function renderItem(item) {
   const from = item.from ? ` data-from="${item.from}"` : '';
-  const link = item.href ? `\n    <p><a href="${escapeHtml(item.href)}">${escapeHtml(item.linkLabel)} &rarr;</a></p>` : '';
+  const link = item.href ? `\n    <p><a href="${escapeHtml(item.href)}">${escapeHtml(item.linkLabel)} <span aria-hidden="true">&rarr;</span></a></p>` : '';
   return `<section class="spotlight" data-expires="${item.expires}"${from}>
   <div class="wrap">
     <h2>${escapeHtml(item.title)}</h2>

@@ -32,13 +32,53 @@ test.describe('Homepage: Coming up cards', () => {
     await expect(page.locator('[data-kind="service"]')).toContainText('Today, 6:30pm');
   });
 
-  test('each card links to its page with "More information…"', async ({ page }) => {
+  test('each card links to its page with "More information…", and the link says which page for screen readers', async ({ page }) => {
     await page.goto('/');
-    for (const [kind, href] of [['service', 'services.html'], ['group', 'get-involved.html'], ['special', 'calendar.html']]) {
+    for (const [kind, href, name] of [
+      ['service', 'services.html', 'More information… about services'],
+      ['group', 'get-involved.html', 'More information… about groups and activities'],
+      ['special', 'calendar.html', 'More information… about special events'],
+    ]) {
       const link = page.locator(`[data-kind="${kind}"] a`);
-      await expect(link).toHaveText('More information…');
       await expect(link).toHaveAttribute('href', href);
+      await expect(page.getByRole('link', { name })).toHaveAttribute('href', href);
+      await expect(link).toContainText('More information');
     }
+  });
+
+  test('the links are at least 44px tall, so they can be tapped on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto('/');
+    for (const kind of ['service', 'group', 'special']) {
+      const box = await page.locator(`[data-kind="${kind}"] a`).boundingBox();
+      expect(box!.height, kind).toBeGreaterThanOrEqual(44);
+    }
+  });
+
+  test('the venue is shown only when it is not the church', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-06T10:00:00'));
+    await page.goto('/');
+    await expect(page.locator('[data-kind="service"]')).not.toContainText('St Martin of Tours');
+    await expect(page.locator('[data-kind="service"] .wn-where')).toBeHidden();
+    await page.clock.setFixedTime(new Date('2026-11-17T10:00:00'));
+    await page.reload();
+    // The next group activity is then the Community Cafe at the village hall.
+    await expect(page.locator('[data-kind="group"] .wn-where')).toHaveText('Chelsfield Village Hall');
+  });
+
+  test('a special service shown as the next service is not repeated as the next special event', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-12-09T12:00:00'));
+    await page.goto('/');
+    await expect(page.locator('[data-kind="service"] h3')).toHaveText('Chelsfield Evening WI Christmas Service');
+    await expect(page.locator('[data-kind="special"] h3')).toHaveText('Village School Christmas Service');
+  });
+
+  test('on a phone the church photo does not push the cards a screen down', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto('/');
+    await expect(page.locator('.hero-photo')).toBeHidden();
+    const top = await page.locator('.whats-next').evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+    expect(top).toBeLessThan(800);
   });
 
   test('with nothing left in the calendar the cards keep their plain wording and links', async ({ page }) => {
