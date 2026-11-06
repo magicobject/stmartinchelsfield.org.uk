@@ -38,15 +38,25 @@ export function validatePhoto(photo) {
 function renderPhoto(photo) {
   const caption = [photo.caption, photo.credit].filter(Boolean).map((part) => escapeHtml(part));
   const figcaption = caption.length ? `\n          <figcaption>${caption.join(' &middot; ')}</figcaption>` : '';
-  return `        <figure class="gallery-item">
+  return `        <figure class="gallery-item" style="--ratio:${(photo.width / photo.height).toFixed(3)}">
           <img src="/img/gallery/${escapeHtml(photo.file)}" alt="${escapeHtml(photo.alt.trim())}" width="${photo.width}" height="${photo.height}" loading="lazy" decoding="async">${figcaption}
         </figure>`;
 }
+
+// Photos are grouped by shape so each row is made of similar pictures: landscape ones together,
+// portrait ones together. Order within a group is the order in the config.
+const GROUPS = [
+  { name: 'wide', test: (photo) => photo.width >= photo.height },
+  { name: 'tall', test: (photo) => photo.width < photo.height },
+];
 
 export function renderGallery(photos) {
   if (!photos || photos.length === 0) {
     return `    <p class="gallery-empty">${GALLERY_EMPTY_MESSAGE}</p>`;
   }
   photos.forEach(validatePhoto);
-  return `    <div class="gallery-grid">\n${photos.map(renderPhoto).join('\n')}\n    </div>`;
+  const rows = GROUPS.map(({ name, test }) => ({ name, items: photos.filter(test) }))
+    .filter((group) => group.items.length)
+    .map(({ name, items }) => `      <div class="gallery-row gallery-row--${name}">\n${items.map(renderPhoto).join('\n')}\n      </div>`);
+  return `    <div class="gallery-grid">\n${rows.join('\n')}\n    </div>`;
 }

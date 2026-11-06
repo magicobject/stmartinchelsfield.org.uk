@@ -21,13 +21,26 @@ test.describe('Gallery', () => {
     await expect(page.locator('nav#primary-nav a[aria-current="page"]')).toHaveText('Gallery');
   });
 
-  test('while there are no photos yet, the page says so plainly: no empty grid, no broken images', async ({ page }) => {
+  test('shows the parish photographs, each with alt text and no broken images, grouped into landscape and portrait rows', async ({ page }) => {
     await page.goto('/gallery.html');
     const main = page.locator('main');
-    await expect(main).toContainText('photographs of the church, the churchyard and parish life');
-    await expect(main).toContainText('soon');
-    await expect(main.locator('.gallery-grid')).toHaveCount(0);
-    await expect(main.locator('img')).toHaveCount(0);
+    await expect(main.locator('.gallery-row--wide')).toHaveCount(1);
+    await expect(main.locator('.gallery-row--tall')).toHaveCount(1);
+    const images = main.locator('.gallery-item img');
+    expect(await images.count()).toBeGreaterThan(0);
+    await page.evaluate(() => document.querySelectorAll('img').forEach((i) => (i.loading = 'eager')));
+    await page.waitForLoadState('load');
+    for (let i = 0; i < (await images.count()); i++) {
+      const img = images.nth(i);
+      await expect(img).toHaveAttribute('alt', /\S/);
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+    }
+    for (const kind of ['wide', 'tall']) {
+      const row = main.locator(`.gallery-row--${kind}`);
+      for (const f of await row.locator('img').evaluateAll((els) => els.map((e) => [Number(e.getAttribute('width')), Number(e.getAttribute('height'))]))) {
+        expect(kind === 'wide' ? f[0] >= f[1] : f[0] < f[1]).toBe(true);
+      }
+    }
   });
 
   test('invites people with photos to get in touch with a clear button, without inventing a process', async ({ page }) => {
