@@ -15,7 +15,7 @@
 // marked portrait: false. The Gift Aid Secretary has no photo, so that card shows a public-domain
 // coin image instead of a portrait (credit on people.html).
 //
-// DATA PROTECTION: this is personal data (names, photos, emails, three phone
+// DATA PROTECTION: this is personal data (names, photos, emails, four phone
 // numbers). Before the site goes live, each person's agreement to it, and the
 // parish's permission to reuse the photos, must be on record (kept outside
 // this public repo) — see docs/plans/2026-10-parish-requirements.md. Never add
@@ -48,7 +48,7 @@ function person({ name, first, role, email, phone, photo, alt, portrait = true }
 
 export const CLERGY = [
   person({ name: 'Revd Susan Atkinson-Jones', first: 'Susan', role: 'Rector of the Benefice', email: 'revsusan@smasch.org', phone: '01689 857763', photo: 'susan-atkinson-jones.jpg' }),
-  person({ name: 'Revd Martin Hayward', first: 'Martin', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org', photo: 'martin-hayward.jpg' }),
+  person({ name: 'Revd Martin Hayward', first: 'Martin', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org', phone: '01689 825749', photo: 'martin-hayward.jpg' }),
 ];
 
 export const OFFICERS = [

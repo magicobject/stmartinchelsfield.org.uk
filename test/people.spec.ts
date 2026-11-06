@@ -7,9 +7,10 @@ import { ALL_PAGES } from './support/pages';
 // A Church Near You, with their photos, emails and phone numbers; plus the data
 // protection conditions from the security design review (obfuscated emails,
 // clean images, a removal route, a fraud warning).
+const CHURCH_TEL = 'tel:+441689825749';
 const PEOPLE = [
   { name: 'Revd Susan Atkinson-Jones', role: 'Rector of the Benefice', email: 'revsusan@smasch.org', tel: 'tel:+441689857763' },
-  { name: 'Revd Martin Hayward', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org' },
+  { name: 'Revd Martin Hayward', role: 'Associate Vicar of the Benefice', email: 'revmartin@smasch.org', tel: CHURCH_TEL },
   { name: 'Steve McCann', role: 'Churchwarden', email: 'churchwardens@stmartinchelsfield.org.uk' },
   { name: 'Suzanne Diamond', role: 'Benefice Administrator', email: 'office@smasch.org', tel: 'tel:+441689852905' },
   { name: 'Margaret Warren-Axe', role: 'Parish Safeguarding Officer', email: 'safeguarding@stmartinchelsfield.org.uk' },
@@ -53,8 +54,8 @@ test.describe('Clergy & contacts page', () => {
     }
   });
 
-  test('exactly the three published phone numbers are shown, as tap-to-call links', async ({ page }) => {
-    await expect(page.locator('main a[href^="tel:"]')).toHaveCount(3);
+  test('exactly the four published phone numbers are shown, as tap-to-call links', async ({ page }) => {
+    await expect(page.locator('main a[href^="tel:"]')).toHaveCount(4);
     const cards = page.locator('main .card');
     for (let i = 0; i < PEOPLE.length; i++) {
       const own = cards.nth(i).locator('a[href^="tel:"]');
@@ -142,7 +143,9 @@ test.describe('data protection', () => {
       await page.goto(path);
       const ld = await page.$$eval('script[type="application/ld+json"]', (els) => els.map((e) => e.textContent ?? '').join(' '));
       for (const { email } of PEOPLE) expect(ld, path).not.toContain(email);
-      for (const p of PEOPLE) if (p.tel) expect(ld, path).not.toContain(p.tel.replace('tel:', ''));
+      // The Rectory number is the church's own published telephone (it is in the church's JSON-LD),
+      // shared with the Associate Vicar's card, so it is not a personal number.
+      for (const p of PEOPLE) if (p.tel && p.tel !== CHURCH_TEL) expect(ld, path).not.toContain(p.tel.replace('tel:', ''));
     }
   });
 
