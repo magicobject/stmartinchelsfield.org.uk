@@ -9,7 +9,7 @@ test.describe('Visit us: getting here, opening hours, facilities', () => {
 
   test('By car gives the postcode and the what3words address', async ({ page }) => {
     const item = page.locator('li', { hasText: 'By car' });
-    await expect(item).toContainText('Just off the M25 — use the postcode BR6 7SN in your sat nav.');
+    await expect(item).toContainText("Just off the M25 — the postcode is BR6 7SN but to navigate it's safer to use Google Maps or What3words address");
     await expect(item).toContainText('finger.amused.rate');
     await expect(item).not.toContainText('finger.amuse.rate'); // one wrong word is a different place; confirmed as 'amused' by the parish, Oct 2026
     await expect(item).toContainText(/what3words/i);
@@ -34,7 +34,8 @@ test.describe('Visit us: getting here, opening hours, facilities', () => {
 
   test('facilities and access use the parish\'s own sentence, with no "not confirmed" caveat', async ({ page }) => {
     const main = page.locator('main');
-    await expect(main).toContainText('Toilets and gardens are on site. Step-free access, large car park and hearing loop during services');
+    await expect(main).toContainText('Toilets are on site. Step-free access, large car park and hearing loop during services');
+    await expect(main).not.toContainText('gardens are on site');
     await expect(main).not.toContainText("haven't been confirmed");
   });
 });
