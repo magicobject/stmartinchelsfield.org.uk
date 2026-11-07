@@ -29,3 +29,15 @@ test('every file the guide names exists in the repo', () => {
   const root = join(__dirname, '..');
   for (const file of FILES) expect(existsSync(join(root, file)), file).toBe(true);
 });
+
+test.describe('Help guide: what you need to start', () => {
+  test('Setting up says a Claude Pro account is needed for Claude Code', async ({ page }) => {
+    await page.goto('/help-getting-set-up.html');
+    await expect(page.locator('main')).toContainText('You need a Claude Pro account (or a higher plan) to use Claude Code');
+  });
+
+  test('Making a change says to click the Claude Code icon and start a new session', async ({ page }) => {
+    await page.goto('/help-making-a-change.html');
+    await expect(page.locator('main')).toContainText('click the Claude Code icon, then start a new session');
+  });
+});
