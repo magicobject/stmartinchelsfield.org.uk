@@ -18,8 +18,8 @@ const FILES = [
   'docs/plans/2026-10-parish-requirements.md',
 ];
 
-test('the help guide has a "Where each fact lives" section naming each source file', async ({ page }) => {
-  await page.goto('/help-making-a-change.html');
+test('the Technical details page has a "Where each fact lives" section naming each source file', async ({ page }) => {
+  await page.goto('/help-technical-details.html');
   await expect(page.getByRole('heading', { level: 2, name: 'Where each fact lives' })).toBeVisible();
   const text = await page.locator('main').innerText();
   for (const file of FILES.slice(0, 9)) expect(text, file).toContain(file.replace('src/pages/', '').replace('src/', ''));
@@ -56,5 +56,37 @@ test.describe('Help guide: Still stuck?', () => {
     await expect(section).not.toContainText('@');
     expect(await (await request.get('/help-when-it-goes-wrong.html')).text()).not.toContain('magicobject@gmail.com');
     await expect(section.locator('a[href^="mailto:"]')).toHaveCount(1);
+  });
+});
+
+test.describe('Help guide: written for non-technical people', () => {
+  test('the front page says whose job is what, and that Claude can be asked for help any time', async ({ page }) => {
+    await page.goto('/help.html');
+    const main = page.locator('main');
+    await expect(main).toContainText("Say clearly what you'd like changed");
+    await expect(main).toContainText('Make the change, check it, and put it on the website');
+    await expect(main).toContainText('ask it for help at any time');
+  });
+
+  test('Making a change tells people how to ask clearly and to ask Claude for help, and does not list file names', async ({ page }) => {
+    await page.goto('/help-making-a-change.html');
+    const main = page.locator('main');
+    await expect(main.getByRole('heading', { level: 2, name: 'How to ask clearly' })).toBeVisible();
+    await expect(main.getByRole('heading', { level: 2, name: 'Ask Claude for help at any time' })).toBeVisible();
+    expect(await main.innerText()).not.toMatch(/\.mjs|npm run/);
+  });
+
+  test('Setting up tells people to tell Claude if anything confuses them', async ({ page }) => {
+    await page.goto('/help-getting-set-up.html');
+    await expect(page.locator('main')).toContainText('If anything confuses you, tell Claude.');
+  });
+
+  test('the guide lists When it goes wrong before Technical details, and Technical details is marked optional', async ({ page }) => {
+    await page.goto('/help.html');
+    const headings = await page.locator('main h3').allInnerTexts();
+    expect(headings.indexOf('3. When it goes wrong')).toBe(2);
+    expect(headings.indexOf('4. Technical details')).toBe(3);
+    await page.goto('/help-technical-details.html');
+    await expect(page.locator('main')).toContainText('Optional reading');
   });
 });

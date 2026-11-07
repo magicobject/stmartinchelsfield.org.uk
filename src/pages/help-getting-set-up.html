@@ -2,12 +2,14 @@
 <div class="page-header">
   <div class="wrap">
     <h1>Setting up your laptop</h1>
-    <p class="lede">A one-off, roughly ten-minute setup.</p>
+    <p class="lede">A one-off setup, about ten minutes. Claude does most of it for you.</p>
   </div>
 </div>
 
 <section>
   <div class="wrap" style="max-width:74ch;">
+    <p>You only do this once. Steps 1 and 2 are the two things only you can do, because they involve your own accounts. In step 3, Claude does the rest.</p>
+
     <div>
       <h2>1. Install Claude Desktop</h2>
       <p>Download it from <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a> and sign in (or create an account).</p>
@@ -16,14 +18,15 @@
 
     <div>
       <h2>2. Create a GitHub account</h2>
-      <p>This site's source code lives on GitHub. Create a free account at <a href="https://github.com/join" target="_blank" rel="noopener">github.com/join</a> if you don't already have one.</p>
-      <p>Before you request access, turn on two-factor authentication (2FA) on your new account: in GitHub, go to <strong>Settings &rarr; Password and authentication &rarr; Two-factor authentication</strong> and follow the setup steps (an authenticator app is the easiest option). GitHub collaborator access won't be granted to an account without it.</p>
-      <p>Once you've got one and 2FA is switched on, email your GitHub account name to <a href="{{OBFUSCATE_MAILTO:web@mediawright.uk}}">web@mediawright.uk</a> and ask to be added as a collaborator on the repository — you won't be able to make changes until you've been given access.</p>
+      <p>GitHub is the safe place where the website's files are kept, along with a record of every change ever made. Create a free account at <a href="https://github.com/join" target="_blank" rel="noopener">github.com/join</a> if you don't already have one.</p>
+      <p>Before you ask for access, switch on two-factor authentication (2FA) on your new account. This means GitHub asks for a short code from an app on your phone when you sign in, which keeps the account safe. In GitHub, go to <strong>Settings &rarr; Password and authentication &rarr; Two-factor authentication</strong> and follow the steps (an authenticator app is the easiest option). Access won't be granted to an account without it.</p>
+      <p>Once you have an account with 2FA switched on, email your GitHub username to <a href="{{OBFUSCATE_MAILTO:web@mediawright.uk}}">web@mediawright.uk</a> and ask to be added as a collaborator on the repository (the project). You won't be able to make changes until you've been added.</p>
     </div>
 
     <div>
-      <h2>3. Ask Claude to set the rest up</h2>
-      <p>Open Claude Desktop's Code tab (also called Claude Code — it's what lets Claude read and edit files on your laptop and talk to GitHub on your behalf; an ordinary chat elsewhere in the app can't do either), paste the box below into it exactly as it is, and send it. Claude will check your laptop has what it needs, fetch a working copy of the website, and tell you when it's ready.</p>
+      <h2>3. Let Claude do the rest</h2>
+      <p>Open Claude Desktop and click the <strong>Claude Code</strong> icon, then start a <strong>new session</strong>. (Claude Code is the part that can work on your laptop and talk to GitHub for you. An ordinary chat can't.) Paste the box below in exactly as it is, type your GitHub username after "My GitHub username is:", and send it.</p>
+      <p>Claude will check your laptop, install anything that's missing, fetch the website's files, and tell you when it's ready. If it asks you to click something or approve something, that's normal.</p>
       <div class="copy-block">
         <label for="setup-copy-text" class="visually-hidden">Text to paste into Claude Desktop</label>
         <textarea id="setup-copy-text" readonly rows="9">I'm a volunteer helping update the St Martin of Tours, Chelsfield website. Please get my laptop ready to work on it, then wait for me before doing anything else:
@@ -36,7 +39,8 @@
 My GitHub username is:
 (If I haven't been added to the project yet, that's fine — just let me know once you reach a step that actually needs it.)</textarea>
       </div>
-      <p>The first time Claude needs to connect to GitHub on your behalf, a browser window may pop up asking you to sign in — that's expected, and only happens once. Once it's done, you're ready to make a change — see <a href="help-making-a-change.html">Making a Change</a>.</p>
+      <p>The first time Claude connects to GitHub, a browser window may open asking you to sign in. That's expected, and it only happens once.</p>
+      <p><strong>If anything confuses you, tell Claude.</strong> Describe what you see, for example "I got an error" or "it's asking me something I don't understand", and it will explain and help you through. Once it says it's ready, move on to <a href="help-making-a-change.html">Making a change</a>.</p>
     </div>
   </div>
 </section>

@@ -94,7 +94,7 @@
 <div class="page-header">
   <div class="wrap">
     <h1 id="making-a-change">Making a change</h1>
-    <p class="lede">What happens, step by step, when you ask Claude to update the site.</p>
+    <p class="lede">Your job is to say clearly what you want. Claude's job is to make it happen.</p>
   </div>
 </div>
 
@@ -106,31 +106,34 @@
     </div>
 
     <div>
-      <h2 id="what-claude-checks-before-anything-goes-live">What Claude checks before anything goes live</h2>
-      <p>Every change runs through the same checks: the automated test suite (including an accessibility scan of every page), a dependency security check, and a rebuild that regenerates every page from its source. Nothing is pushed live until those pass.</p>
+      <h2 id="how-to-ask-clearly">How to ask clearly</h2>
+      <p>The clearer you are, the less Claude has to guess. It helps to say:</p>
+      <ul class="fact-list">
+        <li><span class="fact-label">Where</span> Which page, and which part of it: "On the Groups page, in the Messy Church box".</li>
+        <li><span class="fact-label">What exactly</span> The old and the new: "Change the time from 3pm to 4pm."</li>
+        <li><span class="fact-label">The exact words</span> If the wording matters, type it out just as you want it to appear.</li>
+        <li><span class="fact-label">One thing at a time</span> Small, separate requests are easier to check, and easier to undo.</li>
+        <li><span class="fact-label">Photos</span> Say where the photo is on your computer, what it shows, and that you have permission to use it. Claude will resize it and write a description for people who can't see it.</li>
+      </ul>
     </div>
 
     <div>
-      <h2 id="where-each-fact-lives">Where each fact lives</h2>
-      <p>Each kind of fact is kept in one place, so one change updates every page that uses it. You don't need to open these files, but naming the right one helps Claude make the right change.</p>
-      <ul class="fact-list">
-        <li><span class="fact-label">People</span> The clergy and officers on Clergy &amp; contacts, with their photos, are in <code>people.config.mjs</code>.</li>
-        <li><span class="fact-label">Services &amp; events</span> The calendar comes from the parish’s Google Calendar: change it there, then ask for the calendar to be re-imported (<code>npm run import:calendar</code>, which writes <code>events.imported.mjs</code>; <code>events.config.mjs</code> combines it with any hand-added events). Only dates, times, titles and places are copied, never the notes, and only event titles on an approved list are published; anything unfamiliar is held back until a person approves it, so private events such as funerals and weddings stay off the site.</li>
-        <li><span class="fact-label">Address &amp; phone</span> The church address, the Rectory phone number and the parish email are in <code>site.config.mjs</code>.</li>
-        <li><span class="fact-label">Gallery photos</span> Added in <code>gallery.config.mjs</code> (each photo needs a description for people who cannot see it).</li>
-        <li><span class="fact-label">Newsletter</span> Issues are listed in <code>newsletter.config.mjs</code>.</li>
-        <li><span class="fact-label">Safeguarding</span> The contacts are on the Safeguarding page (<code>safeguarding.html</code>) and the policy wording is in <code>safeguarding-policy.html</code>, word for word from the PCC-agreed document.</li>
-        <li><span class="fact-label">History &amp; churchyard</span> The text is in <code>about.html</code> and <code>churchyard.html</code>.</li>
-        <li><span class="fact-label">What's still to do</span> The plan for the parish's requirements, with what is done and what we are waiting for, is <code>docs/plans/2026-10-parish-requirements.md</code>.</li>
-      </ul>
+      <h2 id="ask-claude-for-help-at-any-time">Ask Claude for help at any time</h2>
+      <p>You never have to work it out alone. If you're not sure what to ask for, or what something means, just ask Claude: "What can I change on the Visit us page?", "Explain what you just did in plain English", or "Show me what it looks like before it goes live."</p>
+    </div>
+
+    <div>
+      <h2 id="what-happens-next">What happens next</h2>
+      <p>Claude makes your change on a private copy first, then runs a set of automatic checks: every page still works, is easy to read and use, and is safe. Only when all of those pass does it send the change on. Simple changes then go live by themselves, usually within a couple of minutes. Bigger changes wait for someone to approve them first (see <a href="help-when-it-goes-wrong.html">When it goes wrong</a>). You don't need to do anything technical at any point.</p>
     </div>
 
     <div>
       <h2 id="common-questions">Common questions</h2>
       <ul class="fact-list">
-        <li><span class="fact-label">Can I break it?</span> Not permanently — every change is a new, separate save point. See <a href="help-when-it-goes-wrong.html">When It Goes Wrong</a>.</li>
-        <li><span class="fact-label">Do I need to know code?</span> No — describe what you want in plain English.</li>
-        <li><span class="fact-label">How long until it's live?</span> Once pushed, Cloudflare deploys automatically, usually within a minute or two.</li>
+        <li><span class="fact-label">Can I break it?</span> Not permanently. Every change is saved separately, so any of them can be undone. See <a href="help-when-it-goes-wrong.html">When it goes wrong</a>.</li>
+        <li><span class="fact-label">Do I need to know code?</span> No. Describe what you want in everyday words.</li>
+        <li><span class="fact-label">Which file holds what?</span> You never need to know. Claude does. (The curious can see the list under <a href="help-technical-details.html">Technical details</a>.)</li>
+        <li><span class="fact-label">How long until it's live?</span> Usually within a minute or two of the change being approved.</li>
       </ul>
     </div>
   </div>

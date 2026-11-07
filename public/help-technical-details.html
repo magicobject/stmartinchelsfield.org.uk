@@ -94,7 +94,7 @@
 <div class="page-header">
   <div class="wrap">
     <h1 id="technical-details">Technical details</h1>
-    <p class="lede">The real infrastructure behind this site, for anyone who wants it.</p>
+    <p class="lede">Optional reading. You don't need any of this to make a change; Claude already knows it all.</p>
   </div>
 </div>
 
@@ -102,7 +102,7 @@
   <div class="wrap" style="max-width:74ch;">
     <div>
       <h2 id="hosting">Hosting</h2>
-      <p>Built to deploy to Cloudflare Workers, the same platform used for other MediaWright-built parish sites — but not yet live, and not yet pointed at a domain. See "About this build" in the repository's CLAUDE.md for why.</p>
+      <p>The site is deployed to Cloudflare Workers, the same platform used for other MediaWright-built parish sites. For now it is a preview at smc.mediawright.uk, not yet on the parish's own domain. See "About this build" in the repository's CLAUDE.md for why.</p>
     </div>
 
     <div>
@@ -118,6 +118,21 @@
     <div>
       <h2 id="newsletter-signup">Newsletter signup</h2>
       <p>The signup form posts to a Cloudflare Worker endpoint that talks to MailerLite — but no MailerLite account has been connected yet (see <code>wrangler.jsonc</code>'s placeholder group id). The form and its tests work end-to-end; a real signup won't until that's configured.</p>
+    </div>
+
+    <div>
+      <h2 id="where-each-fact-lives">Where each fact lives</h2>
+      <p>Each kind of fact is kept in one place, so one change updates every page that uses it. You never need to open these files or know their names: Claude does. They are listed here for the curious.</p>
+      <ul class="fact-list">
+        <li><span class="fact-label">People</span> The clergy and officers on Clergy &amp; contacts, with their photos, are in <code>people.config.mjs</code>.</li>
+        <li><span class="fact-label">Services &amp; events</span> The calendar comes from the parish’s Google Calendar: change it there, then ask for the calendar to be re-imported (<code>npm run import:calendar</code>, which writes <code>events.imported.mjs</code>; <code>events.config.mjs</code> combines it with any hand-added events). Only dates, times, titles and places are copied, never the notes, and only event titles on an approved list are published; anything unfamiliar is held back until a person approves it, so private events such as funerals and weddings stay off the site.</li>
+        <li><span class="fact-label">Address &amp; phone</span> The church address, the Rectory phone number and the parish email are in <code>site.config.mjs</code>.</li>
+        <li><span class="fact-label">Gallery photos</span> Added in <code>gallery.config.mjs</code> (each photo needs a description for people who cannot see it).</li>
+        <li><span class="fact-label">Newsletter</span> Issues are listed in <code>newsletter.config.mjs</code>.</li>
+        <li><span class="fact-label">Safeguarding</span> The contacts are on the Safeguarding page (<code>safeguarding.html</code>) and the policy wording is in <code>safeguarding-policy.html</code>, word for word from the PCC-agreed document.</li>
+        <li><span class="fact-label">History &amp; churchyard</span> The text is in <code>about.html</code> and <code>churchyard.html</code>.</li>
+        <li><span class="fact-label">What's still to do</span> The plan for the parish's requirements, with what is done and what we are waiting for, is <code>docs/plans/2026-10-parish-requirements.md</code>.</li>
+      </ul>
     </div>
 
     <div>
