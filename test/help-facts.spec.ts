@@ -36,9 +36,9 @@ test.describe('Help guide: what you need to start', () => {
     await expect(page.locator('main')).toContainText('You need a Claude Pro account (or a higher plan) to use Claude Code');
   });
 
-  test('Making a change says to click the Claude Code icon and start a new session', async ({ page }) => {
+  test('Making a change says to click the Claude Code icon, then describe the change in a new session', async ({ page }) => {
     await page.goto('/help-making-a-change.html');
-    await expect(page.locator('main')).toContainText('click the Claude Code icon, then start a new session');
+    await expect(page.locator('main')).toContainText('Open Claude Desktop in this project, click on the Claude Code icon, then in a new session describe the change in plain English');
   });
 });
 
