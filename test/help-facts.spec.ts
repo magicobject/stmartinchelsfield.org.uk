@@ -41,3 +41,20 @@ test.describe('Help guide: what you need to start', () => {
     await expect(page.locator('main')).toContainText('click the Claude Code icon, then start a new session');
   });
 });
+
+test.describe('Help guide: Still stuck?', () => {
+  test('explains held changes, links the repository and Technical Details, and says how to reach Greg', async ({ page, request }) => {
+    await page.goto('/help-when-it-goes-wrong.html');
+    const section = page.locator('main div', { has: page.getByRole('heading', { name: 'Still stuck?' }) }).last();
+    await expect(section).toContainText('held in GitHub');
+    await expect(section).toContainText('ask Greg first');
+    await expect(section).toContainText('Nothing is unrecoverable');
+    await expect(section.locator('a[href="https://github.com/magicobject/stmartinchelsfield.org.uk"]')).toHaveCount(1);
+    await expect(section.locator('a[href="help-technical-details.html"]')).toHaveCount(1);
+    await expect(section.locator('a[href="tel:+447449301083"]')).toHaveText('07449 301083');
+    // the email is a link only: never printed, and not as a plain address in the page source
+    await expect(section).not.toContainText('@');
+    expect(await (await request.get('/help-when-it-goes-wrong.html')).text()).not.toContain('magicobject@gmail.com');
+    await expect(section.locator('a[href^="mailto:"]')).toHaveCount(1);
+  });
+});
