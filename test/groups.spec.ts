@@ -37,6 +37,14 @@ test.describe('Groups & activities cards', () => {
     const c = card(page, 'Messy Church');
     await expect(c).toContainText("Meets monthly on the 3rd Saturday of most months at St Mary's Church, Green Street Green (part of the same Benefice).");
     await expect(c.locator('a[href="calendar.html"]')).toHaveCount(1);
+    await expect(c.locator('.tags')).toContainText('4pm to 6pm');
+  });
+
+  test('a note above the groups says to check the calendar in case a session is not going ahead', async ({ page }) => {
+    await page.goto('/get-involved.html');
+    const note = page.locator('main .group-note');
+    await expect(note).toHaveText("These groups meet regularly but please check the calendar just in case the session isn't going ahead that week.");
+    await expect(note.locator('a[href="calendar.html"]')).toHaveCount(1);
   });
 
   test('Community Café card', async ({ page }) => {

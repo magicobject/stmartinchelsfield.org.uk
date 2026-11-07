@@ -667,3 +667,6 @@ iframe.map-embed { width: 100%; height: 360px; border: 0; }
 main a, main code { overflow-wrap: anywhere; }
 main pre { max-width: 100%; overflow-x: auto; }
 .small-print { font-size: 0.88rem; color: var(--ink-soft); }
+
+/* Groups page: the "check the calendar" note above the cards. */
+.group-note { max-width: 70ch; margin: 0 0 24px; font-size: 1.05rem; color: var(--ink-soft); }
