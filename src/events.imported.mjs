@@ -5,7 +5,7 @@
 // To add something that is not on the Google Calendar, use MANUAL_EVENTS in
 // src/events.config.mjs. To change what the calendar says, change the Google Calendar and
 // run the import again.
-export const IMPORT_META = { importedAt: '2026-11-06', from: '2026-09-01', until: '2027-06-30' };
+export const IMPORT_META = { importedAt: '2026-11-14', from: '2026-09-01', until: '2027-06-30' };
 
 export const IMPORTED_EVENTS = [
   { date: "2026-09-02", time: "09:30", title: "Holy Communion (BCP)", location: "St Martin of Tours", weekly: true },
@@ -94,6 +94,7 @@ export const IMPORTED_EVENTS = [
   { date: "2026-11-16", time: "19:45", title: "Bell Ringing Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-11-18", time: "09:30", title: "Holy Communion (BCP)", location: "St Martin of Tours", weekly: true },
   { date: "2026-11-18", time: "14:30", title: "Chelsfield Community Cafe", location: "Chelsfield Village Hall" },
+  { date: "2026-11-20", time: "20:00", title: "Choir Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-11-21", time: "10:00", title: "Repair Cafe", location: "St Mary's" },
   { date: "2026-11-21", time: "16:00", title: "Messy Church (Benefice Event)", location: "St Mary's" },
   { date: "2026-11-22", time: "09:30", title: "Morning Worship", location: "St Martin of Tours" },
@@ -103,6 +104,7 @@ export const IMPORTED_EVENTS = [
   { date: "2026-11-25", time: "09:30", title: "Mattins", location: "St Martin of Tours", weekly: true },
   { date: "2026-11-26", time: "10:00", title: "Local History Group", location: "Chelsfield Village Hall" },
   { date: "2026-11-26", time: "20:00", title: "Chelsfield Players ‘Christmas Carol’", location: "Chelsfield Village Hall" },
+  { date: "2026-11-27", time: "20:00", title: "Choir Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-11-27", time: "20:00", title: "Chelsfield Players ‘Christmas Carol’", location: "Chelsfield Village Hall" },
   { date: "2026-11-28", time: "20:00", title: "Chelsfield Players ‘Christmas Carol’", location: "Chelsfield Village Hall" },
   { date: "2026-11-29", time: "10:00", title: "Holy Communion Benefice Service", location: "St Martin of Tours" },
@@ -111,12 +113,14 @@ export const IMPORTED_EVENTS = [
   { date: "2026-12-02", time: "09:30", title: "Holy Communion (BCP)", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-02", time: "14:30", title: "Chelsfield Community Cafe", location: "Chelsfield Village Hall" },
   { date: "2026-12-02", time: "19:00", title: "Taizé Service of Prayers and Readings", location: "St Martin of Tours" },
+  { date: "2026-12-04", time: "20:00", title: "Choir Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-05", time: "09:00", title: "Churchyard Working Party", location: "St Martin of Tours" },
   { date: "2026-12-06", time: "09:30", title: "Holy Communion Service with giving of gifts", location: "St Martin of Tours" },
   { date: "2026-12-06", time: "18:30", title: "Choral Evensong", location: "St Martin of Tours" },
   { date: "2026-12-07", time: "19:45", title: "Bell Ringing Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-09", time: "09:30", title: "Holy Communion (BCP)", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-09", time: "14:00", title: "Chelsfield Evening WI Christmas Service", location: "St Martin of Tours" },
+  { date: "2026-12-11", time: "20:00", title: "Choir Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-13", time: "09:30", title: "Family Worship", location: "St Martin of Tours" },
   { date: "2026-12-13", time: "11:00", title: "Well Hill: Morning Prayer", location: "Well Hill Mission" },
   { date: "2026-12-13", time: "18:30", title: "Sung Eucharist (BCP)", location: "St Martin of Tours" },
@@ -124,6 +128,7 @@ export const IMPORTED_EVENTS = [
   { date: "2026-12-16", time: "09:30", title: "Holy Communion (BCP)", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-16", time: "14:30", title: "Chelsfield Community Cafe", location: "Chelsfield Village Hall" },
   { date: "2026-12-17", time: "19:00", title: "Village School Christmas Service", location: "St Martin of Tours" },
+  { date: "2026-12-18", time: "20:00", title: "Choir Practice", location: "St Martin of Tours", weekly: true },
   { date: "2026-12-19", time: "16:00", title: "Messy Church (Benefice Event)", location: "St Mary's" },
   { date: "2026-12-19", time: "19:00", title: "Worlds End Music Concert", location: "St Martin of Tours" },
   { date: "2026-12-20", time: "09:30", title: "Holy Communion", location: "St Martin of Tours" },
